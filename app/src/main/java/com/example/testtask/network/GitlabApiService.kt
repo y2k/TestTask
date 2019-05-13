@@ -1,6 +1,6 @@
 package com.example.testtask.network
 
-import com.example.testtask.model.Response
+import com.example.testtask.model.ResponseResult
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -10,7 +10,7 @@ import retrofit2.http.GET
 interface GitlabApiService {
 
     @GET("65gb/static/raw/master/testTask.json")
-    fun loadData(): Observable<Response.Result>
+    fun loadData(): Observable<ResponseResult>
 
     companion object Factory {
         fun create(): GitlabApiService {

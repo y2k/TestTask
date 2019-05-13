@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtask.R
-import com.example.testtask.model.Response
+import com.example.testtask.model.Employee
 import kotlinx.android.synthetic.main.cell_employees.view.*
 import kotlinx.android.synthetic.main.cell_specialities.view.cell_root
 import java.text.ParseException
@@ -15,13 +15,13 @@ import kotlin.collections.ArrayList
 import org.joda.time.Years
 import org.joda.time.LocalDate
 
-class EmployeesAdapter(private val callback: (employee: Response.Employee) -> Unit) :
+class EmployeesAdapter(private val callback: (employee: Employee) -> Unit) :
     RecyclerView.Adapter<EmployeesAdapter.EmployeeHolder>() {
 
-    private var employeeList = ArrayList<Response.Employee>()
+    private var employeeList = ArrayList<Employee>()
 
-    fun setEmployees(employees: List<Response.Employee>) {
-        employeeList = employees as ArrayList<Response.Employee>
+    fun setEmployees(employees: List<Employee>) {
+        employeeList = employees as ArrayList<Employee>
         notifyDataSetChanged()
     }
 
@@ -45,7 +45,7 @@ class EmployeesAdapter(private val callback: (employee: Response.Employee) -> Un
         private var age = itemView.cell_employee_age
         private var root = itemView.cell_root
 
-        fun bind(employee: Response.Employee) {
+        fun bind(employee: Employee) {
             name.text = employee.firstName
             lastName.text = employee.lastName
 

@@ -7,19 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 
 import com.example.testtask.R
-import com.example.testtask.adapters.EmployeesAdapter
-import com.example.testtask.adapters.SpecialitiesAdapter
-import com.example.testtask.decorators.MarginItemDecoration
-import com.example.testtask.model.Response
 import com.example.testtask.transport.SharedViewModel
-import com.example.testtask.verticalManager
 import kotlinx.android.synthetic.main.fragment_employee.*
-import kotlinx.android.synthetic.main.fragment_employee_list.*
-import kotlinx.android.synthetic.main.fragment_speciality_list.*
-import timber.log.Timber
 
 class EmployeeFragment : Fragment() {
 
