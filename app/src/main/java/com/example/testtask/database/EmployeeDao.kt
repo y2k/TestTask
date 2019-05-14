@@ -1,20 +1,20 @@
 package com.example.testtask.database
 
 import androidx.room.*
-import com.example.testtask.model.Employee
+import com.example.testtask.database.model.EmployeeDB
 
 @Dao
 interface EmployeeDao {
 
     @Query("SELECT * FROM employees")
-    fun getAllEmployees(): List<Employee>
+    fun getAllEmployees(): List<EmployeeDB>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertEmployee(employee: Employee)
+    fun insertEmployee(employee: EmployeeDB)
 
     @Update
-    fun updateEmployee(employee: Employee)
+    fun updateEmployee(employee: EmployeeDB)
 
     @Delete
-    fun deleteEmployee(employee: Employee)
+    fun deleteEmployee(employee: EmployeeDB)
 }

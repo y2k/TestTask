@@ -37,7 +37,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="start"
+                android:gravity="center"
                 android:text="@string/employee_detail_name"
                 android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="start"
+                android:gravity="center"
                 android:text="@string/employee_detail_last_name"
                 android:textStyle="bold" />
 
@@ -55,6 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_4"
             android:layout_marginEnd="@dimen/margin_16">
 
             <TextView
@@ -62,14 +63,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="start" />
+                android:gravity="center" />
 
             <TextView
                 android:id="@+id/text_employee_detail_last_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="start" />
+                android:gravity="center" />
 
         </LinearLayout>
     </LinearLayout>
@@ -88,7 +89,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="start"
+                android:gravity="center"
                 android:text="@string/employee_detail_birthday"
                 android:textStyle="bold" />
 
@@ -96,7 +97,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="start"
+                android:gravity="center"
                 android:text="@string/employee_detail_age"
                 android:textStyle="bold" />
 
@@ -104,21 +105,22 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4">
 
             <TextView
                 android:id="@+id/text_employee_detail_birthday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="start" />
+                android:gravity="center" />
 
             <TextView
                 android:id="@+id/text_employee_detail_age"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="start" />
+                android:gravity="center" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

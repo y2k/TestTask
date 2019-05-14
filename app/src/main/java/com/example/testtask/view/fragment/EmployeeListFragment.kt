@@ -15,7 +15,7 @@ import com.example.testtask.decorators.MarginItemDecoration
 import com.example.testtask.model.Employee
 import com.example.testtask.model.Specialty
 import com.example.testtask.transport.SharedViewModel
-import com.example.testtask.verticalManager
+import com.example.testtask.extensions.verticalManager
 import kotlinx.android.synthetic.main.fragment_employee_list.*
 
 class EmployeeListFragment : Fragment() {

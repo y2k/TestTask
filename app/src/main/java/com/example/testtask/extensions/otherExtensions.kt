@@ -1,4 +1,4 @@
-package com.example.testtask
+package com.example.testtask.extensions
 
 import android.content.Context
 import android.view.LayoutInflater

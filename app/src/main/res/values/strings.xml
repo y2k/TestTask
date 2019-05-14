@@ -7,13 +7,14 @@
     <!-- Specialities Fragment -->
     <string name="specialities_title">Список специальностей:</string>
     <string name="specialities_id">ID</string>
-    <string name="specialities_name">Имя</string>
+    <string name="specialities_name">Специальность</string>
 
     <!-- Employees list Fragment -->
     <string name="employee_title">Список специалистов по специальности:</string>
     <string name="employee_name">Имя</string>
     <string name="employee_last_name">Фамилия</string>
     <string name="employee_age">Возраст</string>
+    <string name="employee_age_empty">«\u00AD«</string>
 
     <!-- Employee detail Fragment -->
     <string name="employee_detail_title">Детальная информация о сотруднике</string>

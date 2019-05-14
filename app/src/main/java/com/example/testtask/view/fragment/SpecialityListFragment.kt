@@ -13,7 +13,7 @@ import com.example.testtask.R
 import com.example.testtask.adapters.SpecialitiesAdapter
 import com.example.testtask.decorators.MarginItemDecoration
 import com.example.testtask.transport.SharedViewModel
-import com.example.testtask.verticalManager
+import com.example.testtask.extensions.verticalManager
 import kotlinx.android.synthetic.main.fragment_speciality_list.*
 
 class SpecialityListFragment : Fragment() {

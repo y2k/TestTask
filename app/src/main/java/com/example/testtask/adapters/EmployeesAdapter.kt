@@ -5,18 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtask.R
+import com.example.testtask.extensions.fixName
+import com.example.testtask.extensions.fromStringToDate
+import com.example.testtask.extensions.getAge
 import com.example.testtask.model.Employee
 import kotlinx.android.synthetic.main.cell_employees.view.*
 import kotlinx.android.synthetic.main.cell_specialities.view.cell_root
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
-import org.joda.time.Years
-import org.joda.time.LocalDate
 
 class EmployeesAdapter(private val callback: (employee: Employee) -> Unit) :
-    RecyclerView.Adapter<EmployeesAdapter.EmployeeHolder>() {
+        RecyclerView.Adapter<EmployeesAdapter.EmployeeHolder>() {
 
     private var employeeList = ArrayList<Employee>()
 
@@ -46,41 +44,16 @@ class EmployeesAdapter(private val callback: (employee: Employee) -> Unit) :
         private var root = itemView.cell_root
 
         fun bind(employee: Employee) {
-            name.text = employee.firstName
-            lastName.text = employee.lastName
+            name.text = employee.firstName?.fixName()
+            lastName.text = employee.lastName?.fixName()
 
             when {
-                (employee.birthday.isNullOrEmpty()) -> age.text = " «\u00AD« "
-                else -> age.text = getAgeFromDate(getDateFromString(employee.birthday)).toString()
+                (employee.birthday.isNullOrEmpty()) -> age.text = itemView.context.getString(R.string.employee_age_empty)
+                else -> age.text = employee.birthday.fromStringToDate().getAge().toString()
             }
             root.setOnClickListener {
                 callback.invoke(employeeList[adapterPosition])
             }
-        }
-
-        private fun getDateFromString(date: String): Date {
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-            var convertedDate = Date()
-            try {
-                convertedDate = dateFormat.parse(date)
-            } catch (e: ParseException) {
-                e.printStackTrace()
-            }
-            return convertedDate
-        }
-
-        private fun getAgeFromDate(date: Date): Int {
-            val c = Calendar.getInstance()
-            c.time = date
-
-            val day = c.get(Calendar.DAY_OF_MONTH)
-            val daymonth = c.get(Calendar.MONTH)
-            val year = c.get(Calendar.YEAR)
-
-            val birthdate = LocalDate(year, daymonth + 1, day)
-            val now = LocalDate()
-            val age = Years.yearsBetween(birthdate, now)
-            return age.years
         }
     }
 }

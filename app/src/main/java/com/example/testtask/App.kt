@@ -1,6 +1,7 @@
 package com.example.testtask
 
 import android.app.Application
+import net.danlew.android.joda.BuildConfig
 import net.danlew.android.joda.JodaTimeAndroid
 import timber.log.Timber
 

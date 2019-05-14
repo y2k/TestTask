@@ -13,6 +13,7 @@ class SharedViewModel : ViewModel() {
     val selectedEmployee = MutableLiveData<Employee>()
 
     fun init(result: ResponseResult) {
+        specialtyList.value = ArrayList()
         employeeList.value = result
 
         //Create unique speciality list and set it into VM
@@ -29,6 +30,8 @@ class SharedViewModel : ViewModel() {
                 }
             }
         }
-        specialtyList.value = uniqueSpecialityList
+        if (uniqueSpecialityList.isNotEmpty()) {
+            specialtyList.value = uniqueSpecialityList
+        }
     }
 }
