@@ -22,7 +22,7 @@ class SharedViewModel : ViewModel() {
         for (employee in result.items) {
             val employeeSpecialityList = employee.specialtyList
 
-            if (employeeSpecialityList.isNotEmpty()) {
+            if (!employeeSpecialityList.isNullOrEmpty()) {
                 for (speciality in employeeSpecialityList) {
                     if (!uniqueSpecialityList.contains(speciality)) {
                         uniqueSpecialityList.add(speciality)

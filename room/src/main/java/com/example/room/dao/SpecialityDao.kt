@@ -1,7 +1,7 @@
-package com.example.testtask.database
+package com.example.room.dao
 
 import androidx.room.*
-import com.example.testtask.database.model.SpecialtyDB
+import com.example.room.model.SpecialtyDB
 
 @Dao
 interface SpecialityDao {

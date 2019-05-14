@@ -54,9 +54,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_4"
-            android:layout_marginEnd="@dimen/margin_16">
+            android:layout_marginTop="@dimen/margin_4">
 
             <TextView
                 android:id="@+id/text_employee_detail_name"
@@ -78,7 +76,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_16"
         android:orientation="vertical">
 
         <LinearLayout

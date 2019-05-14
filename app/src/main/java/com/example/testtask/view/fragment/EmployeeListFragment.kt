@@ -23,9 +23,14 @@ class EmployeeListFragment : Fragment() {
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var specialty: Specialty
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedViewModel = ViewModelProviders.of(activity!!).get(SharedViewModel::class.java)
+    }
+
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_employee_list, container, false)
     }
@@ -35,28 +40,50 @@ class EmployeeListFragment : Fragment() {
         val adapter = EmployeesAdapter {
             navigateToEmployeeDetailInfo(it)
         }
-//
+
         with(rv_employees) {
             layoutManager = verticalManager(context)
-            addItemDecoration(MarginItemDecoration(
-                    resources.getDimension(R.dimen.margin_8).toInt(),
-                    resources.getDimension(R.dimen.margin_8).toInt(),
-                    resources.getDimension(R.dimen.margin_8).toInt()))
+            addItemDecoration(
+                MarginItemDecoration(
+                    spaceTop = resources.getDimension(R.dimen.margin_8).toInt(),
+                    spaceSide = resources.getDimension(R.dimen.margin_8).toInt(),
+                    spaceBottom = resources.getDimension(R.dimen.margin_8).toInt()
+                )
+            )
             this.adapter = adapter
         }
 
-        sharedViewModel = ViewModelProviders.of(activity!!).get(SharedViewModel::class.java)
-        val specialtyID = arguments!!.getInt("specialityID")
+
+        val specialtyID = arguments?.getInt("specialityID") ?: 0
 
         sharedViewModel.specialtyList.observe(this, Observer { list ->
             specialty = list[specialtyID]
             title_employees_speciality.text = specialty.specialityName
         })
 
-        sharedViewModel.employeeList.observe(this, Observer { result ->
-            val employees = result.items.filter { employee -> employee.specialtyList.contains(specialty) }
+        sharedViewModel.employeeList.observe(this, Observer { employeeList ->
+
+//            simple test function, replace if smth goes wrong
+
+//            val employees = ArrayList<Employee>()
+//            for (i in 0 until employeeList.items.size) {
+//                val currentEmployee = employeeList.items[i]
+//                if (!currentEmployee.specialtyList.isNullOrEmpty()) {
+//                    val currentEmployeeSpecialtyList = currentEmployee.specialtyList
+//                    for (j in 0 until currentEmployeeSpecialtyList.size) {
+//                        if (currentEmployeeSpecialtyList.contains(specialty) && !employees.contains(currentEmployee)) {
+//                            employees.add(currentEmployee)
+//                        }
+//                    }
+//                }
+//            }
+
+            val employees =
+                employeeList?.items?.filter { employee -> employee.specialtyList?.contains(specialty) ?: false }
+                    ?: ArrayList()
             adapter.setEmployees(employees)
-        })
+        }
+        )
     }
 
     private fun navigateToEmployeeDetailInfo(employee: Employee) {

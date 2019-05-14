@@ -23,6 +23,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(path: ':room')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -47,6 +48,10 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:2.1.0-alpha04"
     implementation "androidx.room:room-coroutines:2.1.0-alpha04"
     kapt "android.arch.persistence.room:compiler:2.1.0-alpha04"
+
+    //DI
+    implementation 'com.google.dagger:dagger:2.13'
+    kapt 'com.google.dagger:dagger-compiler:2.13'
 
     //Logging
     implementation 'com.jakewharton.timber:timber:4.7.1'

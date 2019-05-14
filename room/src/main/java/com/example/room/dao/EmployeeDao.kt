@@ -1,7 +1,7 @@
-package com.example.testtask.database
+package com.example.room.dao
 
 import androidx.room.*
-import com.example.testtask.database.model.EmployeeDB
+import com.example.room.model.EmployeeDB
 
 @Dao
 interface EmployeeDao {

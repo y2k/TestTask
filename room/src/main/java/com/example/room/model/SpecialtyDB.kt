@@ -1,19 +1,19 @@
-package com.example.testtask.database.model
+package com.example.room.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.testtask.database.EmployeeDatabase
+import com.example.room.EmployeeDatabase
 
-@Entity(tableName = EmployeeDatabase.TABLE_SPECIALITY_NAME)
+@Entity(tableName = com.example.room.EmployeeDatabase.TABLE_SPECIALITY_NAME)
 data class SpecialtyDB(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var specialityID: Int = 0,
+    var id: Int = 0,
 
     @ColumnInfo(name = "specialty_id")
-    var specialityId: Int = 0,
+    var specialityID: Int = 0,
 
     @ColumnInfo(name = "specialty_name")
     var specialityName: String

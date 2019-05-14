@@ -9,6 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import com.example.testtask.R
+import com.example.testtask.extensions.fixName
+import com.example.testtask.extensions.fromDateToFormattedString
+import com.example.testtask.extensions.fromStringToDate
+import com.example.testtask.extensions.getAge
 import com.example.testtask.transport.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_employee.*
 
@@ -32,10 +36,16 @@ class EmployeeFragment : Fragment() {
 
         sharedViewModel.selectedEmployee.observe(this, Observer { employee ->
 
-            text_employee_detail_name.text = employee.firstName
-            text_employee_detail_last_name.text = employee.lastName
-            text_employee_detail_birthday.text = employee.birthday
-            text_employee_detail_age.text = employee.birthday
+            text_employee_detail_name.text = employee.firstName?.fixName() ?: ""
+            text_employee_detail_last_name.text = employee.lastName?.fixName() ?: ""
+
+            if ((employee.birthday.isNullOrEmpty())) {
+                text_employee_detail_birthday.text = getString(R.string.employee_age_empty)
+                text_employee_detail_age.text = getString(R.string.employee_age_empty)
+            } else {
+                text_employee_detail_birthday.text = employee.birthday.fromStringToDate().fromDateToFormattedString()
+                text_employee_detail_age.text = employee.birthday.fromStringToDate().getAge().toString()
+            }
         })
     }
 }

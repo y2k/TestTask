@@ -2,6 +2,7 @@ package com.example.testtask.extensions
 
 import org.joda.time.LocalDate
 import org.joda.time.Years
+import java.text.SimpleDateFormat
 import java.util.*
 
 //Date
@@ -10,11 +11,16 @@ fun Date.getAge(): Int {
     c.time = this
 
     val day = c.get(Calendar.DAY_OF_MONTH)
-    val daymonth = c.get(Calendar.MONTH)
+    val monthDay = c.get(Calendar.MONTH)
     val year = c.get(Calendar.YEAR)
 
-    val birthdate = LocalDate(year, daymonth + 1, day)
+    val birthdate = LocalDate(year, monthDay + 1, day)
     val now = LocalDate()
     val age = Years.yearsBetween(birthdate, now)
     return age.years
+}
+
+fun Date.fromDateToFormattedString(): String {
+    val simpleDate = SimpleDateFormat("dd.MM.yyyy", Locale.US)
+    return simpleDate.format(this)
 }

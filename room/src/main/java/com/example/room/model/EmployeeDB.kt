@@ -1,13 +1,10 @@
-package com.example.testtask.database.model
+package com.example.room.model
 
 import androidx.room.*
-import com.example.testtask.database.Converters
-import com.example.testtask.database.EmployeeDatabase
-import com.example.testtask.model.Specialty
 import kotlin.collections.ArrayList
 
-@Entity(tableName = EmployeeDatabase.TABLE_EMPLOYEES_NAME)
-@TypeConverters(Converters::class)
+@Entity(tableName = com.example.room.EmployeeDatabase.TABLE_EMPLOYEES_NAME)
+@TypeConverters(com.example.room.Converters::class)
 data class EmployeeDB(
 
         @PrimaryKey(autoGenerate = true)

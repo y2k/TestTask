@@ -1,12 +1,14 @@
-package com.example.testtask.database
+package com.example.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.testtask.database.model.EmployeeDB
-import com.example.testtask.database.model.SpecialtyDB
+import com.example.room.dao.EmployeeDao
+import com.example.room.dao.SpecialityDao
+import com.example.room.model.EmployeeDB
+import com.example.room.model.SpecialtyDB
 
 @Database(entities = [EmployeeDB::class, SpecialtyDB::class], version = 4)
 @TypeConverters(Converters::class)
@@ -15,7 +17,7 @@ abstract class EmployeeDatabase : RoomDatabase() {
     abstract fun employeeDaoAccess(): EmployeeDao
     abstract fun specialityDaoAccess(): SpecialityDao
 
-    //TODO:Implement throw Dagger later + move to own module
+    //TODO:Implement throw Dagger later
     companion object {
         const val DATABASE_NAME = "EmployeesDB"
         const val TABLE_EMPLOYEES_NAME = "employees"
@@ -43,6 +45,5 @@ abstract class EmployeeDatabase : RoomDatabase() {
         fun destroyInstance() {
             INSTANCE = null
         }
-
     }
 }

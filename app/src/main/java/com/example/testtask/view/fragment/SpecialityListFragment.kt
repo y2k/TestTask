@@ -18,6 +18,13 @@ import kotlinx.android.synthetic.main.fragment_speciality_list.*
 
 class SpecialityListFragment : Fragment() {
 
+    private lateinit var sharedViewModel: SharedViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedViewModel = ViewModelProviders.of(activity!!).get(SharedViewModel::class.java)
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -40,7 +47,6 @@ class SpecialityListFragment : Fragment() {
             this.adapter = adapter
         }
 
-        val sharedViewModel = ViewModelProviders.of(activity!!).get(SharedViewModel::class.java)
         sharedViewModel.specialtyList.observe(this, Observer { list ->
             adapter.setSpecialities(list)
         })
