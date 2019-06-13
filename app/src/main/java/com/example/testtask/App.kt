@@ -3,23 +3,14 @@ package com.example.testtask
 import android.app.Application
 import com.example.testtask.di.component.ApplicationComponent
 import com.example.testtask.di.component.DaggerApplicationComponent
-import com.example.testtask.di.module.ApplicationModule
-import com.example.testtask.di.module.PresenterModule
-import com.example.testtask.di.module.RoomModule
+import com.example.testtask.di.module.*
 import net.danlew.android.joda.BuildConfig
 import net.danlew.android.joda.JodaTimeAndroid
 import timber.log.Timber
 
 class App : Application() {
 
-    val injector: ApplicationComponent by lazy {
-        DaggerApplicationComponent
-            .builder()
-            .applicationModule(ApplicationModule(this))
-            .roomModule(RoomModule(this))
-            .presenterModule(PresenterModule())
-            .build()
-    }
+    var injector: ApplicationComponent? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -28,18 +19,20 @@ class App : Application() {
             Timber.plant(Timber.DebugTree())
         }
 
+        INSTANCE = this
+
+        injector = DaggerApplicationComponent
+                .builder()
+                .applicationModule(ApplicationModule(this))
+                .roomModule(RoomModule(this))
+                .build()
+
         JodaTimeAndroid.init(this)
     }
 
     companion object {
-
-        private var instance: App? = null
-
-        fun getInstance(): App {
-            if (instance == null) {
-                instance = App()
-            }
-            return instance as App
-        }
+        private lateinit var INSTANCE: App
+        @JvmStatic
+        fun get(): App = INSTANCE
     }
 }

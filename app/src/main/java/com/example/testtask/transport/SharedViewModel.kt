@@ -9,7 +9,9 @@ import com.example.testtask.model.Specialty
 class SharedViewModel : ViewModel() {
     val employeeList = MutableLiveData<ResponseResult>()
     val specialtyList = MutableLiveData<ArrayList<Specialty>>()
-    //TODO:We have't employee id to identify it, so now it's easily to save selected employee to VM. Find better way in the future.
+
+    //TODO:We have't employee id to identify it, so now it's easily to save selected employee to VM.
+    //TODO: I need find better way in the future.
     val selectedEmployee = MutableLiveData<Employee>()
 
     fun init(result: ResponseResult) {
