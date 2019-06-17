@@ -28,10 +28,7 @@ class EmployeeListFragment : Fragment() {
         sharedViewModel = ViewModelProviders.of(activity!!).get(SharedViewModel::class.java)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_employee_list, container, false)
     }
 
@@ -53,7 +50,6 @@ class EmployeeListFragment : Fragment() {
             this.adapter = adapter
         }
 
-
         val specialtyID = arguments?.getInt("specialityID") ?: 0
 
         sharedViewModel.specialtyList.observe(this, Observer { list ->
@@ -62,25 +58,8 @@ class EmployeeListFragment : Fragment() {
         })
 
         sharedViewModel.employeeList.observe(this, Observer { employeeList ->
-
-//            simple test function, replace if smth goes wrong
-
-//            val employees = ArrayList<Employee>()
-//            for (i in 0 until employeeList.items.size) {
-//                val currentEmployee = employeeList.items[i]
-//                if (!currentEmployee.specialtyList.isNullOrEmpty()) {
-//                    val currentEmployeeSpecialtyList = currentEmployee.specialtyList
-//                    for (j in 0 until currentEmployeeSpecialtyList.size) {
-//                        if (currentEmployeeSpecialtyList.contains(specialty) && !employees.contains(currentEmployee)) {
-//                            employees.add(currentEmployee)
-//                        }
-//                    }
-//                }
-//            }
-
-            val employees =
-                employeeList?.items?.filter { employee -> employee.specialtyList?.contains(specialty) ?: false }
-                    ?: ArrayList()
+            val employees = employeeList?.filter { employee -> employee.specialtyList?.contains(specialty) ?: false }
+                ?: ArrayList()
             adapter.setEmployees(employees)
         }
         )

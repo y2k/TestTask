@@ -17,4 +17,6 @@ class EmployeeRepository @Inject constructor(private val apiService: GitlabApiSe
     fun cacheEmployees(employees: ArrayList<Employee>) {
         this.employeeList = employees
     }
+
+    fun getCachedEmployees() = employeeList
 }

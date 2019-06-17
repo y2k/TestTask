@@ -6,16 +6,16 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.testtask.App
 import com.example.testtask.R
 import com.example.testtask.model.ResponseResult
-import com.example.testtask.presenter.MainPresenter
-import com.example.testtask.presenter.MainView
+import com.example.testtask.presenter.MainActivityPresenter
+import com.example.testtask.contracts.MainActivityContract
 import com.example.testtask.transport.SharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), MainView {
+class MainActivity : BaseActivity(), MainActivityContract {
 
     @Inject
-    lateinit var mainPresenter: MainPresenter
+    lateinit var mainActivityPresenter: MainActivityPresenter
 
     private lateinit var sharedViewModel: SharedViewModel
 
@@ -24,17 +24,18 @@ class MainActivity : BaseActivity(), MainView {
         setContentView(R.layout.activity_main)
 
         App.get().injector?.inject(this)
-        sharedViewModel = ViewModelProviders.of(this).get(SharedViewModel::class.java)
+        sharedViewModel = ViewModelProviders.of(this, null)[SharedViewModel::class.java]
 
-        mainPresenter.setView(this)
-        mainPresenter.getData()
+        mainActivityPresenter.setView(this)
+        mainActivityPresenter.getData()
     }
 
     override fun onDataReady(result: ResponseResult) {
-        sharedViewModel.init(result)
-        mainPresenter.saveEmployeesListToRepo(result)
-        mainPresenter.saveSpecialitiesListToRepo(result)
-        mainPresenter.saveResultToDB(result)
+        mainActivityPresenter.saveEmployeesListToRepo(result)
+        mainActivityPresenter.saveSpecialitiesListToRepo(result)
+        mainActivityPresenter.saveResultToDB(result)
+        sharedViewModel.inject()
+        sharedViewModel.init()
     }
 
     override fun setLoading(state: Boolean) {
@@ -42,7 +43,7 @@ class MainActivity : BaseActivity(), MainView {
     }
 
     override fun onDestroy() {
-        mainPresenter.onDestroy()
+        mainActivityPresenter.onDestroy()
         super.onDestroy()
     }
 }

@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class ServiceModule {
+class NetworkModule {
 
     private val client = Retrofit.Builder()
         .addCallAdapterFactory(CoroutineCallAdapterFactory())

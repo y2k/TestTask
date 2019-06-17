@@ -16,7 +16,7 @@ import com.example.testtask.extensions.getAge
 import com.example.testtask.transport.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_employee.*
 
-class EmployeeFragment : Fragment() {
+class EmployeeFragment : Fragment(){
 
     private lateinit var sharedViewModel: SharedViewModel
 
@@ -25,10 +25,7 @@ class EmployeeFragment : Fragment() {
         sharedViewModel = ViewModelProviders.of(activity!!).get(SharedViewModel::class.java)
     }
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_employee, container, false)
     }
 

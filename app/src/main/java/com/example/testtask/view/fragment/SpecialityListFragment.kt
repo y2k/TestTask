@@ -25,10 +25,7 @@ class SpecialityListFragment : Fragment() {
         sharedViewModel = ViewModelProviders.of(activity!!).get(SharedViewModel::class.java)
     }
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_speciality_list, container, false)
     }
 
@@ -40,10 +37,13 @@ class SpecialityListFragment : Fragment() {
 
         with(rv_specialities) {
             layoutManager = verticalManager(context)
-            addItemDecoration(MarginItemDecoration(
+            addItemDecoration(
+                MarginItemDecoration(
                     resources.getDimension(R.dimen.margin_8).toInt(),
                     resources.getDimension(R.dimen.margin_8).toInt(),
-                    resources.getDimension(R.dimen.margin_8).toInt()))
+                    resources.getDimension(R.dimen.margin_8).toInt()
+                )
+            )
             this.adapter = adapter
         }
 

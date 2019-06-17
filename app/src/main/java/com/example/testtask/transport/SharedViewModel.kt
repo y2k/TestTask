@@ -2,38 +2,33 @@ package com.example.testtask.transport
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.testtask.App
 import com.example.testtask.model.Employee
-import com.example.testtask.model.ResponseResult
 import com.example.testtask.model.Specialty
+import com.example.testtask.repository.DataBaseRepository
+import com.example.testtask.repository.EmployeeRepository
+import com.example.testtask.repository.SpecialityRepository
+import javax.inject.Inject
 
 class SharedViewModel : ViewModel() {
-    val employeeList = MutableLiveData<ResponseResult>()
-    val specialtyList = MutableLiveData<ArrayList<Specialty>>()
 
-    //TODO:We have't employee id to identify it, so now it's easily to save selected employee to VM.
-    //TODO: I need find better way in the future.
+    val employeeList = MutableLiveData<ArrayList<Employee>>()
+    val specialtyList = MutableLiveData<ArrayList<Specialty>>()
     val selectedEmployee = MutableLiveData<Employee>()
 
-    fun init(result: ResponseResult) {
-        specialtyList.value = ArrayList()
-        employeeList.value = result
+    @Inject
+    lateinit var specialityRepository: SpecialityRepository
+    @Inject
+    lateinit var employeeRepository: EmployeeRepository
+    @Inject
+    lateinit var dataBaseRepository: DataBaseRepository
 
-        //Create unique speciality list and set it into VM
-        val uniqueSpecialityList = ArrayList<Specialty>()
+    fun inject() {
+        App.get().injector?.inject(this)
+    }
 
-        for (employee in result.items) {
-            val employeeSpecialityList = employee.specialtyList
-
-            if (!employeeSpecialityList.isNullOrEmpty()) {
-                for (speciality in employeeSpecialityList) {
-                    if (!uniqueSpecialityList.contains(speciality)) {
-                        uniqueSpecialityList.add(speciality)
-                    }
-                }
-            }
-        }
-        if (uniqueSpecialityList.isNotEmpty()) {
-            specialtyList.value = uniqueSpecialityList
-        }
+    fun init() {
+        specialtyList.value = specialityRepository.getCachedSpecialities()
+        employeeList.value = employeeRepository.getCachedEmployees()
     }
 }

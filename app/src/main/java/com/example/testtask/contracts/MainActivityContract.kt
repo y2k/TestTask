@@ -1,8 +1,8 @@
-package com.example.testtask.presenter
+package com.example.testtask.contracts
 
 import com.example.testtask.model.ResponseResult
 
-interface MainView {
+interface MainActivityContract {
     fun setLoading(state:Boolean)
 
     fun onDataReady(result: ResponseResult)

@@ -1,5 +1,7 @@
 package com.example.testtask.presenter
 
+import com.example.testtask.abstracts.Presenter
+import com.example.testtask.contracts.MainActivityContract
 import com.example.testtask.model.Employee
 import com.example.testtask.model.ResponseResult
 import com.example.testtask.model.Specialty
@@ -9,22 +11,22 @@ import com.example.testtask.repository.SpecialityRepository
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-class MainPresenter @Inject constructor(private val employeeRepository: EmployeeRepository,
-                                        private val specialityRepository: SpecialityRepository,
-                                        private val dataBaseRepository: DataBaseRepository) {
+class MainActivityPresenter @Inject constructor(private val employeeRepository: EmployeeRepository,
+                                                private val specialityRepository: SpecialityRepository,
+                                                private val dataBaseRepository: DataBaseRepository):
+    Presenter {
 
-    private var mainActivity: MainView? = null
+    private var view: MainActivityContract? = null
 
-    fun setView(mainView: MainView) {
-        mainActivity = mainView
+    fun setView(view: MainActivityContract) {
+        this.view = view
     }
 
     fun getData() {
-        //TODO: I think it's ok, but how can we work with errors? Maybe i should return to RX?
-        mainActivity?.setLoading(true)
+        view?.setLoading(true)
         GlobalScope.launch(Dispatchers.Main) {
-            mainActivity?.onDataReady(employeeRepository.loadEmployees().await())
-            mainActivity?.setLoading(false)
+            view?.onDataReady(employeeRepository.loadEmployees().await())
+            view?.setLoading(false)
         }
     }
 
@@ -50,11 +52,10 @@ class MainPresenter @Inject constructor(private val employeeRepository: Employee
     }
 
     fun saveResultToDB(result: ResponseResult) {
-        //TODO: Separate and rename it in the future
         dataBaseRepository.writeResultToDB(result)
     }
 
-    fun onDestroy() {
-        mainActivity = null
+    override fun onDestroy() {
+        view = null
     }
 }
