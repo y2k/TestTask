@@ -45,22 +45,12 @@ class MainActivityPresenter @Inject constructor(
     }
 
     private fun saveSpecialitiesListToRepo(result: ResponseResult) {
-        val uniqueSpecialityList = ArrayList<Specialty>()
 
-//        result.items
-//            .flatMap { it.specialtyList ?: emptyList<Specialty>() }
-//            .distinct()
+        val specialities = result.items
+            .flatMap { it.specialtyList.orEmpty() }
+            .distinct()
 
-
-        result.items.forEach { employee ->
-            employee.specialtyList?.forEach { speciality ->
-                if (!uniqueSpecialityList.contains(speciality)) {
-                    uniqueSpecialityList.add(speciality)
-                }
-            }
-        }
-
-        specialityRepository.cacheSpecialities(uniqueSpecialityList)
+        specialityRepository.cacheSpecialities(specialities as ArrayList<Specialty>)
     }
 
     private fun saveResultToDB(result: ResponseResult) {
