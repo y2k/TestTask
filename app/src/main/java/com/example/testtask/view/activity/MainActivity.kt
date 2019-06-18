@@ -30,10 +30,7 @@ class MainActivity : BaseActivity(), MainActivityContract {
         mainActivityPresenter.getData()
     }
 
-    override fun onDataReady(result: ResponseResult) {
-        mainActivityPresenter.saveEmployeesListToRepo(result)
-        mainActivityPresenter.saveSpecialitiesListToRepo(result)
-        mainActivityPresenter.saveResultToDB(result)
+    override fun onDataReady() {
         sharedViewModel.inject()
         sharedViewModel.init()
     }

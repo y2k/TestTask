@@ -28,16 +28,23 @@ class MainActivityPresenter @Inject constructor(
     fun getData() {
         view?.setLoading(true)
         GlobalScope.launch(Dispatchers.Main) {
-            view?.onDataReady(employeeRepository.loadEmployees().await())
+            onDataLoaded(employeeRepository.loadEmployees().await())
             view?.setLoading(false)
         }
     }
 
-    fun saveEmployeesListToRepo(result: ResponseResult) {
+    private fun onDataLoaded(result: ResponseResult) {
+        saveEmployeesListToRepo(result)
+        saveSpecialitiesListToRepo(result)
+        saveResultToDB(result)
+        view?.onDataReady()
+    }
+
+    private fun saveEmployeesListToRepo(result: ResponseResult) {
         employeeRepository.cacheEmployees(result.items as ArrayList<Employee>)
     }
 
-    fun saveSpecialitiesListToRepo(result: ResponseResult) {
+    private fun saveSpecialitiesListToRepo(result: ResponseResult) {
         val uniqueSpecialityList = ArrayList<Specialty>()
 
 //        result.items
@@ -56,7 +63,7 @@ class MainActivityPresenter @Inject constructor(
         specialityRepository.cacheSpecialities(uniqueSpecialityList)
     }
 
-    fun saveResultToDB(result: ResponseResult) {
+    private fun saveResultToDB(result: ResponseResult) {
         dataBaseRepository.writeResultToDB(result)
     }
 
