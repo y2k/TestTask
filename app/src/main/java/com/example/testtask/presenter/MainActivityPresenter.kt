@@ -9,11 +9,14 @@ import com.example.testtask.repository.DataBaseRepository
 import com.example.testtask.repository.EmployeeRepository
 import com.example.testtask.repository.SpecialityRepository
 import kotlinx.coroutines.*
+import timber.log.Timber
 import javax.inject.Inject
 
-class MainActivityPresenter @Inject constructor(private val employeeRepository: EmployeeRepository,
-                                                private val specialityRepository: SpecialityRepository,
-                                                private val dataBaseRepository: DataBaseRepository):
+class MainActivityPresenter @Inject constructor(
+    private val employeeRepository: EmployeeRepository,
+    private val specialityRepository: SpecialityRepository,
+    private val dataBaseRepository: DataBaseRepository
+) :
     Presenter {
 
     private var view: MainActivityContract? = null
@@ -37,17 +40,19 @@ class MainActivityPresenter @Inject constructor(private val employeeRepository: 
     fun saveSpecialitiesListToRepo(result: ResponseResult) {
         val uniqueSpecialityList = ArrayList<Specialty>()
 
-        for (employee in result.items) {
-            val employeeSpecialityList = employee.specialtyList
+//        result.items
+//            .flatMap { it.specialtyList ?: emptyList<Specialty>() }
+//            .distinct()
 
-            if (!employeeSpecialityList.isNullOrEmpty()) {
-                for (speciality in employeeSpecialityList) {
-                    if (!uniqueSpecialityList.contains(speciality)) {
-                        uniqueSpecialityList.add(speciality)
-                    }
+
+        result.items.forEach { employee ->
+            employee.specialtyList?.forEach { speciality ->
+                if (!uniqueSpecialityList.contains(speciality)) {
+                    uniqueSpecialityList.add(speciality)
                 }
             }
         }
+
         specialityRepository.cacheSpecialities(uniqueSpecialityList)
     }
 
