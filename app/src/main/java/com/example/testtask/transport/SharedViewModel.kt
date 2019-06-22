@@ -10,22 +10,15 @@ import com.example.testtask.repository.EmployeeRepository
 import com.example.testtask.repository.SpecialityRepository
 import javax.inject.Inject
 
-class SharedViewModel : ViewModel() {
+class SharedViewModel @Inject constructor(
+    private var specialityRepository: SpecialityRepository,
+    private var employeeRepository: EmployeeRepository,
+    private var dataBaseRepository: DataBaseRepository
+) : ViewModel() {
 
     val employeeList = MutableLiveData<ArrayList<Employee>>()
     val specialtyList = MutableLiveData<ArrayList<Specialty>>()
     val selectedEmployee = MutableLiveData<Employee>()
-
-    @Inject
-    lateinit var specialityRepository: SpecialityRepository
-    @Inject
-    lateinit var employeeRepository: EmployeeRepository
-    @Inject
-    lateinit var dataBaseRepository: DataBaseRepository
-
-    fun inject() {
-        App.get().injector?.inject(this)
-    }
 
     fun init() {
         specialtyList.value = specialityRepository.getCachedSpecialities()

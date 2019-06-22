@@ -5,9 +5,9 @@ import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import com.example.testtask.App
 import com.example.testtask.R
-import com.example.testtask.model.ResponseResult
 import com.example.testtask.presenter.MainActivityPresenter
 import com.example.testtask.contracts.MainActivityContract
+import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.transport.SharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -17,6 +17,9 @@ class MainActivity : BaseActivity(), MainActivityContract {
     @Inject
     lateinit var mainActivityPresenter: MainActivityPresenter
 
+    @Inject
+    lateinit var factory:ViewModelFactory
+
     private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,14 +27,13 @@ class MainActivity : BaseActivity(), MainActivityContract {
         setContentView(R.layout.activity_main)
 
         App.get().injector?.inject(this)
-        sharedViewModel = ViewModelProviders.of(this, null)[SharedViewModel::class.java]
+        sharedViewModel = ViewModelProviders.of(this, factory)[SharedViewModel::class.java]
 
         mainActivityPresenter.setView(this)
         mainActivityPresenter.getData()
     }
 
     override fun onDataReady() {
-        sharedViewModel.inject()
         sharedViewModel.init()
     }
 

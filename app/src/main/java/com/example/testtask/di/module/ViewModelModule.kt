@@ -18,5 +18,5 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(SharedViewModel::class)
-    internal abstract fun postListViewModel(viewModel: SharedViewModel): ViewModel
+    internal abstract fun postSharedViewModell(viewModel: SharedViewModel): ViewModel
 }
