@@ -1,6 +1,5 @@
 package com.example.testtask.view.activity
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
