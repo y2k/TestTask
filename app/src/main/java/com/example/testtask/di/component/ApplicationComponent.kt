@@ -16,6 +16,4 @@ interface ApplicationComponent {
 
     fun inject (specialityListFragment: SpecialityListFragment)
     fun inject(employeeFragment: EmployeeFragment)
-
-    fun inject(sharedViewModel: SharedViewModel)
 }

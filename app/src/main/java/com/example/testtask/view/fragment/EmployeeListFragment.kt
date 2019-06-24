@@ -8,15 +8,17 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.example.sdk.utils.verticalManager
 
 import com.example.testtask.R
 import com.example.testtask.adapters.EmployeesAdapter
 import com.example.testtask.decorators.MarginItemDecoration
+import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.model.Employee
 import com.example.testtask.model.Specialty
 import com.example.testtask.transport.SharedViewModel
-import com.example.testtask.extensions.verticalManager
 import kotlinx.android.synthetic.main.fragment_employee_list.*
+import javax.inject.Inject
 
 class EmployeeListFragment : Fragment() {
 

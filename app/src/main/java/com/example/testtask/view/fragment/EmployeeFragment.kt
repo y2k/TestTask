@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.sdk.extensions.fixName
+import com.example.sdk.extensions.fromDateToFormattedString
+import com.example.sdk.extensions.fromStringToDate
+import com.example.sdk.extensions.getAge
 
 import com.example.testtask.R
-import com.example.testtask.extensions.fixName
-import com.example.testtask.extensions.fromDateToFormattedString
-import com.example.testtask.extensions.fromStringToDate
-import com.example.testtask.extensions.getAge
 import com.example.testtask.transport.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_employee.*
 

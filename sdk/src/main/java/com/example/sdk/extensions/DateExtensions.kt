@@ -1,4 +1,4 @@
-package com.example.testtask.extensions
+package com.example.sdk.extensions
 
 import org.joda.time.LocalDate
 import org.joda.time.Years
@@ -14,9 +14,9 @@ fun Date.getAge(): Int {
     val monthDay = c.get(Calendar.MONTH)
     val year = c.get(Calendar.YEAR)
 
-    val birthdate = LocalDate(year, monthDay + 1, day)
+    val birthDate = LocalDate(year, monthDay + 1, day)
     val now = LocalDate()
-    val age = Years.yearsBetween(birthdate, now)
+    val age = Years.yearsBetween(birthDate, now)
     return age.years
 }
 

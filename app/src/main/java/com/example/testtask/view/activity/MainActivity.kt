@@ -1,14 +1,17 @@
 package com.example.testtask.view.activity
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
+import com.example.sdk.utils.isInternetAviable
 import com.example.testtask.App
 import com.example.testtask.R
 import com.example.testtask.presenter.MainActivityPresenter
 import com.example.testtask.contracts.MainActivityContract
 import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.transport.SharedViewModel
+import com.example.testtask.view.fragment.additional.NoConnectionFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -18,7 +21,7 @@ class MainActivity : BaseActivity(), MainActivityContract {
     lateinit var mainActivityPresenter: MainActivityPresenter
 
     @Inject
-    lateinit var factory:ViewModelFactory
+    lateinit var factory: ViewModelFactory
 
     private lateinit var sharedViewModel: SharedViewModel
 
@@ -29,6 +32,29 @@ class MainActivity : BaseActivity(), MainActivityContract {
         App.get().injector?.inject(this)
         sharedViewModel = ViewModelProviders.of(this, factory)[SharedViewModel::class.java]
 
+        checkInternetConnection()
+    }
+
+    private fun checkInternetConnection() {
+        if (!isInternetAviable(this)) {
+            val dialog = NoConnectionFragment(callBack = {
+                if (it == NoConnectionFragment.NO_CONNECTION_EXIT) {
+                    closeApp()
+                } else {
+                    if (!isInternetAviable(this)) {
+                        showMessage("STILL NO!")
+                    } else {
+                        onSuccessConnection()
+                    }
+                }
+            })
+            dialog.show(supportFragmentManager, "NoConnectionTag")
+        } else {
+            onSuccessConnection()
+        }
+    }
+
+    private fun onSuccessConnection() {
         mainActivityPresenter.setView(this)
         mainActivityPresenter.getData()
     }
