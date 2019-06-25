@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:padding="@dimen/padding_8"
         android:text="@string/employee_title" />
 
     <TextView

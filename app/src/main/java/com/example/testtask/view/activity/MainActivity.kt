@@ -41,7 +41,7 @@ class MainActivity : BaseActivity(), MainActivityContract {
                     closeApp()
                 } else {
                     if (!isInternetAviable(this)) {
-                        showMessage("STILL NO!")
+                        showMessage("You still have no internet. Check your connection and try again!")
                     } else {
                         onSuccessConnection()
                     }

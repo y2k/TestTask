@@ -32,7 +32,7 @@ class SpecialityListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.get().injector?.inject(this)
-        sharedViewModel = ViewModelProviders.of(this, factory).get(SharedViewModel::class.java)
+        sharedViewModel = ViewModelProviders.of(activity!!, factory).get(SharedViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

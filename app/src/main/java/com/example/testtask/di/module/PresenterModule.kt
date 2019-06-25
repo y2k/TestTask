@@ -1,5 +1,8 @@
 package com.example.testtask.di.module
 
+import com.example.testtask.interactor.DBInteractor
+import com.example.testtask.interactor.EmployeeInteractor
+import com.example.testtask.interactor.SpecialityInteractor
 import com.example.testtask.presenter.MainActivityPresenter
 import com.example.testtask.repository.DataBaseRepository
 import com.example.testtask.repository.EmployeeRepository
@@ -12,6 +15,6 @@ import javax.inject.Singleton
 class PresenterModule {
     @Provides
     @Singleton
-    fun provideMainViewPresenter(employeeRepository: EmployeeRepository, specialityRepository: SpecialityRepository,dataBaseRepository: DataBaseRepository):
-            MainActivityPresenter = MainActivityPresenter(employeeRepository,specialityRepository,dataBaseRepository)
+    fun provideMainViewPresenter(employeeInteractor: EmployeeInteractor,specialityInteractor: SpecialityInteractor,databaseInteractor:DBInteractor):
+            MainActivityPresenter = MainActivityPresenter(employeeInteractor,specialityInteractor,databaseInteractor)
 }

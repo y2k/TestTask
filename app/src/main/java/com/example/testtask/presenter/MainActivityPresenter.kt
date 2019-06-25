@@ -2,6 +2,9 @@ package com.example.testtask.presenter
 
 import com.example.testtask.abstracts.Presenter
 import com.example.testtask.contracts.MainActivityContract
+import com.example.testtask.interactor.DBInteractor
+import com.example.testtask.interactor.EmployeeInteractor
+import com.example.testtask.interactor.SpecialityInteractor
 import com.example.testtask.model.Employee
 import com.example.testtask.model.ResponseResult
 import com.example.testtask.model.Specialty
@@ -13,9 +16,9 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivityPresenter @Inject constructor(
-    private val employeeRepository: EmployeeRepository,
-    private val specialityRepository: SpecialityRepository,
-    private val dataBaseRepository: DataBaseRepository
+    private val employeeInteractor: EmployeeInteractor,
+    private val specialityInteractor: SpecialityInteractor,
+    private val databaseInteractor: DBInteractor
 ) :
     Presenter {
 
@@ -28,33 +31,16 @@ class MainActivityPresenter @Inject constructor(
     fun getData() {
         view?.setLoading(true)
         GlobalScope.launch(Dispatchers.Main) {
-            onDataLoaded(employeeRepository.loadEmployees().await())
+            onDataLoaded(employeeInteractor.getData())
             view?.setLoading(false)
         }
     }
 
     private fun onDataLoaded(result: ResponseResult) {
-        saveEmployeesListToRepo(result)
-        saveSpecialitiesListToRepo(result)
-        saveResultToDB(result)
+        employeeInteractor.cacheEmpoyeesToRepository(result)
+        specialityInteractor.cacheSpecialitiesToRepository(result)
+        databaseInteractor.saveResultToDB(result)
         view?.onDataReady()
-    }
-
-    private fun saveEmployeesListToRepo(result: ResponseResult) {
-        employeeRepository.cacheEmployees(result.items as ArrayList<Employee>)
-    }
-
-    private fun saveSpecialitiesListToRepo(result: ResponseResult) {
-
-        val specialities = result.items
-            .flatMap { it.specialtyList.orEmpty() }
-            .distinct()
-
-        specialityRepository.cacheSpecialities(specialities as ArrayList<Specialty>)
-    }
-
-    private fun saveResultToDB(result: ResponseResult) {
-        dataBaseRepository.writeResultToDB(result)
     }
 
     override fun onDestroy() {

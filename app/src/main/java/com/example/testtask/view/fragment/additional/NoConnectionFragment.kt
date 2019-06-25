@@ -8,7 +8,6 @@ import androidx.fragment.app.DialogFragment
 
 import com.example.testtask.R
 import kotlinx.android.synthetic.main.fragment_no_connection.*
-import timber.log.Timber
 
 class NoConnectionFragment(private val callBack: (id: Int) -> Unit) : DialogFragment() {
 
