@@ -1,4 +1,4 @@
-package com.example.testtask.extensions
+package com.example.sdk.extensions
 
 import java.text.ParseException
 import java.text.SimpleDateFormat

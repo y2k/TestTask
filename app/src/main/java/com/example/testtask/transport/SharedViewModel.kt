@@ -8,6 +8,7 @@ import com.example.testtask.model.Specialty
 import com.example.testtask.repository.DataBaseRepository
 import com.example.testtask.repository.EmployeeRepository
 import com.example.testtask.repository.SpecialityRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 class SharedViewModel @Inject constructor(

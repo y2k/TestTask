@@ -1,19 +1,11 @@
-package com.example.testtask.extensions
+package com.example.sdk.utils
 
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-//Fragment
-fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
-    return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
-}
-
-//RVAdapters
+//RV
 fun verticalManager(context: Context?, reverseLayout: Boolean = false): LinearLayoutManager {
     return LinearLayoutManager(context, RecyclerView.VERTICAL, reverseLayout)
 }

@@ -8,21 +8,31 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.example.sdk.utils.isInternetAviable
+import com.example.sdk.utils.verticalManager
+import com.example.testtask.App
 
 import com.example.testtask.R
 import com.example.testtask.adapters.SpecialitiesAdapter
 import com.example.testtask.decorators.MarginItemDecoration
+import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.transport.SharedViewModel
-import com.example.testtask.extensions.verticalManager
+import com.example.testtask.view.fragment.additional.NoConnectionFragment
 import kotlinx.android.synthetic.main.fragment_speciality_list.*
+import timber.log.Timber
+import javax.inject.Inject
 
 class SpecialityListFragment : Fragment() {
+
+    @Inject
+    lateinit var factory: ViewModelFactory
 
     private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedViewModel = ViewModelProviders.of(activity!!).get(SharedViewModel::class.java)
+        App.get().injector?.inject(this)
+        sharedViewModel = ViewModelProviders.of(activity!!, factory).get(SharedViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

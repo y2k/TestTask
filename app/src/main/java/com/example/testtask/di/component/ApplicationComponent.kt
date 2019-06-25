@@ -9,13 +9,20 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ApplicationModule::class, PresenterModule::class, RoomModule::class, NetworkModule::class, RepositoryModule::class, ViewModelModule::class])
+@Component(
+    modules =
+    [ApplicationModule::class,
+        PresenterModule::class,
+        RoomModule::class,
+        NetworkModule::class,
+        RepositoryModule::class,
+        ViewModelModule::class,
+        InteractorModule::class]
+)
 interface ApplicationComponent {
 
     fun inject(mainActivity: MainActivity)
 
-    fun inject (specialityListFragment: SpecialityListFragment)
+    fun inject(specialityListFragment: SpecialityListFragment)
     fun inject(employeeFragment: EmployeeFragment)
-
-    fun inject(sharedViewModel: SharedViewModel)
 }

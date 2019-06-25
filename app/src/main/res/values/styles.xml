@@ -13,6 +13,7 @@
         <item name="android:layout_marginTop">@dimen/margin_8</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:padding">@dimen/padding_8</item>
     </style>
 
 </resources>
