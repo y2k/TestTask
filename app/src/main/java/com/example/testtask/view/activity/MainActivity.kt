@@ -10,7 +10,7 @@ import com.example.testtask.presenter.MainActivityPresenter
 import com.example.testtask.contracts.MainActivityContract
 import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.transport.SharedViewModel
-import com.example.testtask.view.fragment.additional.NoConnectionFragment
+import com.example.testtask.view.fragment.additional.NoConnectionDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -23,6 +23,7 @@ class MainActivity : BaseActivity(), MainActivityContract {
     lateinit var factory: ViewModelFactory
 
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var noConnectionDialog: NoConnectionDialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,18 +37,20 @@ class MainActivity : BaseActivity(), MainActivityContract {
 
     private fun checkInternetConnection() {
         if (!isInternetAviable(this)) {
-            val dialog = NoConnectionFragment(callBack = {
-                if (it == NoConnectionFragment.NO_CONNECTION_EXIT) {
+            noConnectionDialog = NoConnectionDialogFragment(callBack = {
+                if (it == NoConnectionDialogFragment.NO_CONNECTION_EXIT) {
                     closeApp()
                 } else {
                     if (!isInternetAviable(this)) {
                         showMessage("You still have no internet. Check your connection and try again!")
                     } else {
+                        noConnectionDialog.dismiss()
                         onSuccessConnection()
                     }
                 }
             })
-            dialog.show(supportFragmentManager, "NoConnectionTag")
+            noConnectionDialog.show(supportFragmentManager, "NoConnectionTag")
+            noConnectionDialog.isCancelable = false
         } else {
             onSuccessConnection()
         }

@@ -26,9 +26,4 @@
         android:id="@+id/employeeFragment"
         android:name="com.example.testtask.view.fragment.EmployeeFragment"
         android:label="EmployeeFragment" />
-    <fragment android:id="@+id/splashFragment" android:name="com.example.testtask.view.fragment.SplashFragment"
-              android:label="fragment_splash" tools:layout="@layout/fragment_splash">
-        <action android:id="@+id/fromSplashToSpecialityList"
-                app:destination="@id/specialityListFragment"/>
-    </fragment>
 </navigation>

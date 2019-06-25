@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.testtask.R
 import kotlinx.android.synthetic.main.fragment_no_connection.*
 
-class NoConnectionFragment(private val callBack: (id: Int) -> Unit) : DialogFragment() {
+class NoConnectionDialogFragment(private val callBack: (id: Int) -> Unit) : DialogFragment() {
 
     companion object {
         const val NO_CONNECTION_EXIT: Int = 1
