@@ -4,6 +4,7 @@ import com.example.testtask.di.module.*
 import com.example.testtask.transport.SharedViewModel
 import com.example.testtask.view.activity.MainActivity
 import com.example.testtask.view.fragment.EmployeeFragment
+import com.example.testtask.view.fragment.EmployeeListFragment
 import com.example.testtask.view.fragment.SpecialityListFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -24,5 +25,6 @@ interface ApplicationComponent {
     fun inject(mainActivity: MainActivity)
 
     fun inject(specialityListFragment: SpecialityListFragment)
+    fun inject(employeeListFragment: EmployeeListFragment)
     fun inject(employeeFragment: EmployeeFragment)
 }

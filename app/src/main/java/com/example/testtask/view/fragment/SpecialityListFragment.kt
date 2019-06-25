@@ -11,6 +11,7 @@ import androidx.navigation.Navigation
 import com.example.sdk.utils.isInternetAviable
 import com.example.sdk.utils.verticalManager
 import com.example.testtask.App
+import com.example.testtask.Constants.Companion.KEY_SPECIALITY_ID
 
 import com.example.testtask.R
 import com.example.testtask.adapters.SpecialitiesAdapter
@@ -64,7 +65,7 @@ class SpecialityListFragment : Fragment() {
 
     private fun navigateToEmployeeFragment(specialtyID: Int) {
         val bundle = Bundle()
-        bundle.putInt("specialityID", specialtyID)
+        bundle.putInt(KEY_SPECIALITY_ID, specialtyID)
         Navigation.findNavController(activity!!, R.id.host).navigate(R.id.fromSpecialityListToEmployeeList, bundle)
     }
 }

@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.sdk.utils.verticalManager
+import com.example.testtask.App
+import com.example.testtask.Constants.Companion.KEY_SPECIALITY_ID
 
 import com.example.testtask.R
 import com.example.testtask.adapters.EmployeesAdapter
@@ -22,12 +24,17 @@ import javax.inject.Inject
 
 class EmployeeListFragment : Fragment() {
 
+    @Inject
+    lateinit var factory: ViewModelFactory
+
     private lateinit var sharedViewModel: SharedViewModel
+
     private lateinit var specialty: Specialty
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedViewModel = ViewModelProviders.of(activity!!).get(SharedViewModel::class.java)
+        App.get().injector?.inject(this)
+        sharedViewModel = ViewModelProviders.of(activity!!, factory).get(SharedViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -52,7 +59,7 @@ class EmployeeListFragment : Fragment() {
             this.adapter = adapter
         }
 
-        val specialtyID = arguments?.getInt("specialityID") ?: 0
+        val specialtyID = arguments?.getInt(KEY_SPECIALITY_ID) ?: 0
 
         sharedViewModel.specialtyList.observe(this, Observer { list ->
             specialty = list[specialtyID]
