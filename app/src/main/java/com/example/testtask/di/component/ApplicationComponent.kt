@@ -13,7 +13,6 @@ import javax.inject.Singleton
 @Component(
     modules =
     [ApplicationModule::class,
-        PresenterModule::class,
         RoomModule::class,
         NetworkModule::class,
         RepositoryModule::class,

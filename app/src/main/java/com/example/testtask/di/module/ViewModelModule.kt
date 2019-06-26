@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.di.ViewModelKey
+import com.example.testtask.presenter.MainActivityViewModel
 import com.example.testtask.transport.SharedViewModel
 import dagger.multibindings.IntoMap
 import dagger.Binds
@@ -19,4 +20,8 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SharedViewModel::class)
     internal abstract fun postSharedViewModell(viewModel: SharedViewModel): ViewModel
-}
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainActivityViewModel::class)
+    internal abstract fun provideMainActivityViewModel(viewModel: MainActivityViewModel): ViewModel}

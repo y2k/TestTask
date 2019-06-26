@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.sdk.utils.isInternetAviable
 import com.example.testtask.App
 import com.example.testtask.R
-import com.example.testtask.presenter.MainActivityPresenter
 import com.example.testtask.contracts.MainActivityContract
 import com.example.testtask.di.ViewModelFactory
+import com.example.testtask.presenter.MainActivityViewModel
 import com.example.testtask.transport.SharedViewModel
 import com.example.testtask.view.fragment.additional.NoConnectionDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,12 +17,11 @@ import javax.inject.Inject
 class MainActivity : BaseActivity(), MainActivityContract {
 
     @Inject
-    lateinit var mainActivityPresenter: MainActivityPresenter
-
-    @Inject
     lateinit var factory: ViewModelFactory
 
+    lateinit var mainActivityViewModel: MainActivityViewModel
     private lateinit var sharedViewModel: SharedViewModel
+
     private lateinit var noConnectionDialog: NoConnectionDialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +29,7 @@ class MainActivity : BaseActivity(), MainActivityContract {
         setContentView(R.layout.activity_main)
 
         App.get().injector?.inject(this)
+        mainActivityViewModel = ViewModelProviders.of(this, factory)[MainActivityViewModel::class.java]
         sharedViewModel = ViewModelProviders.of(this, factory)[SharedViewModel::class.java]
 
         checkInternetConnection()
@@ -57,8 +57,8 @@ class MainActivity : BaseActivity(), MainActivityContract {
     }
 
     private fun onSuccessConnection() {
-        mainActivityPresenter.setView(this)
-        mainActivityPresenter.getData()
+        mainActivityViewModel.setView(this)
+        mainActivityViewModel.getData()
     }
 
     override fun onDataReady() {
@@ -70,7 +70,7 @@ class MainActivity : BaseActivity(), MainActivityContract {
     }
 
     override fun onDestroy() {
-        mainActivityPresenter.onDestroy()
+        mainActivityViewModel.onDestroy()
         super.onDestroy()
     }
 }

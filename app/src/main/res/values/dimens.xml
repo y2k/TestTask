@@ -39,4 +39,8 @@
     <dimen name="margin_cardview_fragment_header_end">8dp</dimen>
     <dimen name="margin_cardview_fragment_header_bottom">8dp</dimen>
 
+    <!-- ImageView -->
+    <dimen name="image_size_employee_avatar_width">96dp</dimen>
+    <dimen name="image_size_employee_avatar_height">96dp</dimen>
+
 </resources>

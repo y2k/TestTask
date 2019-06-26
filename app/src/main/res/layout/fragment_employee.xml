@@ -5,15 +5,15 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="@dimen/image_size_96"
-        android:layout_height="@dimen/image_size_96"
+        android:layout_width="@dimen/image_size_employee_avatar_width"
+        android:layout_height="@dimen/image_size_employee_avatar_height"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/margin_12"
         android:src="@android:drawable/dialog_frame" />
 
     <TextView
         android:id="@+id/title_employees"
-        style="@style/FragmentTitle"
+        style="@style/Title.FragmentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

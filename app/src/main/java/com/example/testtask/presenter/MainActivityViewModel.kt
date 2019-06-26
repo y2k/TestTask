@@ -1,26 +1,20 @@
 package com.example.testtask.presenter
 
+import androidx.lifecycle.ViewModel
 import com.example.testtask.abstracts.Presenter
 import com.example.testtask.contracts.MainActivityContract
 import com.example.testtask.interactor.DBInteractor
 import com.example.testtask.interactor.EmployeeInteractor
 import com.example.testtask.interactor.SpecialityInteractor
-import com.example.testtask.model.Employee
 import com.example.testtask.model.ResponseResult
-import com.example.testtask.model.Specialty
-import com.example.testtask.repository.DataBaseRepository
-import com.example.testtask.repository.EmployeeRepository
-import com.example.testtask.repository.SpecialityRepository
 import kotlinx.coroutines.*
-import timber.log.Timber
 import javax.inject.Inject
 
-class MainActivityPresenter @Inject constructor(
+class MainActivityViewModel @Inject constructor(
     private val employeeInteractor: EmployeeInteractor,
     private val specialityInteractor: SpecialityInteractor,
     private val databaseInteractor: DBInteractor
-) :
-    Presenter {
+) : ViewModel(), Presenter {
 
     private var view: MainActivityContract? = null
 
