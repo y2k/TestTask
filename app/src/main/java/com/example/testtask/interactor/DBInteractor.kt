@@ -18,16 +18,8 @@ class DBInteractor @Inject constructor(
         val employeeList = employeeRepository.getCachedEmployees()
         val specialityList = specialityRepository.getCachedSpecialities()
 
-        val employeeListConverted = ArrayList<EmployeeDB>()
-        val specialityListConverted = ArrayList<SpecialtyDB>()
-
-        employeeList.forEach {
-            employeeListConverted.add(it.toDBModel())
-        }
-
-        specialityList.forEach {
-            specialityListConverted.add(it.toDBModel())
-        }
+        val employeeListConverted: ArrayList<EmployeeDB> = employeeList.map { it.toDBModel() } as ArrayList<EmployeeDB>
+        val specialityListConverted: ArrayList<SpecialtyDB> = specialityList.map { it.toDBModel() } as ArrayList<SpecialtyDB>
 
         dbHelper.writeResultToDB(employeeListConverted, specialityListConverted)
     }
