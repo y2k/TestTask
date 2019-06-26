@@ -9,11 +9,23 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="FragmentTitle">
-        <item name="android:layout_marginTop">@dimen/margin_8</item>
+    <style name="Title" />
+
+    <style name="Title.FragmentTitle">
+        <item name="android:layout_marginTop">@dimen/margin_fragment_title_top</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_fragment_title</item>
-        <item name="android:padding">@dimen/padding_title</item>
+        <item name="android:padding">@dimen/padding_fragment_title</item>
+    </style>
+
+    <style name="CardView" />
+
+    <style name="CardView.FragmentHeader">
+        <item name="android:layout_marginStart">@dimen/margin_cardview_fragment_header_start</item>
+        <item name="android:layout_marginTop">@dimen/margin_cardview_fragment_header_top</item>
+        <item name="android:layout_marginEnd">@dimen/margin_cardview_fragment_header_end</item>
+        <item name="android:layout_marginBottom">@dimen/margin_cardview_fragment_header_bottom
+        </item>
     </style>
 
 </resources>

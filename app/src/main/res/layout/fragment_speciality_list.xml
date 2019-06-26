@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        style="@style/FragmentTitle"
+        style="@style/Title.FragmentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -40,8 +40,6 @@
                 android:layout_weight="0.8"
                 android:gravity="center"
                 android:text="@string/specialities_name" />
-
-
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

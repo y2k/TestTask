@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/title_employees"
-        style="@style/FragmentTitle"
+        style="@style/Title.FragmentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/title_employees_speciality"
-        style="@style/FragmentTitle"
+        style="@style/Title.FragmentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -24,12 +24,9 @@
         tools:text="Manager" />
 
     <androidx.cardview.widget.CardView
+        style="@style/CardView.FragmentHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_8"
-        android:layout_marginTop="@dimen/margin_16"
-        android:layout_marginEnd="@dimen/margin_8"
-        android:layout_marginBottom="@dimen/margin_8">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"

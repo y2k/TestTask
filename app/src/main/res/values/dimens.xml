@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Margin -->
     <dimen name="margin_4">4dp</dimen>
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_12">12dp</dimen>
     <dimen name="margin_16">16dp</dimen>
 
+    <!-- Image size -->
     <dimen name="image_size_32">32dp</dimen>
     <dimen name="image_size_64">64dp</dimen>
     <dimen name="image_size_96">96dp</dimen>
@@ -17,9 +19,6 @@
     <dimen name="padding_12">12dp</dimen>
     <dimen name="padding_16">16dp</dimen>
 
-    <dimen name="padding_title">8dp</dimen>
-
-
     <!-- TextSize -->
     <dimen name="text_size_12">12sp</dimen>
     <dimen name="text_size_15">15sp</dimen>
@@ -27,5 +26,17 @@
     <dimen name="text_size_20">20sp</dimen>
     <dimen name="text_size_24">24sp</dimen>
 
+    <!-- TextView -->
+    <!-- Fragment Title-->
+    <dimen name="margin_fragment_title_top">8dp</dimen>
+    <dimen name="padding_fragment_title">8dp</dimen>
     <dimen name="text_size_fragment_title">18sp</dimen>
+
+    <!-- CardView -->
+    <!-- Fragment Header -->
+    <dimen name="margin_cardview_fragment_header_start">8dp</dimen>
+    <dimen name="margin_cardview_fragment_header_top">16dp</dimen>
+    <dimen name="margin_cardview_fragment_header_end">8dp</dimen>
+    <dimen name="margin_cardview_fragment_header_bottom">8dp</dimen>
+
 </resources>
