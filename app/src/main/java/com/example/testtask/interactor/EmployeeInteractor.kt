@@ -1,17 +1,25 @@
 package com.example.testtask.interactor
 
 import com.example.testtask.model.Employee
-import com.example.testtask.model.ResponseResult
+import com.example.testtask.model.Specialty
 import com.example.testtask.repository.EmployeeRepository
+import com.example.testtask.repository.SpecialityRepository
 import javax.inject.Inject
 
-class EmployeeInteractor @Inject constructor(private val employeeRepository: EmployeeRepository) {
+class EmployeeInteractor @Inject constructor(private val employeeRepository: EmployeeRepository,
+                                             private val specialityRepository: SpecialityRepository) {
 
-    suspend fun getData(): ResponseResult {
-        return employeeRepository.loadEmployees().await()
+    suspend fun getEmployees(): ArrayList<Employee> {
+        val employeeList = employeeRepository.getEmployees()
+
+        if (specialityRepository.getSpecialities().isEmpty()) {
+            specialityRepository.setSpecialitiesFromEmployeeList(employeeList)
+        }
+
+        return employeeList
     }
 
-    fun cacheEmpoyeesToRepository(responseResult: ResponseResult){
-        employeeRepository.cacheEmployees(responseResult.items as ArrayList<Employee>)
+    fun getSelectedEmployee():Employee?{
+        return employeeRepository.getSelectedEmployee()
     }
 }

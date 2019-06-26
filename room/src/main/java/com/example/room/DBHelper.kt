@@ -11,11 +11,13 @@ class DBHelper @Inject constructor(
     private val specialityDao: SpecialityDao
 ) {
 
-    fun writeResultToDB(employeeList: ArrayList<EmployeeDB>, specialityList: ArrayList<SpecialtyDB>) {
+    fun writeEmployeesToDB(employeeList: ArrayList<EmployeeDB>) {
         employeeList.forEach {
             employeeDao.insertEmployee(it)
         }
+    }
 
+    fun writeSpecialitiesToDB(specialityList: ArrayList<SpecialtyDB>) {
         specialityList.forEach {
             specialityDao.insertSpeciality(it)
         }

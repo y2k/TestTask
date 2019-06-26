@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/avatar"
         android:layout_width="@dimen/image_size_employee_avatar_width"
         android:layout_height="@dimen/image_size_employee_avatar_height"
         android:layout_gravity="center"

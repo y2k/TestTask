@@ -1,5 +1,7 @@
 package com.example.testtask.view.fragment
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 import com.example.sdk.extensions.fixName
 import com.example.sdk.extensions.fromDateToFormattedString
 import com.example.sdk.extensions.fromStringToDate
@@ -19,7 +22,7 @@ import com.example.testtask.viewmodel.transport.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_employee.*
 import javax.inject.Inject
 
-class EmployeeFragment : Fragment(){
+class EmployeeFragment : Fragment() {
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -29,7 +32,7 @@ class EmployeeFragment : Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.get().injector?.inject(this)
-        sharedViewModel = ViewModelProviders.of(activity!!,factory).get(SharedViewModel::class.java)
+        sharedViewModel = ViewModelProviders.of(activity!!, factory).get(SharedViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,6 +53,8 @@ class EmployeeFragment : Fragment(){
                 text_employee_detail_birthday.text = employee.birthday.fromStringToDate().fromDateToFormattedString()
                 text_employee_detail_age.text = employee.birthday.fromStringToDate().getAge().toString()
             }
+
+            Glide.with(this).load(employee.avatarUrl).placeholder(ColorDrawable(Color.GREEN)).into(avatar)
         })
     }
 }

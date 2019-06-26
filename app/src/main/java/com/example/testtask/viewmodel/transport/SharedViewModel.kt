@@ -2,25 +2,23 @@ package com.example.testtask.viewmodel.transport
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.testtask.interactor.EmployeeInteractor
+import com.example.testtask.interactor.SpecialityInteractor
 import com.example.testtask.model.Employee
 import com.example.testtask.model.Specialty
-import com.example.room.DBHelper
-import com.example.testtask.repository.EmployeeRepository
-import com.example.testtask.repository.SpecialityRepository
 import javax.inject.Inject
 
 class SharedViewModel @Inject constructor(
-    private var specialityRepository: SpecialityRepository,
-    private var employeeRepository: EmployeeRepository,
-    private var dbHelper: DBHelper
-) : ViewModel() {
+    private var employeeInteractor: EmployeeInteractor,
+    private var specialityInteractor: SpecialityInteractor) : ViewModel() {
 
     val employeeList = MutableLiveData<ArrayList<Employee>>()
     val specialtyList = MutableLiveData<ArrayList<Specialty>>()
     val selectedEmployee = MutableLiveData<Employee>()
 
-    fun init() {
-        specialtyList.value = specialityRepository.getCachedSpecialities()
-        employeeList.value = employeeRepository.getCachedEmployees()
+    suspend fun init() {
+        specialtyList.value = specialityInteractor.getSpecialities()
+        employeeList.value = employeeInteractor.getEmployees()
+        selectedEmployee.value = employeeInteractor.getSelectedEmployee()
     }
 }

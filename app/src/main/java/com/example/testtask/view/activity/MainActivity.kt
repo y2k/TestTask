@@ -19,7 +19,7 @@ class MainActivity : BaseActivity(), MainActivityContract {
     @Inject
     lateinit var factory: ViewModelFactory
 
-    lateinit var mainActivityViewModel: MainActivityViewModel
+    private lateinit var mainActivityViewModel: MainActivityViewModel
     private lateinit var sharedViewModel: SharedViewModel
 
     private lateinit var noConnectionDialog: NoConnectionDialogFragment
@@ -61,7 +61,7 @@ class MainActivity : BaseActivity(), MainActivityContract {
         mainActivityViewModel.getData()
     }
 
-    override fun onDataReady() {
+    override suspend fun onDataReady() {
         sharedViewModel.init()
     }
 

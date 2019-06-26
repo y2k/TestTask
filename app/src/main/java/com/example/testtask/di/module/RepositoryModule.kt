@@ -14,11 +14,11 @@ import javax.inject.Singleton
 class RepositoryModule {
     @Provides
     @Singleton
-    fun provideEmployeeRepository(gitlabApiService: GitlabApiService): EmployeeRepository = EmployeeRepository(gitlabApiService)
+    fun provideEmployeeRepository(gitlabApiService: GitlabApiService,dbHelper: DBHelper): EmployeeRepository = EmployeeRepository(gitlabApiService,dbHelper)
 
     @Provides
     @Singleton
-    fun provideSpecialityRepository(): SpecialityRepository = SpecialityRepository()
+    fun provideSpecialityRepository(dbHelper: DBHelper): SpecialityRepository = SpecialityRepository(dbHelper)
 
     @Provides
     @Singleton
