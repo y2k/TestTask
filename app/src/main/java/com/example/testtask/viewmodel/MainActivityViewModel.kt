@@ -33,7 +33,7 @@ class MainActivityViewModel @Inject constructor(
     private fun onDataLoaded(result: ResponseResult) {
         employeeInteractor.cacheEmpoyeesToRepository(result)
         specialityInteractor.cacheSpecialitiesToRepository(result)
-        databaseInteractor.saveResultToDB(result)
+        databaseInteractor.saveResultToDB()
         view?.onDataReady()
     }
 

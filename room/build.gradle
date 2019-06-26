@@ -29,7 +29,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    //Room
     implementation "android.arch.persistence.room:runtime:2.1.0-alpha04"
     implementation "androidx.room:room-coroutines:2.1.0-alpha04"
     kapt "android.arch.persistence.room:compiler:2.1.0-alpha04"
+
+    //DI
+    implementation 'com.google.dagger:dagger:2.23.2'
+    kapt 'com.google.dagger:dagger-compiler:2.23.2'
 }

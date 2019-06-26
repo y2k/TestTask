@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.testtask.model.Employee
 import com.example.testtask.model.Specialty
-import com.example.testtask.DBHelper
+import com.example.room.DBHelper
 import com.example.testtask.repository.EmployeeRepository
 import com.example.testtask.repository.SpecialityRepository
 import javax.inject.Inject
