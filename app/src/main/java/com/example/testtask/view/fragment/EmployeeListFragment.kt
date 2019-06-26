@@ -13,12 +13,12 @@ import com.example.testtask.App
 import com.example.testtask.Constants.Companion.KEY_SPECIALITY_ID
 
 import com.example.testtask.R
-import com.example.testtask.adapters.EmployeesAdapter
-import com.example.testtask.decorators.MarginItemDecoration
+import com.example.testtask.view.adapters.EmployeesAdapter
+import com.example.testtask.view.decorators.MarginItemDecoration
 import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.model.Employee
 import com.example.testtask.model.Specialty
-import com.example.testtask.transport.SharedViewModel
+import com.example.testtask.viewmodel.transport.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_employee_list.*
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.example.testtask.adapters
+package com.example.testtask.view.adapters
 
 import android.view.LayoutInflater
 import android.view.View

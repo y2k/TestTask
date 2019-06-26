@@ -1,4 +1,4 @@
-package com.example.testtask.decorators
+package com.example.testtask.view.decorators
 
 import android.graphics.Rect
 import android.view.View

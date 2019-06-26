@@ -1,15 +1,18 @@
-package com.example.testtask.repository
+package com.example.testtask
 
 import com.example.room.dao.EmployeeDao
 import com.example.room.dao.SpecialityDao
 import com.example.testtask.extensions.mapper.toDBModel
 import com.example.testtask.model.ResponseResult
 import com.example.testtask.model.Specialty
+import com.example.testtask.repository.SpecialityRepository
 import javax.inject.Inject
 
-class DataBaseRepository @Inject constructor(private val employeeDao: EmployeeDao,
-                                             private val specialityDao: SpecialityDao,
-                                             private val specialityRepository: SpecialityRepository) {
+class DBHelper @Inject constructor(
+    private val employeeDao: EmployeeDao,
+    private val specialityDao: SpecialityDao,
+    private val specialityRepository: SpecialityRepository
+) {
 
     fun writeResultToDB(result: ResponseResult) {
         for (i in 0 until result.items.size) {

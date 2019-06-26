@@ -1,14 +1,12 @@
 package com.example.testtask.interactor
 
 import com.example.testtask.model.ResponseResult
-import com.example.testtask.model.Specialty
-import com.example.testtask.repository.DataBaseRepository
-import com.example.testtask.repository.SpecialityRepository
+import com.example.testtask.DBHelper
 import javax.inject.Inject
 
-class DBInteractor @Inject constructor(private val dataBaseRepository: DataBaseRepository) {
+class DBInteractor @Inject constructor(private val dbHelper: DBHelper) {
 
     fun saveResultToDB(result: ResponseResult) {
-        dataBaseRepository.writeResultToDB(result)
+        dbHelper.writeResultToDB(result)
     }
 }

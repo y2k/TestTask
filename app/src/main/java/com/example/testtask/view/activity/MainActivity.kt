@@ -8,8 +8,8 @@ import com.example.testtask.App
 import com.example.testtask.R
 import com.example.testtask.contracts.MainActivityContract
 import com.example.testtask.di.ViewModelFactory
-import com.example.testtask.presenter.MainActivityViewModel
-import com.example.testtask.transport.SharedViewModel
+import com.example.testtask.viewmodel.MainActivityViewModel
+import com.example.testtask.viewmodel.transport.SharedViewModel
 import com.example.testtask.view.fragment.additional.NoConnectionDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject

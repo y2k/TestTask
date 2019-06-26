@@ -1,4 +1,4 @@
-package com.example.testtask.presenter
+package com.example.testtask.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.example.testtask.abstracts.Presenter

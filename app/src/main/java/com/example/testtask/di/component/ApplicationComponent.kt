@@ -1,7 +1,6 @@
 package com.example.testtask.di.component
 
 import com.example.testtask.di.module.*
-import com.example.testtask.transport.SharedViewModel
 import com.example.testtask.view.activity.MainActivity
 import com.example.testtask.view.fragment.EmployeeFragment
 import com.example.testtask.view.fragment.EmployeeListFragment
