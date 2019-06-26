@@ -50,11 +50,11 @@ class EmployeeListFragment : Fragment() {
         with(rv_employees) {
             layoutManager = verticalManager(context)
             addItemDecoration(
-                MarginItemDecoration(
-                    spaceTop = resources.getDimension(R.dimen.margin_8).toInt(),
-                    spaceSide = resources.getDimension(R.dimen.margin_8).toInt(),
-                    spaceBottom = resources.getDimension(R.dimen.margin_8).toInt()
-                )
+                    MarginItemDecoration(
+                            spaceTop = resources.getDimension(R.dimen.margin_8).toInt(),
+                            spaceSide = resources.getDimension(R.dimen.margin_8).toInt(),
+                            spaceBottom = resources.getDimension(R.dimen.margin_8).toInt()
+                    )
             )
             this.adapter = adapter
         }
@@ -67,10 +67,12 @@ class EmployeeListFragment : Fragment() {
         })
 
         sharedViewModel.employeeList.observe(this, Observer { employeeList ->
-            val employees = employeeList?.filter { employee -> employee.specialtyList?.contains(specialty) ?: false }
-                ?: ArrayList()
+            val employees = employeeList?.filter { employee ->
+                employee.specialtyList?.contains(specialty) ?: true
+            }
             adapter.setEmployees(employees)
         }
+
         )
     }
 

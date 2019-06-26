@@ -18,9 +18,11 @@ class EmployeesAdapter(private val callback: (employee: Employee) -> Unit) :
 
     private var employeeList = ArrayList<Employee>()
 
-    fun setEmployees(employees: List<Employee>) {
-        employeeList = employees as ArrayList<Employee>
-        notifyDataSetChanged()
+    fun setEmployees(employees: List<Employee>?) {
+        if (employees != null) {
+            employeeList = employees as ArrayList<Employee>
+            notifyDataSetChanged()
+        }
     }
 
     override fun getItemCount(): Int {
