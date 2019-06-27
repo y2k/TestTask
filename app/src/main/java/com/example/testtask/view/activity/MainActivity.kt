@@ -61,6 +61,7 @@ class MainActivity : BaseActivity() {
 
     private fun onSuccessConnection() {
         mainActivityViewModel.getData()
+
         mainActivityViewModel.loaderLiveData.observe(this,
             Observer<Boolean> { state -> setLoading(state) })
 

@@ -21,4 +21,8 @@ class EmployeeInteractor @Inject constructor(private val employeeRepository: Emp
     fun getSelectedEmployee():Employee?{
         return employeeRepository.getSelectedEmployee()
     }
+
+    fun setSelectedEmployee(employee: Employee){
+        employeeRepository.setSelectedEmployee(employee)
+    }
 }

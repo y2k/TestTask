@@ -21,4 +21,9 @@ class SharedViewModel @Inject constructor(
         employeeList.value = employeeInteractor.getEmployees()
         selectedEmployee.value = employeeInteractor.getSelectedEmployee()
     }
+
+    fun setSelectedEmployee(employee: Employee){
+        selectedEmployee.value = employee
+        employeeInteractor.setSelectedEmployee(employee)
+    }
 }
