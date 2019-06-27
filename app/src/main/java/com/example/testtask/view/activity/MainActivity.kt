@@ -2,19 +2,22 @@ package com.example.testtask.view.activity
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.sdk.utils.isInternetAviable
 import com.example.testtask.App
 import com.example.testtask.R
-import com.example.testtask.contracts.MainActivityContract
 import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.viewmodel.MainActivityViewModel
 import com.example.testtask.viewmodel.transport.SharedViewModel
 import com.example.testtask.view.fragment.additional.NoConnectionDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), MainActivityContract {
+class MainActivity : BaseActivity() {
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -57,20 +60,23 @@ class MainActivity : BaseActivity(), MainActivityContract {
     }
 
     private fun onSuccessConnection() {
-        mainActivityViewModel.setView(this)
         mainActivityViewModel.getData()
+        mainActivityViewModel.loaderLiveData.observe(this,
+            Observer<Boolean> { state -> setLoading(state) })
+
+        mainActivityViewModel.dataReadyLiveData.observe(this,
+            Observer<Boolean> {
+                GlobalScope.launch(Dispatchers.Main) {
+                    onDataReady()
+                }
+            })
     }
 
-    override suspend fun onDataReady() {
+    private suspend fun onDataReady() {
         sharedViewModel.init()
     }
 
-    override fun setLoading(state: Boolean) {
+    private fun setLoading(state: Boolean) {
         progress.visibility = if (state) View.VISIBLE else View.GONE
-    }
-
-    override fun onDestroy() {
-        mainActivityViewModel.onDestroy()
-        super.onDestroy()
     }
 }

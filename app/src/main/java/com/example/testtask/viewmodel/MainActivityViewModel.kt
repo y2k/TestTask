@@ -1,29 +1,21 @@
 package com.example.testtask.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.testtask.contracts.MainActivityContract
 import com.example.testtask.interactor.EmployeeInteractor
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(private val employeeInteractor: EmployeeInteractor) : ViewModel() {
-
-    private var view: MainActivityContract? = null
-
-    fun setView(view: MainActivityContract) {
-        this.view = view
-    }
+    val loaderLiveData = MutableLiveData<Boolean>()
+    val dataReadyLiveData = MutableLiveData<Boolean>()
 
     fun getData() {
-        view?.setLoading(true)
+        loaderLiveData.value = true
         GlobalScope.launch(Dispatchers.Main) {
             employeeInteractor.getEmployees()
-            view?.setLoading(false)
-            view?.onDataReady()
+            loaderLiveData.value = false
+            dataReadyLiveData.value = true
         }
-    }
-
-    fun onDestroy() {
-        view = null
     }
 }
