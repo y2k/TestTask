@@ -1,7 +1,6 @@
-package com.example.testtask.view.activity
+package com.example.testtask.view.activity.main
 
 import android.os.Bundle
-import android.provider.Contacts
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -9,6 +8,7 @@ import com.example.sdk.utils.isInternetAviable
 import com.example.testtask.App
 import com.example.testtask.R
 import com.example.testtask.di.ViewModelFactory
+import com.example.testtask.view.activity.BaseActivity
 import com.example.testtask.viewmodel.MainActivityViewModel
 import com.example.testtask.viewmodel.transport.SharedViewModel
 import com.example.testtask.view.fragment.additional.NoConnectionDialogFragment
@@ -16,10 +16,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), OnInternetStateListener {
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -37,31 +37,10 @@ class MainActivity : BaseActivity() {
         mainActivityViewModel = ViewModelProviders.of(this, factory)[MainActivityViewModel::class.java]
         sharedViewModel = ViewModelProviders.of(this, factory)[SharedViewModel::class.java]
 
-        checkInternetConnection()
+        checkInternetConnection(this)
     }
 
-    private fun checkInternetConnection() {
-        if (!isInternetAviable(this)) {
-            noConnectionDialog = NoConnectionDialogFragment(callBack = {
-                if (it == NoConnectionDialogFragment.NO_CONNECTION_EXIT) {
-                    closeApp()
-                } else {
-                    if (!isInternetAviable(this)) {
-                        showMessage("You still have no internet. Check your connection and try again!")
-                    } else {
-                        noConnectionDialog.dismiss()
-                        onSuccessConnection()
-                    }
-                }
-            })
-            noConnectionDialog.show(supportFragmentManager, "NoConnectionTag")
-            noConnectionDialog.isCancelable = false
-        } else {
-            onSuccessConnection()
-        }
-    }
-
-    private fun onSuccessConnection() {
+    override fun onSuccess() {
         mainActivityViewModel.getData()
 
         mainActivityViewModel.loaderLiveData.observe(this,
