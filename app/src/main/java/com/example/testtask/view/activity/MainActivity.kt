@@ -1,6 +1,7 @@
 package com.example.testtask.view.activity
 
 import android.os.Bundle
+import android.provider.Contacts
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
@@ -65,8 +67,9 @@ class MainActivity : BaseActivity() {
         mainActivityViewModel.loaderLiveData.observe(this,
             Observer<Boolean> { state -> setLoading(state) })
 
+
         mainActivityViewModel.dataReadyLiveData.observe(this,
-            Observer<Boolean> {
+            Observer<Unit> {
                 GlobalScope.launch(Dispatchers.Main) {
                     onDataReady()
                 }
