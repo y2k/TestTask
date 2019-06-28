@@ -34,8 +34,10 @@ abstract class BaseActivity : AppCompatActivity() {
     //I'm not sure it clean enough. Maybe i should rewrite it later
     fun checkInternetConnection(onInternetStateListener: OnInternetStateListener) {
         if (isInternetAviable(this)) {
-            onInternetStateListener.onSuccess()
-            noInternetConnectionDialog.dismiss()
+            onInternetStateListener.onSuccessConnection()
+            if(::noInternetConnectionDialog.isInitialized){
+                noInternetConnectionDialog.dismiss()
+            }
         } else {
             noInternetConnectionDialog = NoConnectionDialogFragment(callBack = {
                 if (it == NoConnectionDialogFragment.NO_CONNECTION_EXIT) {
@@ -45,7 +47,7 @@ abstract class BaseActivity : AppCompatActivity() {
                         showMessage(R.string.base_error_no_connection)
                     } else {
                         noInternetConnectionDialog.dismiss()
-                        onInternetStateListener.onSuccess()
+                        onInternetStateListener.onSuccessConnection()
                     }
                 }
             })

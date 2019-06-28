@@ -35,7 +35,7 @@ class MainActivity : BaseActivity(), OnInternetStateListener {
         checkInternetConnection(this)
     }
 
-    override fun onSuccess() {
+    override fun onSuccessConnection() {
         mainActivityViewModel.getData()
 
         mainActivityViewModel.loaderLiveData.observe(this,
