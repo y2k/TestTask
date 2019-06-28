@@ -31,6 +31,7 @@ abstract class BaseActivity : AppCompatActivity() {
         Toast.makeText(this, getString(id), Toast.LENGTH_LONG).show()
     }
 
+    //I'm not sure it clean enough. Maybe i should rewrite it later
     fun checkInternetConnection(onInternetStateListener: OnInternetStateListener) {
         if (isInternetAviable(this)) {
             onInternetStateListener.onSuccess()

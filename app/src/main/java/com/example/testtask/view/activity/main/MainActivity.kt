@@ -4,19 +4,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.sdk.utils.isInternetAviable
 import com.example.testtask.App
 import com.example.testtask.R
 import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.view.activity.BaseActivity
 import com.example.testtask.viewmodel.MainActivityViewModel
 import com.example.testtask.viewmodel.transport.SharedViewModel
-import com.example.testtask.view.fragment.additional.NoConnectionDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), OnInternetStateListener {
