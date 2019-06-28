@@ -27,8 +27,6 @@ class MainActivity : BaseActivity(), OnInternetStateListener {
     private lateinit var mainActivityViewModel: MainActivityViewModel
     private lateinit var sharedViewModel: SharedViewModel
 
-    private lateinit var noConnectionDialog: NoConnectionDialogFragment
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
