@@ -36,20 +36,16 @@ class MainActivity : BaseActivity(), OnInternetStateListener {
         mainActivityViewModel = ViewModelProviders.of(this, factory)[MainActivityViewModel::class.java]
         sharedViewModel = ViewModelProviders.of(this, factory)[SharedViewModel::class.java]
 
-        mainActivityViewModel.loaderLiveData.observe(this,
+        mainActivityViewModel.progressBarLiveData.observe(this,
             Observer<Boolean> { state -> setLoading(state) })
 
 
         mainActivityViewModel.dataReadyLiveData.observe(this,
             Observer<Unit> {
                 GlobalScope.launch(Dispatchers.Main) {
-                    onDataReady()
+                    sharedViewModel.init()
                 }
             })
-    }
-
-    private suspend fun onDataReady() {
-        sharedViewModel.init()
     }
 
     private fun setLoading(state: Boolean) {

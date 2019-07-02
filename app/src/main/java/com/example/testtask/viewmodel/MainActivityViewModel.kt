@@ -8,14 +8,14 @@ import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(private val employeeInteractor: EmployeeInteractor) : ViewModel() {
-    val loaderLiveData = MutableLiveData<Boolean>()
+    val progressBarLiveData = MutableLiveData<Boolean>()
     val dataReadyLiveData = SingleLiveEvent<Unit>()
 
     init {
-        loaderLiveData.value = true
+        progressBarLiveData.value = true
         GlobalScope.launch(Dispatchers.Main) {
             employeeInteractor.getEmployees()
-            loaderLiveData.value = false
+            progressBarLiveData.value = false
             dataReadyLiveData.call()
 
         }
