@@ -11,12 +11,13 @@ class MainActivityViewModel @Inject constructor(private val employeeInteractor: 
     val loaderLiveData = MutableLiveData<Boolean>()
     val dataReadyLiveData = SingleLiveEvent<Unit>()
 
-    fun getData() {
+    init {
         loaderLiveData.value = true
         GlobalScope.launch(Dispatchers.Main) {
             employeeInteractor.getEmployees()
             loaderLiveData.value = false
             dataReadyLiveData.call()
+
         }
     }
 }

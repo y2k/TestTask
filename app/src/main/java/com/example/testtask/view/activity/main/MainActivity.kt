@@ -27,16 +27,14 @@ class MainActivity : BaseActivity(), OnInternetStateListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        App.get().injector?.inject(this)
-        mainActivityViewModel = ViewModelProviders.of(this, factory)[MainActivityViewModel::class.java]
-        sharedViewModel = ViewModelProviders.of(this, factory)[SharedViewModel::class.java]
-
         checkInternetConnection(this)
     }
 
     override fun onSuccessConnection() {
-        mainActivityViewModel.getData()
+        App.get().injector?.inject(this)
+
+        mainActivityViewModel = ViewModelProviders.of(this, factory)[MainActivityViewModel::class.java]
+        sharedViewModel = ViewModelProviders.of(this, factory)[SharedViewModel::class.java]
 
         mainActivityViewModel.loaderLiveData.observe(this,
             Observer<Boolean> { state -> setLoading(state) })
