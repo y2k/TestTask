@@ -1,13 +1,11 @@
 package com.example.testtask.repository
 
-import android.provider.Contacts
 import com.example.room.DBHelper
 import com.example.room.model.EmployeeDB
 import com.example.testtask.extensions.mapper.toDBModel
 import com.example.testtask.model.Employee
 import com.example.testtask.model.ResponseResult
 import com.example.testtask.network.GitlabApiService
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class EmployeeRepository @Inject constructor(
