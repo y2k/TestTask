@@ -16,6 +16,11 @@ class NoConnectionDialogFragment(private val callBack: (id: Int) -> Unit) : Dial
         const val NO_CONNECTION_RETRY: Int = 2
     }
 
+    override fun onStart() {
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        super.onStart()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_no_connection, container, false)
     }
