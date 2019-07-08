@@ -54,7 +54,10 @@ class EmployeeFragment : Fragment() {
                 text_employee_detail_age.text = employee.birthday.fromStringToDate().getAge().toString()
             }
 
-            Glide.with(this).load(employee.avatarUrl).placeholder(ColorDrawable(Color.GREEN)).into(avatar)
+            Glide.with(this).load(employee.avatarUrl)
+                    .placeholder(ColorDrawable(Color.GREEN))
+                    .error(R.drawable.ic_error)
+                    .into(avatar)
         })
     }
 }
