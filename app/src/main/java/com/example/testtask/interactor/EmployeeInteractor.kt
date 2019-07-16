@@ -11,7 +11,7 @@ class EmployeeInteractor @Inject constructor(private val employeeRepository: Emp
     suspend fun getEmployees(): ArrayList<Employee> {
         val employeeList = employeeRepository.getEmployees()
 
-        if (specialityRepository.getSpecialities().isEmpty()) {
+        if (specialityRepository.getSpecialities().isEmpty() && employeeList.isNotEmpty()) {
             specialityRepository.setSpecialitiesFromEmployeeList(employeeList)
         }
 

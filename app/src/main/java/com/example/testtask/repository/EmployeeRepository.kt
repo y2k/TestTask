@@ -6,6 +6,8 @@ import com.example.testtask.extensions.mapper.toDBModel
 import com.example.testtask.model.Employee
 import com.example.testtask.model.ResponseResult
 import com.example.testtask.network.GitlabApiService
+import retrofit2.HttpException
+import timber.log.Timber
 import javax.inject.Inject
 
 class EmployeeRepository @Inject constructor(
@@ -37,7 +39,13 @@ class EmployeeRepository @Inject constructor(
     }
 
     private suspend fun loadEmployees(): ResponseResult {
-        return apiService.loadData().await()
+        try {
+          return apiService.loadData().await()
+        }
+        catch (e:HttpException){
+            Timber.e(e)
+        }
+        return ResponseResult(ArrayList())
     }
 
     private fun cacheEmployees(employees: ArrayList<Employee>) {
