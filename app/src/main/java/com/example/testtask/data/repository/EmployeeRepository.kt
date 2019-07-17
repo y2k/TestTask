@@ -40,12 +40,14 @@ class EmployeeRepository @Inject constructor(
 
     private suspend fun loadEmployees(): ResponseResult {
         try {
-          return apiService.loadData().await()
+            return apiService.loadData().await()
+        } catch (e: HttpException) {
+            Timber.e("HttpException: " + e.code())
+
+            val responseResult = ResponseResult(ArrayList())
+            responseResult.errorCode = e.code()
+            return responseResult
         }
-        catch (e:HttpException){
-            Timber.e(e)
-        }
-        return ResponseResult(ArrayList())
     }
 
     private fun cacheEmployees(employees: ArrayList<Employee>) {

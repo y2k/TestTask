@@ -7,4 +7,6 @@ data class ResponseResult(
     @SerializedName("response")
     @Expose
     val items: List<Employee>
-)
+) {
+    var errorCode: Int = 0
+}
