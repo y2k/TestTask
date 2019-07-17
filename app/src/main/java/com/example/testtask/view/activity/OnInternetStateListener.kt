@@ -1,4 +1,4 @@
-package com.example.testtask.view.activity.main
+package com.example.testtask.view.activity
 
 interface OnInternetStateListener {
     fun onSuccessConnection()

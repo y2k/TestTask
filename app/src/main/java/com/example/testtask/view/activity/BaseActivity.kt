@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sdk.utils.isInternetAviable
 import com.example.testtask.R
-import com.example.testtask.view.activity.main.OnInternetStateListener
 import com.example.testtask.view.dialog.NoConnectionDialog
 
 abstract class BaseActivity : AppCompatActivity() {

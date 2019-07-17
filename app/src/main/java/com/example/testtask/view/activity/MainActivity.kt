@@ -1,4 +1,4 @@
-package com.example.testtask.view.activity.main
+package com.example.testtask.view.activity
 
 import android.os.Bundle
 import android.view.View
@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.testtask.App
 import com.example.testtask.R
 import com.example.testtask.di.ViewModelFactory
-import com.example.testtask.view.activity.BaseActivity
 import com.example.testtask.view.viewmodel.MainActivityViewModel
 import com.example.testtask.view.viewmodel.transport.SharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*

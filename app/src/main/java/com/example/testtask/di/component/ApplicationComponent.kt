@@ -1,7 +1,7 @@
 package com.example.testtask.di.component
 
 import com.example.testtask.di.module.*
-import com.example.testtask.view.activity.main.MainActivity
+import com.example.testtask.view.activity.MainActivity
 import com.example.testtask.view.fragment.EmployeeFragment
 import com.example.testtask.view.fragment.EmployeeListFragment
 import com.example.testtask.view.fragment.SpecialityListFragment
