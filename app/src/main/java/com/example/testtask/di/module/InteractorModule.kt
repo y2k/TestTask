@@ -1,8 +1,9 @@
 package com.example.testtask.di.module
 
-import com.example.testtask.domain.interactor.EmployeeInteractor
-import com.example.testtask.data.repository.EmployeeRepository
-import com.example.testtask.data.repository.SpecialityRepository
+import com.example.testtask.data.repository.employee.EmployeeRepository
+import com.example.testtask.domain.interactor.employee.EmployeeInteractorImpl
+import com.example.testtask.data.repository.speciality.SpecialityRepository
+import com.example.testtask.domain.interactor.employee.EmployeeInteractor
 import dagger.Module
 import dagger.Provides
 
@@ -10,6 +11,6 @@ import dagger.Provides
 class InteractorModule {
 
     @Provides
-    fun provideEmployeeInteractor(employeeRepository: EmployeeRepository,specialityRepository: SpecialityRepository): EmployeeInteractor =
-        EmployeeInteractor(employeeRepository,specialityRepository)
+    fun provideEmployeeInteractor(employeeRepository: EmployeeRepository, specialityRepository: SpecialityRepository): EmployeeInteractor =
+        EmployeeInteractorImpl(employeeRepository, specialityRepository)
 }

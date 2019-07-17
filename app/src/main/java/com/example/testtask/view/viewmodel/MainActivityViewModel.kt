@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sdk.components.SingleLiveEvent
-import com.example.testtask.domain.interactor.EmployeeInteractor
+import com.example.testtask.domain.interactor.employee.EmployeeInteractor
 import kotlinx.coroutines.*
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.example.testtask.data.repository
+package com.example.testtask.data.repository.employee
 
 import com.example.room.DBHelper
 import com.example.room.model.EmployeeDB
@@ -10,16 +10,14 @@ import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
 
-class EmployeeRepository @Inject constructor(
-    private val apiService: GitlabApiService,
-    private val dbHelper: DBHelper
-) {
+class EmployeeRepositoryImpl @Inject constructor(private val apiService: GitlabApiService,
+                                                 private val dbHelper: DBHelper) : EmployeeRepository {
 
     private var selectedEmployee: Employee? = null
     private var cachedEmployees = arrayListOf<Employee>()
 
     //If there is no employees into cache, we load data from server and cache it/save to DB
-    suspend fun getEmployees(): ArrayList<Employee> {
+    override suspend fun getEmployees(): ArrayList<Employee> {
         if (cachedEmployees.isNotEmpty()) {
             return cachedEmployees
         } else {
@@ -30,11 +28,11 @@ class EmployeeRepository @Inject constructor(
         }
     }
 
-    fun setSelectedEmployee(employee: Employee) {
+    override fun setSelectedEmployee(employee: Employee) {
         selectedEmployee = employee
     }
 
-    fun getSelectedEmployee(): Employee? {
+    override fun getSelectedEmployee(): Employee? {
         return selectedEmployee
     }
 

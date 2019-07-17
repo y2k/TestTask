@@ -2,15 +2,16 @@ package com.example.testtask.view.viewmodel.transport
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.testtask.domain.interactor.EmployeeInteractor
-import com.example.testtask.domain.interactor.SpecialityInteractor
+import com.example.testtask.domain.interactor.employee.EmployeeInteractorImpl
+import com.example.testtask.domain.interactor.speciality.SpecialityInteractorImpl
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.model.Specialty
 import javax.inject.Inject
 
 class SharedViewModel @Inject constructor(
-    private var employeeInteractor: EmployeeInteractor,
-    private var specialityInteractor: SpecialityInteractor) : ViewModel() {
+    private var employeeInteractor: EmployeeInteractorImpl,
+    private var specialityInteractor: SpecialityInteractorImpl
+) : ViewModel() {
 
     val employeeList = MutableLiveData<ArrayList<Employee>>()
     val specialtyList = MutableLiveData<ArrayList<Specialty>>()
