@@ -2,6 +2,7 @@ package com.example.testtask.data.repository.employee
 
 import com.example.room.DBHelper
 import com.example.room.model.EmployeeDB
+import com.example.testtask.data.model.RepositoryResult
 import com.example.testtask.domain.toDBModel
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.model.ResponseResult
@@ -10,21 +11,28 @@ import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
 
-class EmployeeRepositoryImpl @Inject constructor(private val apiService: GitlabApiService,
-                                                 private val dbHelper: DBHelper) : EmployeeRepository {
+class EmployeeRepositoryImpl @Inject constructor(
+    private val apiService: GitlabApiService,
+    private val dbHelper: DBHelper
+) : EmployeeRepository {
 
     private var selectedEmployee: Employee? = null
     private var cachedEmployees = arrayListOf<Employee>()
 
     //If there is no employees into cache, we load data from server and cache it/save to DB
-    override suspend fun getEmployees(): ArrayList<Employee> {
+    override suspend fun getEmployees(): RepositoryResult {
         if (cachedEmployees.isNotEmpty()) {
-            return cachedEmployees
+            return RepositoryResult.ResponseResult(cachedEmployees)
         } else {
-            val loadedEmployees = loadEmployees().items as ArrayList<Employee>
-            cacheEmployees(loadedEmployees)
-            saveEmployeesToDB(loadedEmployees)
-            return loadedEmployees
+            val loadedEmployeesResult = loadEmployees()
+            when (loadedEmployeesResult){
+                is RepositoryResult.Error ->{}
+                is RepositoryResult.ResponseResult ->{
+                    cacheEmployees(loadedEmployeesResult.items)
+                    saveEmployeesToDB(loadedEmployeesResult.items)
+                    return loadedEmployeesResult
+                }
+            }
         }
     }
 
@@ -36,15 +44,12 @@ class EmployeeRepositoryImpl @Inject constructor(private val apiService: GitlabA
         return selectedEmployee
     }
 
-    private suspend fun loadEmployees(): ResponseResult {
+    private suspend fun loadEmployees(): RepositoryResult {
         try {
-            return apiService.loadData().await()
+            return RepositoryResult.ResponseResult(apiService.loadData().await().items)
         } catch (e: HttpException) {
             Timber.e("HttpException: " + e.code())
-
-            val responseResult = ResponseResult(ArrayList())
-            responseResult.errorCode = e.code()
-            return responseResult
+            return RepositoryResult.Error(e.code().toString())
         }
     }
 
