@@ -1,9 +1,9 @@
-package com.example.testtask.extensions.mapper
+package com.example.testtask.domain
 
 import com.example.room.model.EmployeeDB
 import com.example.room.model.SpecialtyDB
-import com.example.testtask.model.Employee
-import com.example.testtask.model.Specialty
+import com.example.testtask.domain.model.Employee
+import com.example.testtask.domain.model.Specialty
 
 fun Employee.toDBModel(): EmployeeDB {
     val specialtyList = this.specialtyList?.map { it.toDBModel() } as ArrayList<SpecialtyDB>

@@ -1,11 +1,11 @@
-package com.example.testtask.viewmodel.transport
+package com.example.testtask.view.viewmodel.transport
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.testtask.interactor.EmployeeInteractor
-import com.example.testtask.interactor.SpecialityInteractor
-import com.example.testtask.model.Employee
-import com.example.testtask.model.Specialty
+import com.example.testtask.domain.interactor.EmployeeInteractor
+import com.example.testtask.domain.interactor.SpecialityInteractor
+import com.example.testtask.domain.model.Employee
+import com.example.testtask.domain.model.Specialty
 import javax.inject.Inject
 
 class SharedViewModel @Inject constructor(

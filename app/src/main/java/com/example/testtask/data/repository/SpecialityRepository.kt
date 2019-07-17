@@ -1,10 +1,10 @@
-package com.example.testtask.repository
+package com.example.testtask.data.repository
 
 import com.example.room.DBHelper
 import com.example.room.model.SpecialtyDB
-import com.example.testtask.extensions.mapper.toDBModel
-import com.example.testtask.model.Employee
-import com.example.testtask.model.Specialty
+import com.example.testtask.domain.toDBModel
+import com.example.testtask.domain.model.Employee
+import com.example.testtask.domain.model.Specialty
 
 import javax.inject.Inject
 

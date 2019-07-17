@@ -1,11 +1,11 @@
-package com.example.testtask.repository
+package com.example.testtask.data.repository
 
 import com.example.room.DBHelper
 import com.example.room.model.EmployeeDB
-import com.example.testtask.extensions.mapper.toDBModel
-import com.example.testtask.model.Employee
-import com.example.testtask.model.ResponseResult
-import com.example.testtask.network.GitlabApiService
+import com.example.testtask.domain.toDBModel
+import com.example.testtask.domain.model.Employee
+import com.example.testtask.domain.model.ResponseResult
+import com.example.testtask.data.network.GitlabApiService
 import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject

@@ -8,7 +8,7 @@ import com.example.sdk.extensions.fixName
 import com.example.sdk.extensions.fromStringToDate
 import com.example.sdk.extensions.getAge
 import com.example.testtask.R
-import com.example.testtask.model.Employee
+import com.example.testtask.domain.model.Employee
 import kotlinx.android.synthetic.main.cell_employees.view.*
 import kotlinx.android.synthetic.main.cell_specialities.view.cell_root
 import kotlin.collections.ArrayList

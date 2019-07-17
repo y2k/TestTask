@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.di.ViewModelKey
-import com.example.testtask.viewmodel.MainActivityViewModel
-import com.example.testtask.viewmodel.transport.SharedViewModel
+import com.example.testtask.view.viewmodel.MainActivityViewModel
+import com.example.testtask.view.viewmodel.transport.SharedViewModel
 import dagger.multibindings.IntoMap
 import dagger.Binds
 

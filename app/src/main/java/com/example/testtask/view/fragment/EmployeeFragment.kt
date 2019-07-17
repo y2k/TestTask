@@ -18,7 +18,7 @@ import com.example.testtask.App
 
 import com.example.testtask.R
 import com.example.testtask.di.ViewModelFactory
-import com.example.testtask.viewmodel.transport.SharedViewModel
+import com.example.testtask.view.viewmodel.transport.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_employee.*
 import javax.inject.Inject
 

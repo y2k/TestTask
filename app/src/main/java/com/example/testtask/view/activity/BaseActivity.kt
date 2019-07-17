@@ -6,13 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.sdk.utils.isInternetAviable
 import com.example.testtask.R
 import com.example.testtask.view.activity.main.OnInternetStateListener
-import com.example.testtask.view.fragment.additional.NoConnectionDialogFragment
-import timber.log.Timber
+import com.example.testtask.view.dialog.NoConnectionDialog
 
 abstract class BaseActivity : AppCompatActivity() {
     private val TAG_FRAGMENT_NO_CONNECTION: String = "NoConnectionTag"
 
-    private lateinit var noInternetConnectionDialog: NoConnectionDialogFragment
+    private lateinit var noInternetConnectionDialog: NoConnectionDialog
 
     //It's single activity app, so close Activity equals close app
     fun closeApp() {
@@ -39,8 +38,8 @@ abstract class BaseActivity : AppCompatActivity() {
                 noInternetConnectionDialog.dismiss()
             }
         } else {
-            noInternetConnectionDialog = NoConnectionDialogFragment(callBack = {
-                if (it == NoConnectionDialogFragment.NO_CONNECTION_EXIT) {
+            noInternetConnectionDialog = NoConnectionDialog(callBack = {
+                if (it == NoConnectionDialog.NO_CONNECTION_EXIT) {
                     closeApp()
                 } else {
                     if (!isInternetAviable(this)) {

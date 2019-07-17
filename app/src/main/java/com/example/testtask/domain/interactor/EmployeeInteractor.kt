@@ -1,8 +1,8 @@
-package com.example.testtask.interactor
+package com.example.testtask.domain.interactor
 
-import com.example.testtask.model.Employee
-import com.example.testtask.repository.EmployeeRepository
-import com.example.testtask.repository.SpecialityRepository
+import com.example.testtask.domain.model.Employee
+import com.example.testtask.data.repository.EmployeeRepository
+import com.example.testtask.data.repository.SpecialityRepository
 import javax.inject.Inject
 
 class EmployeeInteractor @Inject constructor(private val employeeRepository: EmployeeRepository,

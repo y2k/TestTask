@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtask.R
-import com.example.testtask.model.Specialty
+import com.example.testtask.domain.model.Specialty
 import kotlinx.android.synthetic.main.cell_specialities.view.*
 
 class SpecialitiesAdapter(private val callback: (id: Int) -> Unit) : RecyclerView.Adapter<SpecialitiesAdapter.SpecialtyHolder>() {

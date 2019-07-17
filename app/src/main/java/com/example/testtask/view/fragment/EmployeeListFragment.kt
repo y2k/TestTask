@@ -16,9 +16,9 @@ import com.example.testtask.R
 import com.example.testtask.view.adapters.EmployeesAdapter
 import com.example.testtask.view.decorators.MarginItemDecoration
 import com.example.testtask.di.ViewModelFactory
-import com.example.testtask.model.Employee
-import com.example.testtask.model.Specialty
-import com.example.testtask.viewmodel.transport.SharedViewModel
+import com.example.testtask.domain.model.Employee
+import com.example.testtask.domain.model.Specialty
+import com.example.testtask.view.viewmodel.transport.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_employee_list.*
 import javax.inject.Inject
 

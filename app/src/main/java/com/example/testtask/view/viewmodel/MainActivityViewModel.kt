@@ -1,10 +1,10 @@
-package com.example.testtask.viewmodel
+package com.example.testtask.view.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sdk.components.SingleLiveEvent
-import com.example.testtask.interactor.EmployeeInteractor
+import com.example.testtask.domain.interactor.EmployeeInteractor
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
