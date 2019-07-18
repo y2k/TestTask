@@ -16,8 +16,8 @@ import com.example.testtask.R
 import com.example.testtask.view.adapters.EmployeesAdapter
 import com.example.testtask.view.decorators.MarginItemDecoration
 import com.example.testtask.di.ViewModelFactory
-import com.example.testtask.domain.model.Employee
-import com.example.testtask.domain.model.Specialty
+import com.example.testtask.data.model.EmployeeNetwork
+import com.example.testtask.data.model.SpecialtyNetwork
 import com.example.testtask.view.viewmodel.transport.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_employee_list.*
 import javax.inject.Inject
@@ -29,7 +29,7 @@ class EmployeeListFragment : Fragment() {
 
     private lateinit var sharedViewModel: SharedViewModel
 
-    private lateinit var specialty: Specialty
+    private lateinit var specialtyNetwork: SpecialtyNetwork
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,21 +62,21 @@ class EmployeeListFragment : Fragment() {
         val specialtyID = arguments?.getInt(KEY_SPECIALITY_ID) ?: 0
 
         sharedViewModel.specialtyList.observe(this, Observer { list ->
-            specialty = list[specialtyID]
-            title_employees_speciality.text = specialty.specialityName
+            specialtyNetwork = list[specialtyID]
+            title_employees_speciality.text = specialtyNetwork.specialityName
         })
 
         sharedViewModel.employeeList.observe(this, Observer { employeeList ->
             val employees = employeeList?.filter { employee ->
-                employee.specialtyList?.contains(specialty) ?: true
+                employee.specialtyNetworkList?.contains(specialtyNetwork) ?: true
             }
             adapter.setEmployees(employees)
         }
         )
     }
 
-    private fun navigateToEmployeeDetailInfo(employee: Employee) {
-        sharedViewModel.setSelectedEmployee(employee)
+    private fun navigateToEmployeeDetailInfo(employeeNetwork: EmployeeNetwork) {
+        sharedViewModel.setSelectedEmployee(employeeNetwork)
         Navigation.findNavController(activity!!, R.id.host).navigate(R.id.fromEmployeesListToEmployee)
     }
 }

@@ -2,11 +2,11 @@ package com.example.testtask.domain
 
 import com.example.room.model.EmployeeDB
 import com.example.room.model.SpecialtyDB
-import com.example.testtask.domain.model.Employee
-import com.example.testtask.domain.model.Specialty
+import com.example.testtask.data.model.EmployeeNetwork
+import com.example.testtask.data.model.SpecialtyNetwork
 
-fun Employee.toDBModel(): EmployeeDB {
-    val specialtyList = this.specialtyList?.map { it.toDBModel() } as ArrayList<SpecialtyDB>
+fun EmployeeNetwork.toDBModel(): EmployeeDB {
+    val specialtyList = this.specialtyNetworkList?.map { it.toDBModel() } as ArrayList<SpecialtyDB>
     return EmployeeDB(
         id = 0,
         firstName = this.firstName,
@@ -18,7 +18,7 @@ fun Employee.toDBModel(): EmployeeDB {
 }
 
 
-fun Specialty.toDBModel(): SpecialtyDB {
+fun SpecialtyNetwork.toDBModel(): SpecialtyDB {
     return SpecialtyDB(
         id = 0,
         specialityID = this.specialityID,

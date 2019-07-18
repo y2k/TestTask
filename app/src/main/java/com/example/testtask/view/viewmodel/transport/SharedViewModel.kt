@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.testtask.domain.interactor.employee.EmployeeInteractorImpl
 import com.example.testtask.domain.interactor.speciality.SpecialityInteractorImpl
-import com.example.testtask.domain.model.Employee
-import com.example.testtask.domain.model.Specialty
+import com.example.testtask.data.model.EmployeeNetwork
+import com.example.testtask.data.model.SpecialtyNetwork
 import javax.inject.Inject
 
 class SharedViewModel @Inject constructor(
@@ -13,9 +13,9 @@ class SharedViewModel @Inject constructor(
     private var specialityInteractor: SpecialityInteractorImpl
 ) : ViewModel() {
 
-    val employeeList = MutableLiveData<ArrayList<Employee>>()
-    val specialtyList = MutableLiveData<ArrayList<Specialty>>()
-    val selectedEmployee = MutableLiveData<Employee>()
+    val employeeList = MutableLiveData<ArrayList<EmployeeNetwork>>()
+    val specialtyList = MutableLiveData<ArrayList<SpecialtyNetwork>>()
+    val selectedEmployee = MutableLiveData<EmployeeNetwork>()
 
     suspend fun init() {
         specialtyList.value = specialityInteractor.getSpecialities()
@@ -23,8 +23,8 @@ class SharedViewModel @Inject constructor(
         selectedEmployee.value = employeeInteractor.getSelectedEmployee()
     }
 
-    fun setSelectedEmployee(employee: Employee){
-        selectedEmployee.value = employee
-        employeeInteractor.setSelectedEmployee(employee)
+    fun setSelectedEmployee(employeeNetwork: EmployeeNetwork){
+        selectedEmployee.value = employeeNetwork
+        employeeInteractor.setSelectedEmployee(employeeNetwork)
     }
 }

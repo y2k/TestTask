@@ -4,8 +4,7 @@ import com.example.room.DBHelper
 import com.example.room.model.EmployeeDB
 import com.example.testtask.data.model.RepositoryResult
 import com.example.testtask.domain.toDBModel
-import com.example.testtask.domain.model.Employee
-import com.example.testtask.domain.model.ResponseResult
+import com.example.testtask.data.model.EmployeeNetwork
 import com.example.testtask.data.network.GitlabApiService
 import retrofit2.HttpException
 import timber.log.Timber
@@ -16,8 +15,8 @@ class EmployeeRepositoryImpl @Inject constructor(
     private val dbHelper: DBHelper
 ) : EmployeeRepository {
 
-    private var selectedEmployee: Employee? = null
-    private var cachedEmployees = arrayListOf<Employee>()
+    private var selectedEmployeeNetwork: EmployeeNetwork? = null
+    private var cachedEmployees = arrayListOf<EmployeeNetwork>()
 
     //If there is no employees into cache, we load data from server and cache it/save to DB
     override suspend fun getEmployees(): RepositoryResult {
@@ -25,10 +24,12 @@ class EmployeeRepositoryImpl @Inject constructor(
             return RepositoryResult.ResponseResult(cachedEmployees)
         } else {
             val loadedEmployeesResult = loadEmployees()
-            when (loadedEmployeesResult){
-                is RepositoryResult.Error ->{}
-                is RepositoryResult.ResponseResult ->{
-                    cacheEmployees(loadedEmployeesResult.items)
+            when (loadedEmployeesResult) {
+                is RepositoryResult.Error -> {
+                    return loadedEmployeesResult
+                }
+                is RepositoryResult.ResponseResult -> {
+                    cacheEmployees(loadedEmployeesResult.items as ArrayList<EmployeeNetwork>)
                     saveEmployeesToDB(loadedEmployeesResult.items)
                     return loadedEmployeesResult
                 }
@@ -36,12 +37,12 @@ class EmployeeRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun setSelectedEmployee(employee: Employee) {
-        selectedEmployee = employee
+    override fun setSelectedEmployee(employeeNetwork: EmployeeNetwork) {
+        selectedEmployeeNetwork = employeeNetwork
     }
 
-    override fun getSelectedEmployee(): Employee? {
-        return selectedEmployee
+    override fun getSelectedEmployee(): EmployeeNetwork? {
+        return selectedEmployeeNetwork
     }
 
     private suspend fun loadEmployees(): RepositoryResult {
@@ -53,12 +54,12 @@ class EmployeeRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun cacheEmployees(employees: ArrayList<Employee>) {
-        this.cachedEmployees = employees
+    private fun cacheEmployees(employeeNetworks: ArrayList<EmployeeNetwork>) {
+        this.cachedEmployees = employeeNetworks
     }
 
-    private fun saveEmployeesToDB(employees: ArrayList<Employee>) {
-        val convertedEmployees = employees.map { it.toDBModel() }
+    private fun saveEmployeesToDB(employeeNetworks: ArrayList<EmployeeNetwork>) {
+        val convertedEmployees = employeeNetworks.map { it.toDBModel() }
         dbHelper.writeEmployeesToDB(convertedEmployees as ArrayList<EmployeeDB>)
     }
 }

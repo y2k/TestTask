@@ -1,9 +1,9 @@
-package com.example.testtask.domain.model
+package com.example.testtask.data.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Specialty(
+data class SpecialtyNetwork(
     @SerializedName("specialty_id")
     @Expose
     val specialityID: Int,

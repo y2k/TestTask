@@ -1,6 +1,5 @@
 package com.example.sdk.extensions
 
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -13,11 +12,5 @@ fun String.fixName(): String {
 //Strings
 fun String.fromStringToDate(): Date {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-    var convertedDate = Date()
-    try {
-        convertedDate = dateFormat.parse(this)
-    } catch (e: ParseException) {
-        e.printStackTrace()
-    }
-    return convertedDate
+    return dateFormat.parse(this)
 }

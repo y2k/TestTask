@@ -1,7 +1,7 @@
 package com.example.testtask.domain.interactor.speciality
 
-import com.example.testtask.domain.model.Specialty
+import com.example.testtask.data.model.SpecialtyNetwork
 
 interface SpecialityInteractor {
-    fun getSpecialities(): ArrayList<Specialty>
+    fun getSpecialities(): ArrayList<SpecialtyNetwork>
 }

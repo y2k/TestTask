@@ -1,6 +1,6 @@
 package com.example.testtask.data.network
 
-import com.example.testtask.domain.model.ResponseResult
+import com.example.testtask.data.model.ResponseResult
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 

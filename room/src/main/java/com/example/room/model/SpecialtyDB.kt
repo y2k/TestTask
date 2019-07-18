@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.room.EmployeeDatabase
 
-@Entity(tableName = com.example.room.EmployeeDatabase.TABLE_SPECIALITY_NAME)
+@Entity(tableName = EmployeeDatabase.TABLE_SPECIALITY_NAME)
 data class SpecialtyDB(
 
     @PrimaryKey(autoGenerate = true)

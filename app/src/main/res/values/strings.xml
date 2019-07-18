@@ -16,7 +16,7 @@
     <string name="employee_age">Возраст</string>
     <string name="employee_age_empty">«\u00AD«</string>
 
-    <!-- Employee detail Fragment -->
+    <!-- EmployeeNetwork detail Fragment -->
     <string name="employee_detail_title">Детальная информация о сотруднике</string>
 
     <string name="employee_detail_name">Имя</string>
