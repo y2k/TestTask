@@ -13,12 +13,8 @@ data class SpecialtyDB(
     var id: Int = 0,
 
     @ColumnInfo(name = "specialty_id")
-    var specialityID: Int = 0,
+    var specialityID: Int?,
 
     @ColumnInfo(name = "specialty_name")
-    var specialityName: String
-) {
-    constructor() : this(
-        0, 0, ""
-    )
-}
+    var specialityName: String?
+)

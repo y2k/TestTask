@@ -3,22 +3,22 @@ package com.example.testtask.data.repository.speciality
 import com.example.room.DBHelper
 import com.example.room.model.SpecialtyDB
 import com.example.testtask.domain.toDBModel
-import com.example.testtask.data.model.EmployeeNetwork
-import com.example.testtask.data.model.SpecialtyNetwork
+import com.example.testtask.domain.model.Employee
+import com.example.testtask.domain.model.Speciality
 
 import javax.inject.Inject
 
 class SpecialityRepositoryImpl @Inject constructor(private val dbHelper: DBHelper) : SpecialityRepository {
-    private var cachedSpecialities = arrayListOf<SpecialtyNetwork>()
+    private var cachedSpecialities = arrayListOf<Speciality>()
 
-    override fun setSpecialities(specialtyNetworks: ArrayList<SpecialtyNetwork>) {
-        cacheSpecialities(specialtyNetworks)
+    override fun setSpecialities(specialties: ArrayList<Speciality>) {
+        cacheSpecialities(specialties)
     }
 
-    override fun setSpecialitiesFromEmployeeList(employeeNetworks: ArrayList<EmployeeNetwork>) {
-        val specialties = employeeNetworks
-            .flatMap { it.specialtyNetworkList.orEmpty() }
-            .distinct() as ArrayList<SpecialtyNetwork>
+    override fun setSpecialitiesFromEmployeeList(employees: List<Employee>) {
+        val specialties = employees
+            .flatMap { it.specialtyList.orEmpty() }
+            .distinct() as ArrayList<Speciality>
         cacheSpecialities(specialties)
         saveSpecialitiesToDB(specialties)
     }
@@ -26,12 +26,12 @@ class SpecialityRepositoryImpl @Inject constructor(private val dbHelper: DBHelpe
     //The only thing we can do is return cached value
     override fun getSpecialities() = cachedSpecialities
 
-    private fun cacheSpecialities(specialtyNetworks: ArrayList<SpecialtyNetwork>) {
-        this.cachedSpecialities = specialtyNetworks
+    private fun cacheSpecialities(specialties: ArrayList<Speciality>) {
+        this.cachedSpecialities = specialties
     }
 
-    private fun saveSpecialitiesToDB(specialtyNetworks: ArrayList<SpecialtyNetwork>) {
-        val convertedSpecialities = specialtyNetworks.map { it.toDBModel() }
+    private fun saveSpecialitiesToDB(specialties: ArrayList<Speciality>) {
+        val convertedSpecialities = specialties.map { it.toDBModel() }
         dbHelper.writeSpecialitiesToDB(convertedSpecialities as ArrayList<SpecialtyDB>)
     }
 }

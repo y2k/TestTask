@@ -5,5 +5,5 @@ data class Employee(
     val lastName: String?,
     val birthday: String?,
     val avatarUrl: String?,
-    val specialtyNetworkList: ArrayList<Speciality>?
+    val specialtyList: ArrayList<Speciality>?
 )

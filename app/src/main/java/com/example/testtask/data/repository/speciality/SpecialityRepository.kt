@@ -1,12 +1,12 @@
 package com.example.testtask.data.repository.speciality
 
-import com.example.testtask.data.model.EmployeeNetwork
-import com.example.testtask.data.model.SpecialtyNetwork
+import com.example.testtask.domain.model.Employee
+import com.example.testtask.domain.model.Speciality
 
 interface SpecialityRepository {
-    fun setSpecialities(specialtyNetworks: ArrayList<SpecialtyNetwork>)
+    fun setSpecialities(specialties:ArrayList<Speciality>)
 
-    fun setSpecialitiesFromEmployeeList(employeeNetworks: ArrayList<EmployeeNetwork>)
+    fun setSpecialitiesFromEmployeeList(employees: List<Employee>)
 
-    fun getSpecialities():ArrayList<SpecialtyNetwork>
+    fun getSpecialities():ArrayList<Speciality>
 }

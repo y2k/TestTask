@@ -1,12 +1,11 @@
 package com.example.testtask.data.repository.employee
 
-import com.example.testtask.data.model.RepositoryResult
-import com.example.testtask.data.model.EmployeeNetwork
+import com.example.testtask.domain.model.Employee
 
 interface EmployeeRepository {
-    suspend fun getEmployees():RepositoryResult
+    suspend fun getEmployees():List<Employee>
 
-    fun setSelectedEmployee(employeeNetwork: EmployeeNetwork)
+    fun setSelectedEmployee(employee: Employee)
 
-    fun getSelectedEmployee(): EmployeeNetwork?
+    fun getSelectedEmployee(): Employee?
 }

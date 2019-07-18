@@ -1,12 +1,12 @@
 package com.example.testtask.domain.interactor.employee
 
-import com.example.testtask.data.model.EmployeeNetwork
+import com.example.testtask.domain.model.Employee
 
 interface EmployeeInteractor {
 
-    suspend fun getEmployees(): ArrayList<EmployeeNetwork>
+    suspend fun getEmployees(): List<Employee>
 
-    fun getSelectedEmployee(): EmployeeNetwork?
+    fun getSelectedEmployee(): Employee?
 
-    fun setSelectedEmployee(employeeNetwork: EmployeeNetwork)
+    fun setSelectedEmployee(employeeNetwork: Employee)
 }

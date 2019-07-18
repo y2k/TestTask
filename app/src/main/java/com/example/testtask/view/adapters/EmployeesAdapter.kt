@@ -8,19 +8,19 @@ import com.example.sdk.extensions.fixName
 import com.example.sdk.extensions.fromStringToDate
 import com.example.sdk.extensions.getAge
 import com.example.testtask.R
-import com.example.testtask.data.model.EmployeeNetwork
+import com.example.testtask.domain.model.Employee
 import kotlinx.android.synthetic.main.cell_employees.view.*
 import kotlinx.android.synthetic.main.cell_specialities.view.cell_root
 import kotlin.collections.ArrayList
 
-class EmployeesAdapter(private val callback: (employeeNetwork: EmployeeNetwork) -> Unit) :
+class EmployeesAdapter(private val callback: (employee: Employee) -> Unit) :
         RecyclerView.Adapter<EmployeesAdapter.EmployeeHolder>() {
 
-    private var employeeList = ArrayList<EmployeeNetwork>()
+    private var employeeList = ArrayList<Employee>()
 
-    fun setEmployees(employeeNetworks: List<EmployeeNetwork>?) {
-        if (employeeNetworks != null) {
-            employeeList = employeeNetworks as ArrayList<EmployeeNetwork>
+    fun setEmployees(employees: List<Employee>?) {
+        if (employees != null) {
+            employeeList = employees as ArrayList<Employee>
             notifyDataSetChanged()
         }
     }
@@ -45,13 +45,13 @@ class EmployeesAdapter(private val callback: (employeeNetwork: EmployeeNetwork) 
         private var age = itemView.cell_employee_age
         private var root = itemView.cell_root
 
-        fun bind(employeeNetwork: EmployeeNetwork) {
-            name.text = employeeNetwork.firstName?.fixName()
-            lastName.text = employeeNetwork.lastName?.fixName()
+        fun bind(employee: Employee) {
+            name.text = employee.firstName?.fixName()
+            lastName.text = employee.lastName?.fixName()
 
-            if (employeeNetwork.birthday.isNullOrEmpty()) {
+            if (employee.birthday.isNullOrEmpty()) {
                 age.text = itemView.context.getString(R.string.employee_age_empty)
-            } else age.text = employeeNetwork.birthday.fromStringToDate().getAge().toString()
+            } else age.text = employee.birthday.fromStringToDate().getAge().toString()
 
             root.setOnClickListener {
                 callback.invoke(employeeList[adapterPosition])

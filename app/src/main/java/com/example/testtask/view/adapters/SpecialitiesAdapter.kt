@@ -5,14 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtask.R
-import com.example.testtask.data.model.SpecialtyNetwork
+import com.example.testtask.domain.model.Speciality
 import kotlinx.android.synthetic.main.cell_specialities.view.*
 
 class SpecialitiesAdapter(private val callback: (id: Int) -> Unit) : RecyclerView.Adapter<SpecialitiesAdapter.SpecialtyHolder>() {
 
-    private var specialtyList = ArrayList<SpecialtyNetwork>()
+    private var specialtyList = ArrayList<Speciality>()
 
-    fun setSpecialities(specialities: ArrayList<SpecialtyNetwork>) {
+    fun setSpecialities(specialities: ArrayList<Speciality>) {
         specialtyList = specialities
         notifyDataSetChanged()
     }
@@ -36,9 +36,9 @@ class SpecialitiesAdapter(private val callback: (id: Int) -> Unit) : RecyclerVie
         private var name = itemView.cell_speciality_name
         private var root = itemView.cell_root
 
-        fun bind(specialtyNetwork: SpecialtyNetwork) {
-            id.text = specialtyNetwork.specialityID.toString()
-            name.text = specialtyNetwork.specialityName
+        fun bind(specialty: Speciality) {
+            id.text = specialty.specialityID.toString()
+            name.text = specialty.specialityName
             root.setOnClickListener {
                 callback.invoke(adapterPosition)
             }
