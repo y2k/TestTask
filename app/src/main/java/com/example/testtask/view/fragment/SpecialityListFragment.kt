@@ -16,7 +16,7 @@ import com.example.testtask.R
 import com.example.testtask.view.adapters.SpecialitiesAdapter
 import com.example.testtask.view.decorators.MarginItemDecoration
 import com.example.testtask.di.ViewModelFactory
-import com.example.testtask.view.viewmodel.transport.SharedViewModel
+import com.example.testtask.view.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_speciality_list.*
 import javax.inject.Inject
 

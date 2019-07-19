@@ -1,4 +1,4 @@
-package com.example.testtask.view.viewmodel.transport
+package com.example.testtask.view.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

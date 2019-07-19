@@ -8,7 +8,7 @@ import com.example.testtask.App
 import com.example.testtask.R
 import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.view.viewmodel.MainActivityViewModel
-import com.example.testtask.view.viewmodel.transport.SharedViewModel
+import com.example.testtask.view.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
