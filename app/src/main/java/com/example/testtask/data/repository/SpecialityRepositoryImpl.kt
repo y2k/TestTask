@@ -2,7 +2,7 @@ package com.example.testtask.data.repository
 
 import com.example.room.DBHelper
 import com.example.room.model.SpecialtyDB
-import com.example.testtask.domain.toDBModel
+import com.example.testtask.data.toDBModel
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.model.Speciality
 import com.example.testtask.domain.repository.SpecialityRepository

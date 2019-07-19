@@ -1,4 +1,4 @@
-package com.example.testtask.domain
+package com.example.testtask.data
 
 import com.example.room.model.EmployeeDB
 import com.example.room.model.SpecialtyDB
