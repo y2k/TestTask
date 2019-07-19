@@ -43,21 +43,21 @@ class EmployeeFragment : Fragment() {
 
         sharedViewModel.selectedEmployee.observe(this, Observer { employee ->
 
-            text_employee_detail_name.text = employee.firstName?.fixName() ?: ""
-            text_employee_detail_last_name.text = employee.lastName?.fixName() ?: ""
+            text_employee_detail_name.text = employee.firstName
+            text_employee_detail_last_name.text = employee.lastName
 
             if ((employee.birthday.isNullOrEmpty())) {
                 text_employee_detail_birthday.text = getString(R.string.employee_age_empty)
                 text_employee_detail_age.text = getString(R.string.employee_age_empty)
             } else {
-                text_employee_detail_birthday.text = employee.birthday.fromStringToDate().fromDateToFormattedString()
-                text_employee_detail_age.text = employee.birthday.fromStringToDate().getAge().toString()
+                text_employee_detail_birthday.text = employee.birthday?.fromStringToDate()?.fromDateToFormattedString()
+                text_employee_detail_age.text = employee.birthday?.fromStringToDate()?.getAge().toString()
             }
 
             Glide.with(this).load(employee.avatarUrl)
-                    .placeholder(ColorDrawable(Color.GREEN))
-                    .error(R.drawable.ic_error)
-                    .into(avatar)
+                .placeholder(ColorDrawable(Color.GREEN))
+                .error(R.drawable.ic_error)
+                .into(avatar)
         })
     }
 }

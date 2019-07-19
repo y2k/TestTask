@@ -43,9 +43,7 @@ class EmployeeListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val adapter = EmployeesAdapter {
-            navigateToEmployeeDetailInfo(it)
-        }
+        val adapter = EmployeesAdapter { navigateToEmployeeDetailInfo(it) }
 
         with(rv_employees) {
             layoutManager = verticalManager(context)

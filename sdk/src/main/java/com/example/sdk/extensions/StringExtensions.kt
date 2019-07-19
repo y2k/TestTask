@@ -9,8 +9,27 @@ fun String.fixName(): String {
     } else ""
 }
 
-//Strings
 fun String.fromStringToDate(): Date {
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+    val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.US)
     return dateFormat.parse(this)
+}
+
+fun String.fixBirthday(): String {
+    if (this.isEmpty()) {
+        return ""
+    }
+
+    val regex = Regex(pattern = "([0-9]{2})-([0-9]{2})-([0-9]{4})")
+
+    if (regex.containsMatchIn(this)) {
+        return this
+    } else {
+        val dateFormatIncorrect = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        val dateFormatCorrect = SimpleDateFormat("dd-MM-yyyy", Locale.US)
+
+        val correctDate = dateFormatIncorrect.parse(this)
+        val correctStringDate = dateFormatCorrect.format(correctDate)
+
+        return correctStringDate
+    }
 }
