@@ -1,9 +1,9 @@
 package com.example.testtask.di.module
 
-import com.example.testtask.domain.repository.EmployeeRepository
-import com.example.testtask.domain.interactor.employee.EmployeeInteractorImpl
-import com.example.testtask.domain.repository.SpecialityRepository
-import com.example.testtask.domain.interactor.employee.EmployeeInteractor
+import com.example.testtask.domain.EmployeeRepository
+import com.example.testtask.domain.interactor.EmployeeInteractorImpl
+import com.example.testtask.domain.SpecialityRepository
+import com.example.testtask.view.EmployeeInteractor
 import dagger.Module
 import dagger.Provides
 

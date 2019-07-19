@@ -1,9 +1,11 @@
-package com.example.testtask.domain.interactor.employee
+package com.example.testtask.domain.interactor
 
-import com.example.testtask.data.RepositoryResult
-import com.example.testtask.domain.repository.EmployeeRepository
-import com.example.testtask.domain.repository.SpecialityRepository
+import com.example.sdk.other.Either
+import com.example.sdk.other.Failure
+import com.example.testtask.domain.EmployeeRepository
+import com.example.testtask.domain.SpecialityRepository
 import com.example.testtask.domain.model.Employee
+import com.example.testtask.view.EmployeeInteractor
 import javax.inject.Inject
 
 class EmployeeInteractorImpl @Inject constructor(
@@ -11,20 +13,16 @@ class EmployeeInteractorImpl @Inject constructor(
     private val specialityRepository: SpecialityRepository
 ) : EmployeeInteractor {
 
-    override suspend fun getEmployees(): EmployeeInteractorResult {
+    override suspend fun getEmployees(): Either<Failure, List<Employee>> {
         val employeeListResult = employeeRepository.getEmployees()
-
         when (employeeListResult) {
-            is RepositoryResult.Data -> {
+            is Either.Data -> {
                 if (specialityRepository.getSpecialities().isEmpty()) {
-                    specialityRepository.setSpecialitiesFromEmployeeList(employeeListResult.items)
+                    specialityRepository.setSpecialitiesFromEmployeeList(employeeListResult.data)
                 }
-                val list = employeeListResult.items
-                return EmployeeInteractorResult.Data(list)
+                return employeeListResult
             }
-            is RepositoryResult.Error -> {
-                return EmployeeInteractorResult.Error(employeeListResult.errorMessage)
-            }
+            else -> return employeeListResult
         }
     }
 

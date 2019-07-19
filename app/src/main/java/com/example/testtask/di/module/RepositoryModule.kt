@@ -4,9 +4,9 @@ import com.example.room.dao.EmployeeDao
 import com.example.room.dao.SpecialityDao
 import com.example.testtask.data.network.GitlabApiService
 import com.example.room.DBHelper
-import com.example.testtask.domain.repository.EmployeeRepository
+import com.example.testtask.domain.EmployeeRepository
 import com.example.testtask.data.repository.EmployeeRepositoryImpl
-import com.example.testtask.domain.repository.SpecialityRepository
+import com.example.testtask.domain.SpecialityRepository
 import com.example.testtask.data.repository.SpecialityRepositoryImpl
 import dagger.Module
 import dagger.Provides

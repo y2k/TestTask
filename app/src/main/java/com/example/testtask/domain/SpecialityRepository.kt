@@ -1,4 +1,4 @@
-package com.example.testtask.domain.repository
+package com.example.testtask.domain
 
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.model.Speciality

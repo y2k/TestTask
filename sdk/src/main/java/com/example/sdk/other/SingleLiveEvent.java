@@ -1,4 +1,4 @@
-package com.example.sdk.components;
+package com.example.sdk.other;
 
 import android.util.Log;
 import androidx.annotation.MainThread;

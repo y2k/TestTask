@@ -3,9 +3,9 @@ package com.example.testtask.view.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sdk.components.SingleLiveEvent
-import com.example.testtask.domain.interactor.employee.EmployeeInteractor
-import com.example.testtask.domain.interactor.employee.EmployeeInteractorResult
+import com.example.sdk.other.Either
+import com.example.sdk.other.SingleLiveEvent
+import com.example.testtask.view.EmployeeInteractor
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
@@ -19,14 +19,12 @@ class MainActivityViewModel @Inject constructor(private val employeeInteractor: 
         viewModelScope.launch(Dispatchers.Main) {
             val employeesListResult = employeeInteractor.getEmployees()
             progressBarLiveData.value = false
-
             when (employeesListResult) {
-                is EmployeeInteractorResult.Data -> {
+                is Either.Data -> {
                     dataReadyLiveData.call()
                 }
-
-                is EmployeeInteractorResult.Error -> {
-                    errorLiveData.value = employeesListResult.error
+                is Either.Error -> {
+                    errorLiveData.value = employeesListResult.error.errorCode
                 }
             }
         }
