@@ -17,14 +17,10 @@ class ErrorConnectionDialog : DialogFragment() {
     companion object {
         private const val ARG_ERROR = "errorDialog_arg"
 
-        fun getInstance(error: String): ErrorConnectionDialog {
-            val args = Bundle()
-            val fragment = ErrorConnectionDialog()
-
-            args.putSerializable(ARG_ERROR, error)
-            fragment.arguments = args
-
-            return fragment
+        fun getInstance(error: String) = ErrorConnectionDialog().apply {
+            arguments = Bundle(2).apply {
+                putString(ARG_ERROR, error)
+            }
         }
     }
 
@@ -44,6 +40,7 @@ class ErrorConnectionDialog : DialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        txt_error_connection_title.text = getString(R.string.connection_error_title, arguments?.get(ARG_ERROR) ?: "Unknown")
+        txt_error_connection_title.text =
+            getString(R.string.connection_error_title, arguments?.get(ARG_ERROR) ?: "Unknown")
     }
 }
