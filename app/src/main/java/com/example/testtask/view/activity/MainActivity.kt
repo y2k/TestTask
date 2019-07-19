@@ -10,12 +10,16 @@ import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.view.viewmodel.MainActivityViewModel
 import com.example.testtask.view.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
-class MainActivity : BaseActivity(), OnInternetStateListener {
+class MainActivity : BaseActivity(), OnInternetStateListener, CoroutineScope {
+
+    private val job = SupervisorJob()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -41,13 +45,20 @@ class MainActivity : BaseActivity(), OnInternetStateListener {
 
         mainActivityViewModel.dataReadyLiveData.observe(this,
             Observer<Unit> {
-                GlobalScope.launch(Dispatchers.Main) {
-                    sharedViewModel.init()
+                this.launch {
+                    withContext(coroutineContext) {
+                        sharedViewModel.init()
+                    }
                 }
             })
     }
 
     private fun setLoading(state: Boolean) {
         progress.visibility = if (state) View.VISIBLE else View.GONE
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        coroutineContext.cancelChildren()
     }
 }
