@@ -8,7 +8,7 @@ import com.example.room.dao.SpecialityDao
 import com.example.room.model.EmployeeDB
 import com.example.room.model.SpecialtyDB
 
-@Database(entities = [EmployeeDB::class, SpecialtyDB::class], version = 5)
+@Database(entities = [EmployeeDB::class, SpecialtyDB::class], version = 6)
 @TypeConverters(Converters::class)
 abstract class EmployeeDatabase : RoomDatabase() {
 

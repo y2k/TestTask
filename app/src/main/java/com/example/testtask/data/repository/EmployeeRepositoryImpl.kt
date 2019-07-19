@@ -54,15 +54,11 @@ class EmployeeRepositoryImpl @Inject constructor(
             val employeeList = apiService.loadData().await().items.map { it.toDomian() }
 
             employeeList.forEach { employee ->
-                Timber.e("NAME: " + employee.firstName + " " + employee.birthday)
                 employee.firstName = employee.firstName?.fixName()
                 employee.lastName = employee.lastName?.fixName()
                 employee.birthday = employee.birthday?.fixBirthday()
             }
 
-            employeeList.forEach {
-                Timber.e("Fixed: " + it.birthday)
-            }
             return Either.Data(employeeList)
         } catch (e: HttpException) {
             Timber.e("HttpException cathed: ${e.code()}")
@@ -75,7 +71,10 @@ class EmployeeRepositoryImpl @Inject constructor(
     }
 
     private fun saveEmployeesToDB(employees: List<Employee>) {
-        val convertedEmployees = employees.map { it.toDBModel() }
-        dbHelper.writeEmployeesToDB(convertedEmployees as ArrayList<EmployeeDB>)
+        val convertedEmployees = ArrayList<EmployeeDB>()
+        for (i in 0 until employees.size) {
+            convertedEmployees.add(employees[i].toDBModel(i))
+        }
+        dbHelper.writeEmployeesToDB(convertedEmployees)
     }
 }

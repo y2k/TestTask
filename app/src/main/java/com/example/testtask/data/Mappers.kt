@@ -7,10 +7,10 @@ import com.example.testtask.data.model.SpecialtyNetwork
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.model.Speciality
 
-fun Employee.toDBModel(): EmployeeDB {
+fun Employee.toDBModel(id:Int): EmployeeDB {
     val specialtyList = this.specialtyList?.map { it.toDBModel() } as ArrayList<SpecialtyDB>
     return EmployeeDB(
-        id = 0,
+        id = id,
         firstName = this.firstName,
         lastName = this.lastName,
         birthday = this.birthday,

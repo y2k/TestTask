@@ -7,7 +7,7 @@ import kotlin.collections.ArrayList
 @TypeConverters(com.example.room.Converters::class)
 data class EmployeeDB(
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "id")
     var id: Int = 0,
 
