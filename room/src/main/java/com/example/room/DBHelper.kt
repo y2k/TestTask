@@ -12,14 +12,10 @@ class DBHelper @Inject constructor(
 ) {
 
     fun writeEmployeesToDB(employeeList: ArrayList<EmployeeDB>) {
-        employeeList.forEach {
-            employeeDao.insertEmployee(it)
-        }
+        employeeDao.insertEmployeeList(employeeList)
     }
 
     fun writeSpecialitiesToDB(specialityList: ArrayList<SpecialtyDB>) {
-        specialityList.forEach {
-            specialityDao.insertSpeciality(it)
-        }
+        specialityDao.insertSpecialityList(specialityList)
     }
 }

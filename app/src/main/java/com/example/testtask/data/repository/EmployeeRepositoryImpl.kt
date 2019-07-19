@@ -51,12 +51,13 @@ class EmployeeRepositoryImpl @Inject constructor(
 
     private suspend fun loadEmployees(): Either<Failure, List<Employee>> {
         try {
-            val employeeList = apiService.loadData().await().items.map { it.toDomian() }
 
-            employeeList.forEach { employee ->
-                employee.firstName = employee.firstName?.fixName()
-                employee.lastName = employee.lastName?.fixName()
-                employee.birthday = employee.birthday?.fixBirthday()
+            val employeeList = apiService.loadData().await().items.map {
+                it.toDomian().apply {
+                    firstName = this.firstName?.fixName()
+                    lastName = this.lastName?.fixName()
+                    birthday = this.birthday?.fixBirthday()
+                }
             }
 
             return Either.Data(employeeList)

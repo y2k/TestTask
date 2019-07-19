@@ -12,6 +12,9 @@ interface SpecialityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSpeciality(specialty: SpecialtyDB)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertSpecialityList(specialtyList: List<SpecialtyDB>)
+
     @Update
     fun updateSpeciality(specialty: SpecialtyDB)
 

@@ -33,13 +33,15 @@ abstract class BaseActivity : AppCompatActivity() {
     fun checkInternetConnection(onInternetStateListener: OnInternetStateListener) {
         if (isInternetAviable(this)) {
             onInternetStateListener.onSuccessConnection()
-            if(::noInternetConnectionDialog.isInitialized){
+            if (::noInternetConnectionDialog.isInitialized) {
                 noInternetConnectionDialog.dismiss()
             }
         } else {
             noInternetConnectionDialog = NoConnectionDialog(callBack = {
                 if (it == NoConnectionDialog.NO_CONNECTION_EXIT) {
                     closeApp()
+                } else if (it == NoConnectionDialog.NO_CONNECTION_OFFLINE) {
+                    onInternetStateListener.onOfflineWorkClicked()
                 } else {
                     if (!isInternetAviable(this)) {
                         showMessage(R.string.base_error_no_connection)

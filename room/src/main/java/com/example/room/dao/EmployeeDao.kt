@@ -12,6 +12,9 @@ interface EmployeeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertEmployee(employee: EmployeeDB)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertEmployeeList(employeeList: List<EmployeeDB>)
+
     @Update
     fun updateEmployee(employee: EmployeeDB)
 

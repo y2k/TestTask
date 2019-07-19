@@ -7,17 +7,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
 
 import com.example.testtask.R
-import kotlinx.android.synthetic.main.fragment_no_connection.*
+import kotlinx.android.synthetic.main.dialog_no_connection.*
 
 class NoConnectionDialog(private val callBack: (id: Int) -> Unit) : DialogFragment() {
 
     companion object {
         const val NO_CONNECTION_EXIT: Int = 1
         const val NO_CONNECTION_RETRY: Int = 2
+        const val NO_CONNECTION_OFFLINE: Int = 3
     }
 
     override fun onStart() {
@@ -26,7 +26,7 @@ class NoConnectionDialog(private val callBack: (id: Int) -> Unit) : DialogFragme
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_no_connection, container, false)
+        return inflater.inflate(R.layout.dialog_no_connection, container, false)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -42,6 +42,10 @@ class NoConnectionDialog(private val callBack: (id: Int) -> Unit) : DialogFragme
 
         btn_retry.setOnClickListener {
             callBack.invoke(NO_CONNECTION_RETRY)
+        }
+
+        btn_offline.setOnClickListener {
+            callBack.invoke(NO_CONNECTION_OFFLINE)
         }
     }
 }

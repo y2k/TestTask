@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 
 import com.example.testtask.R
-import kotlinx.android.synthetic.main.fragment_error_connection.*
+import kotlinx.android.synthetic.main.dialog_error_connection.*
 
 class ErrorConnectionDialog : DialogFragment() {
 
@@ -30,7 +30,7 @@ class ErrorConnectionDialog : DialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_error_connection, container, false)
+        return inflater.inflate(R.layout.dialog_error_connection, container, false)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

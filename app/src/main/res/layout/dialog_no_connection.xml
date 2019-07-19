@@ -15,24 +15,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_8">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_exit"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:padding="@dimen/padding_8"
-            android:text="@string/connection_exit" />
+        android:layout_marginTop="@dimen/margin_8"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_retry"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
             android:padding="@dimen/padding_8"
             android:text="@string/connection_retry" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_offline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            android:padding="@dimen/padding_8"
+            android:text="@string/connection_offline" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_exit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_4"
+            android:padding="@dimen/padding_8"
+            android:text="@string/connection_exit" />
+
     </LinearLayout>
 </LinearLayout>

@@ -59,6 +59,11 @@ class MainActivity : BaseActivity(), OnInternetStateListener, CoroutineScope {
         })
     }
 
+    //Write realization later
+    override fun onOfflineWorkClicked() {
+
+    }
+
     private fun setLoading(state: Boolean) {
         progress.visibility = if (state) View.VISIBLE else View.GONE
     }
