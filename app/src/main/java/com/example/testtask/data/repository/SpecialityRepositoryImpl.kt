@@ -1,14 +1,16 @@
-package com.example.testtask.data.repository.speciality
+package com.example.testtask.data.repository
 
 import com.example.room.DBHelper
 import com.example.room.model.SpecialtyDB
 import com.example.testtask.domain.toDBModel
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.model.Speciality
+import com.example.testtask.domain.repository.SpecialityRepository
 
 import javax.inject.Inject
 
-class SpecialityRepositoryImpl @Inject constructor(private val dbHelper: DBHelper) : SpecialityRepository {
+class SpecialityRepositoryImpl @Inject constructor(private val dbHelper: DBHelper) :
+    SpecialityRepository {
     private var cachedSpecialities = arrayListOf<Speciality>()
 
     override fun setSpecialities(specialties: ArrayList<Speciality>) {

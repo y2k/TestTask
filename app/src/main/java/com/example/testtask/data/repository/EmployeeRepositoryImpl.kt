@@ -1,11 +1,11 @@
-package com.example.testtask.data.repository.employee
+package com.example.testtask.data.repository
 
 import com.example.room.DBHelper
 import com.example.room.model.EmployeeDB
 import com.example.testtask.domain.toDBModel
-import com.example.testtask.data.model.EmployeeNetwork
 import com.example.testtask.data.network.GitlabApiService
 import com.example.testtask.domain.model.Employee
+import com.example.testtask.domain.repository.EmployeeRepository
 import com.example.testtask.domain.toDomian
 import javax.inject.Inject
 

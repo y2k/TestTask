@@ -27,14 +27,6 @@ fun Speciality.toDBModel(): SpecialtyDB {
     )
 }
 
-fun SpecialtyNetwork.toDBModel(): SpecialtyDB {
-    return SpecialtyDB(
-        id = 0,
-        specialityID = this.specialityID,
-        specialityName = this.specialityName
-    )
-}
-
 
 fun SpecialtyNetwork.toDomian(): Speciality {
     return Speciality(

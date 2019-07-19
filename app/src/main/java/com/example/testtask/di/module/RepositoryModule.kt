@@ -4,10 +4,10 @@ import com.example.room.dao.EmployeeDao
 import com.example.room.dao.SpecialityDao
 import com.example.testtask.data.network.GitlabApiService
 import com.example.room.DBHelper
-import com.example.testtask.data.repository.employee.EmployeeRepository
-import com.example.testtask.data.repository.employee.EmployeeRepositoryImpl
-import com.example.testtask.data.repository.speciality.SpecialityRepository
-import com.example.testtask.data.repository.speciality.SpecialityRepositoryImpl
+import com.example.testtask.domain.repository.EmployeeRepository
+import com.example.testtask.data.repository.EmployeeRepositoryImpl
+import com.example.testtask.domain.repository.SpecialityRepository
+import com.example.testtask.data.repository.SpecialityRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
