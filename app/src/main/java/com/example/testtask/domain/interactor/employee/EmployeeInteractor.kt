@@ -4,7 +4,7 @@ import com.example.testtask.domain.model.Employee
 
 interface EmployeeInteractor {
 
-    suspend fun getEmployees(): List<Employee>
+    suspend fun getEmployees(): EmployeeInteractorResult
 
     fun getSelectedEmployee(): Employee?
 

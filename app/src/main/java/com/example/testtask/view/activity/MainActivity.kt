@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.testtask.App
 import com.example.testtask.R
 import com.example.testtask.di.ViewModelFactory
+import com.example.testtask.view.dialog.ErrorConnectionDialog
 import com.example.testtask.view.viewmodel.MainActivityViewModel
 import com.example.testtask.view.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -51,6 +53,10 @@ class MainActivity : BaseActivity(), OnInternetStateListener, CoroutineScope {
                     }
                 }
             })
+
+        mainActivityViewModel.errorLiveData.observe(this, Observer { error ->
+            ErrorConnectionDialog.getInstance(error).show(supportFragmentManager, "ErrorTag")
+        })
     }
 
     private fun setLoading(state: Boolean) {

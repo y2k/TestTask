@@ -24,8 +24,11 @@
     <string name="employee_detail_birthday">День рождения</string>
     <string name="employee_detail_age">Возраст</string>
 
-    <!-- No connection Fragment -->
+    <!-- No connection Dialog -->
     <string name="connection_title">Отсутствует соединение с интернетом!</string>
     <string name="connection_retry">Попробовать ещё раз</string>
     <string name="connection_exit">Выйти</string>
+
+    <!-- Error connection Dialog -->
+    <string name="connection_error_title">Во время соединения произошла ошибка. Причина:\n\n%s\n\nПопробуйте воспользоваться приложением позднее.</string>
 </resources>

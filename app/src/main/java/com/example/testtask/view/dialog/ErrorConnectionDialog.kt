@@ -7,17 +7,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
 
 import com.example.testtask.R
-import kotlinx.android.synthetic.main.fragment_no_connection.*
+import kotlinx.android.synthetic.main.fragment_error_connection.*
 
-class NoConnectionDialog(private val callBack: (id: Int) -> Unit) : DialogFragment() {
+class ErrorConnectionDialog : DialogFragment() {
 
     companion object {
-        const val NO_CONNECTION_EXIT: Int = 1
-        const val NO_CONNECTION_RETRY: Int = 2
+        private const val ARG_ERROR = "errorDialog_arg"
+
+        fun getInstance(error: String): ErrorConnectionDialog {
+            val args = Bundle()
+            val fragment = ErrorConnectionDialog()
+
+            args.putSerializable(ARG_ERROR, error)
+            fragment.arguments = args
+
+            return fragment
+        }
     }
 
     override fun onStart() {
@@ -26,7 +34,7 @@ class NoConnectionDialog(private val callBack: (id: Int) -> Unit) : DialogFragme
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_no_connection, container, false)
+        return inflater.inflate(R.layout.fragment_error_connection, container, false)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -36,12 +44,6 @@ class NoConnectionDialog(private val callBack: (id: Int) -> Unit) : DialogFragme
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        btn_exit.setOnClickListener {
-            callBack.invoke(NO_CONNECTION_EXIT)
-        }
-
-        btn_retry.setOnClickListener {
-            callBack.invoke(NO_CONNECTION_RETRY)
-        }
+        txt_error_connection_title.text = getString(R.string.connection_error_title, arguments?.get(ARG_ERROR) ?: "Unknown")
     }
 }
