@@ -18,4 +18,8 @@ class DBHelper @Inject constructor(
     fun writeSpecialitiesToDB(specialityList: ArrayList<SpecialtyDB>) {
         specialityDao.insertSpecialityList(specialityList)
     }
+
+    fun readEmployeesFromDB():List<EmployeeDB> {
+        return employeeDao.getAllEmployees()
+    }
 }

@@ -6,6 +6,7 @@ import com.example.testtask.domain.EmployeeRepository
 import com.example.testtask.domain.SpecialityRepository
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.view.EmployeeInteractor
+import timber.log.Timber
 import javax.inject.Inject
 
 class EmployeeInteractorImpl @Inject constructor(
@@ -13,7 +14,15 @@ class EmployeeInteractorImpl @Inject constructor(
     private val specialityRepository: SpecialityRepository
 ) : EmployeeInteractor {
 
+    private var isOfflineMode:Boolean = false
+
+    override fun setOfflineMode(isOfflineMode: Boolean) {
+        this.isOfflineMode = isOfflineMode
+    }
+
     override suspend fun getEmployees(): Either<Failure, List<Employee>> {
+        employeeRepository.setOfflineMode(isOfflineMode)
+        Timber.e("HERE????")
         val employeeListResult = employeeRepository.getEmployees()
         when (employeeListResult) {
             is Either.Data -> {

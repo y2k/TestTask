@@ -59,12 +59,12 @@ class EmployeeListFragment : Fragment() {
 
         val specialtyID = arguments?.getInt(KEY_SPECIALITY_ID) ?: 0
 
-        sharedViewModel.specialtyList.observe(this, Observer { list ->
+        sharedViewModel.specialtyListLiveData.observe(this, Observer { list ->
             speciality = list[specialtyID]
             title_employees_speciality.text = speciality.specialityName
         })
 
-        sharedViewModel.employeeList.observe(this, Observer { employeeList ->
+        sharedViewModel.employeeListLiveData.observe(this, Observer { employeeList ->
             val employees = employeeList?.filter { employee ->
                 employee.specialtyList?.contains(speciality) ?: true
             }

@@ -55,7 +55,7 @@ class SpecialityListFragment : Fragment() {
             this.adapter = adapter
         }
 
-        sharedViewModel.specialtyList.observe(this, Observer { list ->
+        sharedViewModel.specialtyListLiveData.observe(this, Observer { list ->
             adapter.setSpecialities(list)
         })
     }

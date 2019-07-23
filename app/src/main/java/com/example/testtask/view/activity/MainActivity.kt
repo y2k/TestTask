@@ -1,22 +1,27 @@
 package com.example.testtask.view.activity
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.sdk.utils.isInternetAviable
 import com.example.testtask.App
 import com.example.testtask.R
 import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.view.dialog.ErrorConnectionDialog
-import com.example.testtask.view.viewmodel.MainActivityViewModel
+import com.example.testtask.view.dialog.NoConnectionDialog
 import com.example.testtask.view.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
-import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class MainActivity : BaseActivity(), OnInternetStateListener, CoroutineScope {
+class MainActivity : AppCompatActivity(), CoroutineScope {
+
+    private val TAG_FRAGMENT_NO_CONNECTION: String = "NoConnectionTag"
 
     private val job = SupervisorJob()
 
@@ -26,46 +31,73 @@ class MainActivity : BaseActivity(), OnInternetStateListener, CoroutineScope {
     @Inject
     lateinit var factory: ViewModelFactory
 
-    private lateinit var mainActivityViewModel: MainActivityViewModel
     private lateinit var sharedViewModel: SharedViewModel
+
+    private lateinit var noInternetConnectionDialog: NoConnectionDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        checkInternetConnection(this)
-    }
 
-    override fun onSuccessConnection() {
         App.get().injector?.inject(this)
 
-        mainActivityViewModel = ViewModelProviders.of(this, factory)[MainActivityViewModel::class.java]
         sharedViewModel = ViewModelProviders.of(this, factory)[SharedViewModel::class.java]
 
-        mainActivityViewModel.progressBarLiveData.observe(this,
-            Observer<Boolean> { state -> setLoading(state) })
+        checkInternetConnection()
+    }
 
-
-        mainActivityViewModel.dataReadyLiveData.observe(this,
-            Observer<Unit> {
-                this.launch {
-                    withContext(coroutineContext) {
-                        sharedViewModel.init()
+    private fun checkInternetConnection() {
+        if (isInternetAviable(this)) {
+            if (::noInternetConnectionDialog.isInitialized) {
+                noInternetConnectionDialog.dismiss()
+            }
+            onInternetChecked(false)
+        } else {
+            noInternetConnectionDialog = NoConnectionDialog(callBack = {
+                if (it == NoConnectionDialog.NO_CONNECTION_EXIT) {
+                    closeApp()
+                } else if (it == NoConnectionDialog.NO_CONNECTION_OFFLINE) {
+                    onInternetChecked(true)
+                } else {
+                    if (!isInternetAviable(this)) {
+                        showMessage(R.string.base_error_no_connection)
+                    } else {
+                        noInternetConnectionDialog.dismiss()
                     }
                 }
             })
+            noInternetConnectionDialog.show(supportFragmentManager, TAG_FRAGMENT_NO_CONNECTION)
+            noInternetConnectionDialog.isCancelable = false
+        }
+    }
 
-        mainActivityViewModel.errorLiveData.observe(this, Observer { error ->
+    private fun onInternetChecked(isOfflineMode:Boolean) {
+        sharedViewModel.init(isOfflineMode)
+
+        sharedViewModel.progressBarLiveData.observe(this,
+            Observer<Boolean> { state -> setLoading(state) })
+
+        sharedViewModel.errorLiveData.observe(this, Observer { error ->
             ErrorConnectionDialog.getInstance(error).show(supportFragmentManager, "ErrorTag")
         })
     }
 
-    //Write realization later
-    override fun onOfflineWorkClicked() {
-
-    }
-
     private fun setLoading(state: Boolean) {
         progress.visibility = if (state) View.VISIBLE else View.GONE
+    }
+
+    fun showMessage(id: Int) {
+        Toast.makeText(this, getString(id), Toast.LENGTH_LONG).show()
+    }
+
+
+    //It's single activity app, so close Activity equals close app
+    private fun closeApp() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            this.finishAffinity()
+        } else {
+            this.finish()
+        }
     }
 
     override fun onDestroy() {

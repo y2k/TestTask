@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
-import com.example.sdk.extensions.fixName
 import com.example.sdk.extensions.fromDateToFormattedString
 import com.example.sdk.extensions.fromStringToDate
 import com.example.sdk.extensions.getAge
@@ -41,7 +40,7 @@ class EmployeeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        sharedViewModel.selectedEmployee.observe(this, Observer { employee ->
+        sharedViewModel.selectedEmployeeLiveData.observe(this, Observer { employee ->
 
             text_employee_detail_name.text = employee.firstName
             text_employee_detail_last_name.text = employee.lastName
