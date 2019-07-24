@@ -22,7 +22,6 @@ class EmployeeInteractorImpl @Inject constructor(
 
     override suspend fun getEmployees(): Either<Failure, List<Employee>> {
         employeeRepository.setOfflineMode(isOfflineMode)
-        Timber.e("HERE????")
         val employeeListResult = employeeRepository.getEmployees()
         when (employeeListResult) {
             is Either.Data -> {

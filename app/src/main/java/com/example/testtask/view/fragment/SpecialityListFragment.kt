@@ -18,6 +18,7 @@ import com.example.testtask.view.decorators.MarginItemDecoration
 import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.view.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_speciality_list.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class SpecialityListFragment : Fragment() {
@@ -56,6 +57,9 @@ class SpecialityListFragment : Fragment() {
         }
 
         sharedViewModel.specialtyListLiveData.observe(this, Observer { list ->
+            list.forEach {
+                Timber.e(it.specialityName)
+            }
             adapter.setSpecialities(list)
         })
     }

@@ -36,7 +36,6 @@ class EmployeeRepositoryImpl @Inject constructor(
             return Either.Data(cachedEmployees)
         } else {
             if (isOfflineMode) {
-                Timber.e("TRY")
                 val employees = getEmployeesFromDB()
                 if (!employees.isNullOrEmpty()) {
                     cacheEmployees(employees)
@@ -95,9 +94,6 @@ class EmployeeRepositoryImpl @Inject constructor(
 
     private fun getEmployeesFromDB(): List<Employee> {
         val employees = dbHelper.readEmployeesFromDB()
-        employees.forEach {
-            Timber.e(it.firstName + " " + it.lastName + " " + it.specialtyDBList.toString())
-        }
         return employees.map { it.toDomain() }
     }
 }

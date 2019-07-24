@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 class SpecialityInteractorImpl @Inject constructor(private val specialityRepository: SpecialityRepository) :
     SpecialityInteractor {
+
     override fun getSpecialities(): ArrayList<Speciality> {
         return specialityRepository.getSpecialities()
     }

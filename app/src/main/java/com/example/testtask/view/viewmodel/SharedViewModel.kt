@@ -8,13 +8,15 @@ import com.example.testtask.domain.interactor.EmployeeInteractorImpl
 import com.example.testtask.domain.interactor.SpecialityInteractorImpl
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.model.Speciality
+import com.example.testtask.view.EmployeeInteractor
+import com.example.testtask.view.SpecialityInteractor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SharedViewModel @Inject constructor(
-    private var employeeInteractor: EmployeeInteractorImpl,
-    private var specialityInteractor: SpecialityInteractorImpl
+    private var employeeInteractor: EmployeeInteractor,
+    private var specialityInteractor: SpecialityInteractor
 ) : ViewModel() {
 
     var isOfflineMode: Boolean = false
