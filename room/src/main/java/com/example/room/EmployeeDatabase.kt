@@ -19,5 +19,6 @@ abstract class EmployeeDatabase : RoomDatabase() {
         const val DATABASE_NAME = "EmployeesDB"
         const val TABLE_EMPLOYEES_NAME = "employees"
         const val TABLE_SPECIALITY_NAME = "specialities"
+        const val TABLE_SPECIALITY_RELATION = "specialities_relation"
     }
 }

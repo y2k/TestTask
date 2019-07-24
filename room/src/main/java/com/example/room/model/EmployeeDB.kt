@@ -25,6 +25,6 @@ data class EmployeeDB(
     @ColumnInfo(name = "avatr_url")
     var avatarUrl: String?,
 
-    @ColumnInfo(name = "specialty")
+    @Ignore
     var specialtyDBList: ArrayList<SpecialtyDB>?
 )

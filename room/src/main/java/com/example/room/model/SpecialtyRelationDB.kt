@@ -5,16 +5,16 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.room.EmployeeDatabase
 
-@Entity(tableName = EmployeeDatabase.TABLE_SPECIALITY_NAME)
-data class SpecialtyDB(
+@Entity(tableName = EmployeeDatabase.TABLE_SPECIALITY_RELATION)
+data class SpecialtyRelationDB(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int = 0,
 
-    @ColumnInfo(name = "specialty_id")
-    var specialityID: Int,
+    @ColumnInfo(name = "employee_id")
+    var employeeID: Int,
 
-    @ColumnInfo(name = "specialty_name")
-    var specialityName: String?
+    @ColumnInfo(name = "specialty_id")
+    var specialityID: Int
 )

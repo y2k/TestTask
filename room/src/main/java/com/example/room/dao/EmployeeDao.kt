@@ -2,22 +2,33 @@ package com.example.room.dao
 
 import androidx.room.*
 import com.example.room.model.EmployeeDB
+import com.example.room.model.SpecialtyRelationDB
 
 @Dao
-interface EmployeeDao {
+abstract class EmployeeDao {
 
     @Query("SELECT * FROM employees")
-    fun getAllEmployees(): List<EmployeeDB>
+    abstract fun getAllEmployees(): List<EmployeeDB>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertEmployee(employee: EmployeeDB)
+    abstract fun insertEmployee(employee: EmployeeDB)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertEmployeeList(employeeList: List<EmployeeDB>)
+    abstract fun insertEmployeeList(employeeList: List<EmployeeDB>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertSpecialityRelation(specialtyRelationDB: SpecialtyRelationDB)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertSpecialityRelationList(specialtyRelationDBList: List<SpecialtyRelationDB>)
 
     @Update
-    fun updateEmployee(employee: EmployeeDB)
+    abstract fun updateEmployee(employee: EmployeeDB)
 
     @Delete
-    fun deleteEmployee(employee: EmployeeDB)
+    abstract fun deleteEmployee(employee: EmployeeDB)
+
+    fun insertEmployeeWithSpeciality(employeeDB: EmployeeDB) {
+        val specialities = employeeDB.specialtyDBList
+    }
 }

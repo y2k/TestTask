@@ -52,27 +52,33 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 noInternetConnectionDialog.dismiss()
             }
             onInternetChecked(false)
-        } else {
-            noInternetConnectionDialog = NoConnectionDialog(callBack = {
-                if (it == NoConnectionDialog.NO_CONNECTION_EXIT) {
-                    closeApp()
-                } else if (it == NoConnectionDialog.NO_CONNECTION_OFFLINE) {
+            return
+        }
+
+        noInternetConnectionDialog = NoConnectionDialog(callBack = {
+            when (it) {
+                NoConnectionDialog.NO_CONNECTION_EXIT -> closeApp()
+
+                NoConnectionDialog.NO_CONNECTION_OFFLINE -> {
                     onInternetChecked(true)
                     noInternetConnectionDialog.dismiss()
-                } else {
+                }
+
+                NoConnectionDialog.NO_CONNECTION_RETRY -> {
                     if (!isInternetAviable(this)) {
                         showMessage(R.string.base_error_no_connection)
                     } else {
                         noInternetConnectionDialog.dismiss()
                     }
                 }
-            })
-            noInternetConnectionDialog.show(supportFragmentManager, TAG_FRAGMENT_NO_CONNECTION)
-            noInternetConnectionDialog.isCancelable = false
-        }
+            }
+        })
+
+        noInternetConnectionDialog.show(supportFragmentManager, TAG_FRAGMENT_NO_CONNECTION)
+        noInternetConnectionDialog.isCancelable = false
     }
 
-    private fun onInternetChecked(isOfflineMode:Boolean) {
+    private fun onInternetChecked(isOfflineMode: Boolean) {
         sharedViewModel.init(isOfflineMode)
 
         sharedViewModel.progressBarLiveData.observe(this,
