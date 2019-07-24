@@ -1,13 +1,13 @@
 package com.example.testtask.data.repository
 
-import com.example.room.DBHelper
-import com.example.room.model.EmployeeDB
+import com.example.testtask.data.datasource.room.DBHelper
+import com.example.testtask.data.datasource.room.model.EmployeeDB
 import com.example.sdk.extensions.fixBirthday
 import com.example.sdk.extensions.fixName
 import com.example.sdk.other.Either
 import com.example.sdk.other.Failure
 import com.example.testtask.data.toDBModel
-import com.example.testtask.data.network.GitlabApiService
+import com.example.testtask.data.datasource.network.GitlabApiService
 import com.example.testtask.data.toDomain
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.EmployeeRepository
@@ -94,8 +94,10 @@ class EmployeeRepositoryImpl @Inject constructor(
     }
 
     private fun getEmployeesFromDB(): List<Employee> {
-        Timber.e("Here??")
         val employees = dbHelper.readEmployeesFromDB()
+        employees.forEach {
+            Timber.e(it.firstName + " " + it.lastName + " " + it.specialtyDBList.toString())
+        }
         return employees.map { it.toDomain() }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.testtask.data.network
+package com.example.testtask.data.datasource.network
 
 import com.example.testtask.data.model.EmployeeNetwork
 import com.google.gson.annotations.Expose

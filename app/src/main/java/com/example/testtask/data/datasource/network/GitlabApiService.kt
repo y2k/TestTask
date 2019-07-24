@@ -1,4 +1,4 @@
-package com.example.testtask.data.network
+package com.example.testtask.data.datasource.network
 
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET

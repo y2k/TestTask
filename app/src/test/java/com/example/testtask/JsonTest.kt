@@ -1,7 +1,7 @@
 package com.example.testtask
 
 import com.example.testtask.Config.Companion.BASE_URL
-import com.example.testtask.data.network.GitlabApiService
+import com.example.testtask.data.datasource.network.GitlabApiService
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert

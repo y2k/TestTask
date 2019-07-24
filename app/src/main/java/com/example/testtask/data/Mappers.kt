@@ -1,29 +1,35 @@
 package com.example.testtask.data
 
-import com.example.room.model.EmployeeDB
-import com.example.room.model.SpecialtyDB
+import com.example.testtask.data.datasource.room.model.EmployeeDB
+import com.example.testtask.data.datasource.room.model.SpecialtyDB
+import com.example.testtask.data.datasource.room.model.SpecialtyRelationDB
 import com.example.testtask.data.model.EmployeeNetwork
 import com.example.testtask.data.model.SpecialtyNetwork
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.model.Speciality
-import timber.log.Timber
 
 fun Employee.toDBModel(id: Int): EmployeeDB {
-    val specialtyList = this.specialtyList?.map { it.toDBModel() } as ArrayList<SpecialtyDB>
+    val specialtyList = this.specialtyList.let {
+        if (it.isNullOrEmpty()) {
+            emptyList()
+        } else it.map { speciality -> speciality.toDBModel() }
+    }
+
     return EmployeeDB(
         id = id,
-        firstName = this.firstName,
-        lastName = this.lastName,
-        birthday = this.birthday,
-        avatarUrl = this.avatarUrl,
-        specialtyDBList = specialtyList
-    )
+        firstName = firstName,
+        lastName = lastName,
+        birthday = birthday,
+        avatarUrl = avatarUrl
+    ).apply {
+        specialtyDBList = specialtyList as ArrayList<SpecialtyDB>
+    }
 }
 
 fun Speciality.toDBModel(): SpecialtyDB {
     return SpecialtyDB(
         id = 0,
-        specialityID = this.specialityID,
+        specialityID = this.specialityID ?: 0,
         specialityName = this.specialityName
     )
 }
@@ -48,9 +54,7 @@ fun EmployeeNetwork.toDomian(): Employee {
 }
 
 fun EmployeeDB.toDomain(): Employee {
-    Timber.e("LIST ALL: " + this.specialtyDBList?.size)
-    val specialityList = this.specialtyDBList?.map { it.toDomain() }
-    Timber.e("LIST: " + specialityList?.size)
+    val specialityList = this.specialtyDBList.map { it.toDomain() }
     return Employee(
         firstName = this.firstName,
         lastName = this.lastName,
@@ -65,4 +69,13 @@ fun SpecialtyDB.toDomain(): Speciality {
         specialityID = this.id,
         specialityName = this.specialityName
     )
+}
+
+fun EmployeeDB.getRelationList(): List<SpecialtyRelationDB> {
+    val specialityList = this.specialtyDBList
+    return if (specialityList.isNullOrEmpty()) emptyList() else specialityList.map { it.toRelation(this.id) }
+}
+
+fun SpecialtyDB.toRelation(userID: Int): SpecialtyRelationDB {
+    return SpecialtyRelationDB(0, specialityID = this.specialityID, employeeID = userID)
 }

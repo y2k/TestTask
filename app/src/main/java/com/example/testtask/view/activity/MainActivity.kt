@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                     closeApp()
                 } else if (it == NoConnectionDialog.NO_CONNECTION_OFFLINE) {
                     onInternetChecked(true)
+                    noInternetConnectionDialog.dismiss()
                 } else {
                     if (!isInternetAviable(this)) {
                         showMessage(R.string.base_error_no_connection)

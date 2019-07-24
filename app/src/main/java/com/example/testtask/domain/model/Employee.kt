@@ -5,5 +5,5 @@ data class Employee(
     var lastName: String?,
     var birthday: String?,
     var avatarUrl: String?,
-    var specialtyList: ArrayList<Speciality>?
+    var specialtyList: List<Speciality>?
 )
