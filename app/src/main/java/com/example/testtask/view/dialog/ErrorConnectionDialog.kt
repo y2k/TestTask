@@ -10,16 +10,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 
 import com.example.testtask.R
+import com.example.testtask.view.beans.ErrorType
+import com.example.testtask.view.beans.TestTaskError
 import kotlinx.android.synthetic.main.dialog_error_connection.*
 
 class ErrorConnectionDialog : DialogFragment() {
 
     companion object {
-        private const val ARG_ERROR = "errorDialog_arg"
+        private const val ARG_ERROR_TYPE = "errorDialog_type"
+        private const val ARG_ERROR = "errorDialog_message"
 
-        fun getInstance(error: String) = ErrorConnectionDialog().apply {
+        fun getInstance(error: TestTaskError) = ErrorConnectionDialog().apply {
             arguments = Bundle(2).apply {
-                putString(ARG_ERROR, error)
+                putSerializable(ARG_ERROR_TYPE, error.errorType)
+                putString(ARG_ERROR, error.message)
             }
         }
     }
@@ -40,7 +44,11 @@ class ErrorConnectionDialog : DialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        txt_error_connection_title.text =
-            getString(R.string.connection_error_title, arguments?.get(ARG_ERROR) ?: "Unknown")
+        when (arguments?.getSerializable(ARG_ERROR_TYPE) as ErrorType) {
+            ErrorType.DATABASE -> txt_error_connection_title.text =
+                getString(R.string.error_database_select, arguments?.get(ARG_ERROR) ?: "Unknown")
+            ErrorType.NETWORK -> txt_error_connection_title.text =
+                getString(R.string.error_network_connect, arguments?.get(ARG_ERROR) ?: "Unknown")
+        }
     }
 }

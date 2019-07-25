@@ -11,6 +11,8 @@ import com.example.sdk.utils.isInternetAviable
 import com.example.testtask.App
 import com.example.testtask.R
 import com.example.testtask.di.ViewModelFactory
+import com.example.testtask.view.beans.ErrorType
+import com.example.testtask.view.beans.TestTaskError
 import com.example.testtask.view.dialog.ErrorConnectionDialog
 import com.example.testtask.view.dialog.NoConnectionDialog
 import com.example.testtask.view.viewmodel.SharedViewModel
@@ -85,7 +87,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             Observer<Boolean> { state -> setLoading(state) })
 
         sharedViewModel.errorLiveData.observe(this, Observer { error ->
-            ErrorConnectionDialog.getInstance(error).show(supportFragmentManager, "ErrorTag")
+            ErrorConnectionDialog.getInstance(TestTaskError(ErrorType.DATABASE, "d"))
+                .show(supportFragmentManager, "ErrorTag")
         })
     }
 

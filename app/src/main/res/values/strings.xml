@@ -30,6 +30,12 @@
     <string name="connection_offline">Продолжить работу оффлайн</string>
     <string name="connection_exit">Выйти</string>
 
-    <!-- Failure connection Dialog -->
-    <string name="connection_error_title">Во время соединения произошла ошибка. Причина:\n\n%s\n\nПопробуйте воспользоваться приложением позднее.</string>
+    <!-- Error -->
+    <string name="error_network_connect">Произошла ошибка при попытке соединиться с сервером.
+        Причина:\n\n%s\n\n
+        Попробуйте воспользоваться приложением позднее.</string>
+    <string name="error_database_select">Произошла ошибка во время извлечения данных из БД.
+        Причина:\n\n%s\n\n
+        Попробуйте воспользоваться приложением позднее.</string>
+
 </resources>
