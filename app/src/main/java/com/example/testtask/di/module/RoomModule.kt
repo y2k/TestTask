@@ -6,6 +6,7 @@ import android.app.Application
 import androidx.room.Room
 import com.example.testtask.data.datasource.database.room.EmployeeDatabase
 import com.example.testtask.data.datasource.database.room.dao.EmployeeDao
+import com.example.testtask.data.datasource.database.room.dao.RelationDao
 import com.example.testtask.data.datasource.database.room.dao.SpecialityDao
 import dagger.Module
 
@@ -22,6 +23,7 @@ class RoomModule(mApplication: Application) {
 
     private val employeeDao = db.employeeDaoAccess()
     private val specialityDao = db.specialityDaoAccess()
+    private val relationDao = db.relationDaoAccess()
 
     @Singleton
     @Provides
@@ -32,4 +34,7 @@ class RoomModule(mApplication: Application) {
 
     @Provides
     fun provideSpecialityDao(): SpecialityDao = specialityDao
+
+    @Provides
+    fun provideRelationDao(): RelationDao = relationDao
 }

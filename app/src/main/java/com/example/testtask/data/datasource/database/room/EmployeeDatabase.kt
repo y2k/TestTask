@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.testtask.data.datasource.database.room.dao.EmployeeDao
+import com.example.testtask.data.datasource.database.room.dao.RelationDao
 import com.example.testtask.data.datasource.database.room.dao.SpecialityDao
 import com.example.testtask.data.datasource.database.room.model.EmployeeDB
 import com.example.testtask.data.datasource.database.room.model.SpecialtyDB
@@ -14,6 +15,7 @@ abstract class EmployeeDatabase : RoomDatabase() {
 
     abstract fun employeeDaoAccess(): EmployeeDao
     abstract fun specialityDaoAccess(): SpecialityDao
+    abstract fun relationDaoAccess(): RelationDao
 
     companion object {
         const val DATABASE_NAME = "EmployeesDB"
