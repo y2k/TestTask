@@ -60,8 +60,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 NoConnectionDialog.NO_CONNECTION_EXIT -> closeApp()
 
                 NoConnectionDialog.NO_CONNECTION_OFFLINE -> {
-                    onInternetChecked(true)
                     noInternetConnectionDialog.dismiss()
+                    onInternetChecked(true)
                 }
 
                 NoConnectionDialog.NO_CONNECTION_RETRY -> {
@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                         showMessage(R.string.base_error_no_connection)
                     } else {
                         noInternetConnectionDialog.dismiss()
+                        onInternetChecked(false)
                     }
                 }
             }

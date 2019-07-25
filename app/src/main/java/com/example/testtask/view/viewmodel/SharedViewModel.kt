@@ -36,10 +36,10 @@ class SharedViewModel @Inject constructor(
         progressBarLiveData.value = true
 
         viewModelScope.launch(Dispatchers.Main) {
-            progressBarLiveData.value = false
             employeeInteractor.setOfflineMode(isOfflineMode)
 
             val employeesListResult = employeeInteractor.getEmployees()
+            progressBarLiveData.value = false
             when (employeesListResult) {
                 is Either.Data -> {
                     onDataReady(employeesListResult.data)

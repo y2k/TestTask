@@ -35,23 +35,28 @@ class EmployeeRepositoryImpl @Inject constructor(
     override suspend fun getEmployees(): Either<Failure, List<Employee>> {
         if (cachedEmployees.isNotEmpty()) {
             return Either.Data(cachedEmployees)
-        } else {
-            if (isOfflineMode) {
-                val employees = getEmployeesFromDB()
-                if (!employees.isNullOrEmpty()) {
+        }
+
+        if (isOfflineMode) {
+            val employees = getEmployeesFromDB()
+
+            return when {
+                !employees.isNullOrEmpty() -> {
                     cacheEmployees(employees)
-                    return Either.Data(getEmployeesFromDB())
-                } else return Either.Error(Failure(FailureType.DATABASE, "В базе данных нет записей"))
+                    Either.Data(getEmployeesFromDB())
+                }
+                else -> Either.Error(Failure(FailureType.DATABASE, "В базе данных нет записей"))
             }
-            return when (val loadedEmployeesResult = loadEmployees()) {
-                is Either.Data -> {
-                    cacheEmployees(loadedEmployeesResult.data)
-                    saveEmployeesToDB(loadedEmployeesResult.data)
-                    loadedEmployeesResult
-                }
-                is Either.Error -> {
-                    loadedEmployeesResult
-                }
+        }
+
+        return when (val loadedEmployeesResult = loadEmployees()) {
+            is Either.Data -> {
+                cacheEmployees(loadedEmployeesResult.data)
+                saveEmployeesToDB(loadedEmployeesResult.data)
+                loadedEmployeesResult
+            }
+            is Either.Error -> {
+                loadedEmployeesResult
             }
         }
     }

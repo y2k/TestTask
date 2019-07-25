@@ -1,11 +1,9 @@
 package com.example.testtask.data.datasource.database.room.model
 
 import androidx.room.*
-import com.example.testtask.data.datasource.database.room.Converters
 import com.example.testtask.data.datasource.database.room.EmployeeDatabase
 
 @Entity(tableName = EmployeeDatabase.TABLE_EMPLOYEES_NAME)
-@TypeConverters(Converters::class)
 data class EmployeeDB(
 
     @PrimaryKey

@@ -10,7 +10,6 @@ import com.example.testtask.data.datasource.database.room.model.SpecialtyDB
 import com.example.testtask.data.datasource.database.room.model.SpecialtyRelationDB
 
 @Database(entities = [EmployeeDB::class, SpecialtyDB::class, SpecialtyRelationDB::class], version = 7)
-@TypeConverters(Converters::class)
 abstract class EmployeeDatabase : RoomDatabase() {
 
     abstract fun employeeDaoAccess(): EmployeeDao
