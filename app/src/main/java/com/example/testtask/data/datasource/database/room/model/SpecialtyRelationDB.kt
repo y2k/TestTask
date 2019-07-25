@@ -1,9 +1,9 @@
-package com.example.testtask.data.datasource.room.model
+package com.example.testtask.data.datasource.database.room.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.testtask.data.datasource.room.EmployeeDatabase
+import com.example.testtask.data.datasource.database.room.EmployeeDatabase
 
 @Entity(tableName = EmployeeDatabase.TABLE_SPECIALITY_RELATION)
 data class SpecialtyRelationDB(

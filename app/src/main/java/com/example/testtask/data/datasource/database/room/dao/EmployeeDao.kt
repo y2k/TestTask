@@ -1,9 +1,9 @@
-package com.example.testtask.data.datasource.room.dao
+package com.example.testtask.data.datasource.database.room.dao
 
 import androidx.room.*
-import com.example.testtask.data.datasource.room.model.EmployeeDB
-import com.example.testtask.data.datasource.room.model.SpecialtyDB
-import com.example.testtask.data.datasource.room.model.SpecialtyRelationDB
+import com.example.testtask.data.datasource.database.room.model.EmployeeDB
+import com.example.testtask.data.datasource.database.room.model.SpecialtyDB
+import com.example.testtask.data.datasource.database.room.model.SpecialtyRelationDB
 import com.example.testtask.data.getRelationList
 
 @Dao
@@ -39,7 +39,6 @@ abstract class EmployeeDao {
     @Query("SELECT * FROM specialities")
     abstract fun getAllSpecialities(): List<SpecialtyDB>
 
-
     @Transaction
     open fun insertEmployeeWithSpeciality(employeeDB: EmployeeDB) {
         val resCode = insertEmployee(employeeDB)
@@ -56,8 +55,8 @@ abstract class EmployeeDao {
 
         employees.forEach { employee ->
             relations.forEach { relation ->
-                if (employee.id == relation.id) {
-                    val speciality1 = speciality.firstOrNull { it.id == relation.id }
+                if (employee.id == relation.employeeID) {
+                    val speciality1 = speciality.firstOrNull { it.specialityID == relation.specialityID }
                     if (speciality1 != null) {
                         employee.specialtyDBList.add(speciality1)
                     }

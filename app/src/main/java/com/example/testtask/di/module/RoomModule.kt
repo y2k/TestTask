@@ -4,9 +4,9 @@ import dagger.Provides
 import javax.inject.Singleton
 import android.app.Application
 import androidx.room.Room
-import com.example.testtask.data.datasource.room.EmployeeDatabase
-import com.example.testtask.data.datasource.room.dao.EmployeeDao
-import com.example.testtask.data.datasource.room.dao.SpecialityDao
+import com.example.testtask.data.datasource.database.room.EmployeeDatabase
+import com.example.testtask.data.datasource.database.room.dao.EmployeeDao
+import com.example.testtask.data.datasource.database.room.dao.SpecialityDao
 import dagger.Module
 
 @Module

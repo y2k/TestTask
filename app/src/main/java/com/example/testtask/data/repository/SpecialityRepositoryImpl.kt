@@ -1,7 +1,7 @@
 package com.example.testtask.data.repository
 
-import com.example.testtask.data.datasource.room.DBHelper
-import com.example.testtask.data.datasource.room.model.SpecialtyDB
+import com.example.testtask.data.datasource.database.room.DBHelper
+import com.example.testtask.data.datasource.database.room.model.SpecialtyDB
 import com.example.testtask.data.toDBModel
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.model.Speciality
@@ -17,12 +17,22 @@ class SpecialityRepositoryImpl @Inject constructor(private val dbHelper: DBHelpe
         cacheSpecialities(specialties)
     }
 
+    //TODO:Проверка на emptyList
     override fun setSpecialitiesFromEmployeeList(employees: List<Employee>) {
-        val specialties = employees
-            .flatMap { it.specialtyList.orEmpty() }
-            .distinct() as ArrayList<Speciality>
-        cacheSpecialities(specialties)
-        saveSpecialitiesToDB(specialties)
+//        val specialties = employees
+//            .flatMap { it.specialtyList.orEmpty() }
+//            .distinct() as ArrayList<Speciality>
+
+        val ss = ArrayList<Speciality>()
+
+        employees.forEach {
+            it.specialtyList?.forEach {
+                if(!ss.contains(it)){ss.add(it)}
+            }
+        }
+
+        cacheSpecialities(ss)
+        saveSpecialitiesToDB(ss)
     }
 
     //The only thing we can do is return cached value

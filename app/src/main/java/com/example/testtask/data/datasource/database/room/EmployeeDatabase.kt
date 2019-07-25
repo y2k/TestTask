@@ -1,13 +1,13 @@
-package com.example.testtask.data.datasource.room
+package com.example.testtask.data.datasource.database.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.testtask.data.datasource.room.dao.EmployeeDao
-import com.example.testtask.data.datasource.room.dao.SpecialityDao
-import com.example.testtask.data.datasource.room.model.EmployeeDB
-import com.example.testtask.data.datasource.room.model.SpecialtyDB
-import com.example.testtask.data.datasource.room.model.SpecialtyRelationDB
+import com.example.testtask.data.datasource.database.room.dao.EmployeeDao
+import com.example.testtask.data.datasource.database.room.dao.SpecialityDao
+import com.example.testtask.data.datasource.database.room.model.EmployeeDB
+import com.example.testtask.data.datasource.database.room.model.SpecialtyDB
+import com.example.testtask.data.datasource.database.room.model.SpecialtyRelationDB
 
 @Database(entities = [EmployeeDB::class, SpecialtyDB::class, SpecialtyRelationDB::class], version = 7)
 @TypeConverters(Converters::class)

@@ -12,6 +12,7 @@ import com.example.testtask.view.EmployeeInteractor
 import com.example.testtask.view.SpecialityInteractor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class SharedViewModel @Inject constructor(
@@ -30,14 +31,13 @@ class SharedViewModel @Inject constructor(
 
     fun init(isOfflineMode: Boolean) {
         this.isOfflineMode = isOfflineMode
-
         progressBarLiveData.value = true
 
         viewModelScope.launch(Dispatchers.Main) {
+            progressBarLiveData.value = false
             employeeInteractor.setOfflineMode(isOfflineMode)
 
             val employeesListResult = employeeInteractor.getEmployees()
-            progressBarLiveData.value = false
             when (employeesListResult) {
                 is Either.Data -> {
                     onDataReady(employeesListResult.data)
@@ -50,6 +50,10 @@ class SharedViewModel @Inject constructor(
     }
 
     private fun onDataReady(employeeList: List<Employee>) {
+        if(employeeList.isNullOrEmpty()){
+            errorLiveData.value = "Нет информации, увы."
+            return
+        }
         employeeListLiveData.value = employeeList as ArrayList<Employee>
         specialtyListLiveData.value = specialityInteractor.getSpecialities()
         selectedEmployeeLiveData.value = employeeInteractor.getSelectedEmployee()

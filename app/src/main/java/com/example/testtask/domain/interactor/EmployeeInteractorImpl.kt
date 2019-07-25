@@ -14,7 +14,7 @@ class EmployeeInteractorImpl @Inject constructor(
     private val specialityRepository: SpecialityRepository
 ) : EmployeeInteractor {
 
-    private var isOfflineMode:Boolean = false
+    private var isOfflineMode: Boolean = false
 
     override fun setOfflineMode(isOfflineMode: Boolean) {
         this.isOfflineMode = isOfflineMode

@@ -1,9 +1,9 @@
-package com.example.testtask.data.datasource.room
+package com.example.testtask.data.datasource.database.room
 
-import com.example.testtask.data.datasource.room.dao.EmployeeDao
-import com.example.testtask.data.datasource.room.dao.SpecialityDao
-import com.example.testtask.data.datasource.room.model.EmployeeDB
-import com.example.testtask.data.datasource.room.model.SpecialtyDB
+import com.example.testtask.data.datasource.database.room.dao.EmployeeDao
+import com.example.testtask.data.datasource.database.room.dao.SpecialityDao
+import com.example.testtask.data.datasource.database.room.model.EmployeeDB
+import com.example.testtask.data.datasource.database.room.model.SpecialtyDB
 import javax.inject.Inject
 
 class DBHelper @Inject constructor(

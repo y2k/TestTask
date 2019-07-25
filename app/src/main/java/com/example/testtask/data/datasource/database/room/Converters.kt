@@ -1,7 +1,7 @@
-package com.example.testtask.data.datasource.room
+package com.example.testtask.data.datasource.database.room
 
 import androidx.room.TypeConverter
-import com.example.testtask.data.datasource.room.model.SpecialtyDB
+import com.example.testtask.data.datasource.database.room.model.SpecialtyDB
 
 class Converters {
 

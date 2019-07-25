@@ -1,7 +1,7 @@
 package com.example.testtask.data.repository
 
-import com.example.testtask.data.datasource.room.DBHelper
-import com.example.testtask.data.datasource.room.model.EmployeeDB
+import com.example.testtask.data.datasource.database.room.DBHelper
+import com.example.testtask.data.datasource.database.room.model.EmployeeDB
 import com.example.sdk.extensions.fixBirthday
 import com.example.sdk.extensions.fixName
 import com.example.sdk.other.Either
