@@ -6,6 +6,7 @@ import com.example.sdk.extensions.fixBirthday
 import com.example.sdk.extensions.fixName
 import com.example.sdk.other.Either
 import com.example.sdk.other.Failure
+import com.example.sdk.other.FailureType
 import com.example.testtask.data.toDBModel
 import com.example.testtask.data.datasource.network.GitlabApiService
 import com.example.testtask.data.toDomain
@@ -39,8 +40,8 @@ class EmployeeRepositoryImpl @Inject constructor(
                 val employees = getEmployeesFromDB()
                 if (!employees.isNullOrEmpty()) {
                     cacheEmployees(employees)
-                }
-                return Either.Data(getEmployeesFromDB())
+                    return Either.Data(getEmployeesFromDB())
+                } else return Either.Error(Failure(FailureType.DATABASE, "В базе данных нет записей"))
             }
             return when (val loadedEmployeesResult = loadEmployees()) {
                 is Either.Data -> {
@@ -75,7 +76,7 @@ class EmployeeRepositoryImpl @Inject constructor(
             return Either.Data(employeeList)
         } catch (e: HttpException) {
             Timber.e("HttpException cathed: ${e.code()}")
-            return Either.Error(Failure(e.code().toString(), "Http Error"))
+            return Either.Error(Failure(FailureType.NETWORK, "Http Error: ${e.code()} code"))
         }
     }
 

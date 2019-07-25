@@ -30,6 +30,9 @@
     <string name="connection_offline">Продолжить работу оффлайн</string>
     <string name="connection_exit">Выйти</string>
 
+    <!-- Error Dialog -->
+    <string name="error_dialog_exit">Завершить работу приложения</string>
+
     <!-- Error -->
     <string name="error_network_connect">Произошла ошибка при попытке соединиться с сервером.
         Причина:\n\n%s\n\n

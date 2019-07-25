@@ -11,8 +11,6 @@ import com.example.sdk.utils.isInternetAviable
 import com.example.testtask.App
 import com.example.testtask.R
 import com.example.testtask.di.ViewModelFactory
-import com.example.testtask.view.beans.ErrorType
-import com.example.testtask.view.beans.TestTaskError
 import com.example.testtask.view.dialog.ErrorConnectionDialog
 import com.example.testtask.view.dialog.NoConnectionDialog
 import com.example.testtask.view.viewmodel.SharedViewModel
@@ -86,9 +84,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         sharedViewModel.progressBarLiveData.observe(this,
             Observer<Boolean> { state -> setLoading(state) })
 
-        sharedViewModel.errorLiveData.observe(this, Observer { error ->
-            ErrorConnectionDialog.getInstance(TestTaskError(ErrorType.DATABASE, "d"))
-                .show(supportFragmentManager, "ErrorTag")
+        sharedViewModel.errorLiveData.observe(this, Observer { failure ->
+            ErrorConnectionDialog.getInstance(failure).show(supportFragmentManager, "ErrorTag")
         })
     }
 
@@ -102,7 +99,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
 
     //It's single activity app, so close Activity equals close app
-    private fun closeApp() {
+    fun closeApp() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             this.finishAffinity()
         } else {

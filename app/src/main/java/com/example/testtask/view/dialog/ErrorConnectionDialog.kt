@@ -8,22 +8,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.example.sdk.other.Failure
+import com.example.sdk.other.FailureType
 
 import com.example.testtask.R
-import com.example.testtask.view.beans.ErrorType
-import com.example.testtask.view.beans.TestTaskError
+import com.example.testtask.view.activity.MainActivity
 import kotlinx.android.synthetic.main.dialog_error_connection.*
 
 class ErrorConnectionDialog : DialogFragment() {
 
     companion object {
-        private const val ARG_ERROR_TYPE = "errorDialog_type"
-        private const val ARG_ERROR = "errorDialog_message"
+        private const val ARG_FAILURE_TYPE = "failure_type"
+        private const val ARG_FAILURE_MESSAGE = "failure_message"
 
-        fun getInstance(error: TestTaskError) = ErrorConnectionDialog().apply {
+        fun getInstance(failure: Failure) = ErrorConnectionDialog().apply {
             arguments = Bundle(2).apply {
-                putSerializable(ARG_ERROR_TYPE, error.errorType)
-                putString(ARG_ERROR, error.message)
+                putSerializable(ARG_FAILURE_TYPE, failure.failureType)
+                putString(ARG_FAILURE_MESSAGE, failure.failureMessage)
             }
         }
     }
@@ -44,11 +45,15 @@ class ErrorConnectionDialog : DialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        when (arguments?.getSerializable(ARG_ERROR_TYPE) as ErrorType) {
-            ErrorType.DATABASE -> txt_error_connection_title.text =
-                getString(R.string.error_database_select, arguments?.get(ARG_ERROR) ?: "Unknown")
-            ErrorType.NETWORK -> txt_error_connection_title.text =
-                getString(R.string.error_network_connect, arguments?.get(ARG_ERROR) ?: "Unknown")
+        when (arguments?.getSerializable(ARG_FAILURE_TYPE) as FailureType) {
+            FailureType.DATABASE -> txt_error_connection_title.text =
+                getString(R.string.error_database_select, arguments?.get(ARG_FAILURE_MESSAGE) ?: "Unknown")
+            FailureType.NETWORK -> txt_error_connection_title.text =
+                getString(R.string.error_network_connect, arguments?.get(ARG_FAILURE_MESSAGE) ?: "Unknown")
         }
+
+        btn_close_app.setOnClickListener {
+            dismiss()
+            (activity as MainActivity).closeApp()  }
     }
 }

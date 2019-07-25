@@ -1,6 +1,6 @@
 package com.example.sdk.other
 
 data class Failure(
-    var errorCode: String,
-    var errorMessage: String
+    var failureType: FailureType,
+    var failureMessage: String
 )

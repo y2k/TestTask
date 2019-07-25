@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface GitlabApiService {
 
-    @GET("65gb/static/raw/mas2ter/testTask.json")
+    @GET("65gb/static/raw/master/testTask.json")
     fun loadData(): Deferred<ResponseResult>
 }

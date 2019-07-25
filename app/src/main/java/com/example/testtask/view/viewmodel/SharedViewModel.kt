@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sdk.other.Either
+import com.example.sdk.other.Failure
+import com.example.sdk.other.FailureType
 import com.example.testtask.domain.interactor.EmployeeInteractorImpl
 import com.example.testtask.domain.interactor.SpecialityInteractorImpl
 import com.example.testtask.domain.model.Employee
@@ -22,12 +24,12 @@ class SharedViewModel @Inject constructor(
 
     var isOfflineMode: Boolean = false
 
-    val progressBarLiveData = MutableLiveData<Boolean>()
-    val errorLiveData = MutableLiveData<String>()
-
     val employeeListLiveData = MutableLiveData<ArrayList<Employee>>()
     val specialtyListLiveData = MutableLiveData<ArrayList<Speciality>>()
     val selectedEmployeeLiveData = MutableLiveData<Employee>()
+
+    val progressBarLiveData = MutableLiveData<Boolean>()
+    val errorLiveData = MutableLiveData<Failure>()
 
     fun init(isOfflineMode: Boolean) {
         this.isOfflineMode = isOfflineMode
@@ -43,17 +45,13 @@ class SharedViewModel @Inject constructor(
                     onDataReady(employeesListResult.data)
                 }
                 is Either.Error -> {
-                    errorLiveData.value = employeesListResult.error.errorCode
+                    errorLiveData.value = employeesListResult.error
                 }
             }
         }
     }
 
     private fun onDataReady(employeeList: List<Employee>) {
-        if(employeeList.isNullOrEmpty()){
-            errorLiveData.value = "Нет информации, увы."
-            return
-        }
         employeeListLiveData.value = employeeList as ArrayList<Employee>
         specialtyListLiveData.value = specialityInteractor.getSpecialities()
         selectedEmployeeLiveData.value = employeeInteractor.getSelectedEmployee()
