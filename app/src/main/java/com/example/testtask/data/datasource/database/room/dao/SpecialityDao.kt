@@ -9,6 +9,9 @@ interface SpecialityDao {
     @Query("SELECT * FROM specialities")
     fun getAllSpecialities(): List<SpecialtyDB>
 
+    @Query("SELECT * FROM specialities WHERE specialty_id = :specialityID")
+    fun getSpecialityById(specialityID:Int): SpecialtyDB
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertSpeciality(specialty: SpecialtyDB)
 

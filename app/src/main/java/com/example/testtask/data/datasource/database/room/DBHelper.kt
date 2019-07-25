@@ -5,6 +5,7 @@ import com.example.testtask.data.datasource.database.room.dao.RelationDao
 import com.example.testtask.data.datasource.database.room.dao.SpecialityDao
 import com.example.testtask.data.datasource.database.room.model.EmployeeDB
 import com.example.testtask.data.datasource.database.room.model.SpecialtyDB
+import timber.log.Timber
 import javax.inject.Inject
 
 class DBHelper @Inject constructor(
@@ -13,10 +14,7 @@ class DBHelper @Inject constructor(
     private val relationDao: RelationDao) {
 
     fun writeEmployeesToDB(employeeList: ArrayList<EmployeeDB>) {
-//        employeeDao.insertEmployeeList(employeeList)
-        for (employee in employeeList) {
-            employeeDao.insertEmployeeWithSpeciality(employee)
-        }
+        employeeDao.insertEmployeeListWithSpecialities(employeeList)
     }
 
     fun writeSpecialitiesToDB(specialityList: ArrayList<SpecialtyDB>) {
@@ -26,8 +24,15 @@ class DBHelper @Inject constructor(
     fun readEmployeesFromDB(): List<EmployeeDB> {
         val resultEmployeeList = ArrayList<EmployeeDB>()
 
-        val
-        relationDao.selectAllSpecialityRelationByEmployeeId()
-        return employeeDao.selectEmployeesWithSpeciality()
+        val employeesFromBD = employeeDao.getAllEmployees()
+        employeesFromBD.forEach { employee ->
+            employee.specialtyDBList = ArrayList()
+            val employeeRelations = relationDao.selectAllRelationsForEmployeeByEmployeeId(employee.id)
+            employeeRelations.forEach {
+                employee.specialtyDBList.add(specialityDao.getSpecialityById(it.specialityID))
+            }
+            resultEmployeeList.add(employee)
+        }
+        return resultEmployeeList
     }
 }

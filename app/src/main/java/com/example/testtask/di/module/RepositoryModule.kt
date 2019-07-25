@@ -4,6 +4,7 @@ import com.example.testtask.data.datasource.database.room.dao.EmployeeDao
 import com.example.testtask.data.datasource.database.room.dao.SpecialityDao
 import com.example.testtask.data.datasource.network.GitlabApiService
 import com.example.testtask.data.datasource.database.room.DBHelper
+import com.example.testtask.data.datasource.database.room.dao.RelationDao
 import com.example.testtask.domain.EmployeeRepository
 import com.example.testtask.data.repository.EmployeeRepositoryImpl
 import com.example.testtask.domain.SpecialityRepository
@@ -26,6 +27,6 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideDBHelper(employeeDao: EmployeeDao, specialityDao: SpecialityDao): DBHelper =
-        DBHelper(employeeDao, specialityDao)
+    fun provideDBHelper(employeeDao: EmployeeDao, specialityDao: SpecialityDao,relationDao: RelationDao): DBHelper =
+        DBHelper(employeeDao, specialityDao,relationDao)
 }

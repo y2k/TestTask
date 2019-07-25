@@ -6,6 +6,6 @@ import com.example.testtask.data.datasource.database.room.model.SpecialtyRelatio
 @Dao
 interface RelationDao {
 
-    @Query("SELECT * FROM specialities_relation")
-    abstract fun selectAllSpecialityRelation(): List<SpecialtyRelationDB>
+    @Query("SELECT * FROM specialities_relation WHERE employee_id = :employeeID")
+    fun selectAllRelationsForEmployeeByEmployeeId(employeeID:Int): List<SpecialtyRelationDB>
 }
