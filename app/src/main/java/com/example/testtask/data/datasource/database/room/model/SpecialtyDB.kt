@@ -20,5 +20,5 @@ data class SpecialtyDB(
     var specialityID: Int,
 
     @ColumnInfo(name = "specialty_name")
-    var specialityName: String?
+    var specialityName: String
 )

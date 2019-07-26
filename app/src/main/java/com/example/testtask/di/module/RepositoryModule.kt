@@ -2,7 +2,7 @@ package com.example.testtask.di.module
 
 import com.example.testtask.data.datasource.database.room.dao.EmployeeDao
 import com.example.testtask.data.datasource.database.room.dao.SpecialityDao
-import com.example.testtask.data.datasource.network.GitlabApiService
+import com.example.testtask.data.datasource.network.ApiService
 import com.example.testtask.data.datasource.database.room.DBHelper
 import com.example.testtask.data.datasource.database.room.dao.RelationDao
 import com.example.testtask.domain.EmployeeRepository
@@ -17,8 +17,8 @@ import javax.inject.Singleton
 class RepositoryModule {
     @Provides
     @Singleton
-    fun provideEmployeeRepository(gitlabApiService: GitlabApiService, dbHelper: DBHelper): EmployeeRepository =
-        EmployeeRepositoryImpl(gitlabApiService, dbHelper)
+    fun provideEmployeeRepository(apiService: ApiService, dbHelper: DBHelper): EmployeeRepository =
+        EmployeeRepositoryImpl(apiService, dbHelper)
 
     @Provides
     @Singleton

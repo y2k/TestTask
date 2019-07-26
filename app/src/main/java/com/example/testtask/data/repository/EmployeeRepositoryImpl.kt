@@ -8,7 +8,7 @@ import com.example.sdk.other.Either
 import com.example.sdk.other.Failure
 import com.example.sdk.other.FailureType
 import com.example.testtask.data.toDBModel
-import com.example.testtask.data.datasource.network.GitlabApiService
+import com.example.testtask.data.datasource.network.ApiService
 import com.example.testtask.data.toDomain
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.EmployeeRepository
@@ -18,7 +18,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class EmployeeRepositoryImpl @Inject constructor(
-    private val apiService: GitlabApiService,
+    private val apiService: ApiService,
     private val dbHelper: DBHelper
 ) : EmployeeRepository {
 
@@ -71,14 +71,15 @@ class EmployeeRepositoryImpl @Inject constructor(
 
     private suspend fun loadEmployees(): Either<Failure, List<Employee>> {
         try {
-            val employeeList = apiService.loadData().await().items.map {
+            val employeeList = apiService.loadData().await()
+            val resultList = employeeList.items.map {
                 it.toDomian().apply {
                     firstName = this.firstName?.fixName()
                     lastName = this.lastName?.fixName()
                     birthday = this.birthday?.fixBirthday()
                 }
             }
-            return Either.Data(employeeList)
+            return Either.Data(resultList)
         } catch (e: HttpException) {
             Timber.e("HttpException cathed: ${e.code()}")
             return Either.Error(Failure(FailureType.NETWORK, "Http Error: ${e.code()} code"))
@@ -99,7 +100,6 @@ class EmployeeRepositoryImpl @Inject constructor(
     }
 
     private fun getEmployeesFromDB(): List<Employee> {
-        val employees = dbHelper.readEmployeesFromDB()
-        return employees.map { it.toDomain() }
+        return dbHelper.readEmployeesFromDB().map { it.toDomain() }
     }
 }

@@ -10,6 +10,7 @@ import com.example.testtask.domain.model.Speciality
 import timber.log.Timber
 
 fun Employee.toDBModel(id: Int): EmployeeDB {
+
     val specialtyList = this.specialtyList.let {
         if (it.isNullOrEmpty()) {
             emptyList()
@@ -18,21 +19,20 @@ fun Employee.toDBModel(id: Int): EmployeeDB {
 
     return EmployeeDB(
         id = id,
-        firstName = firstName,
-        lastName = lastName,
-        birthday = birthday,
-        avatarUrl = avatarUrl
+        firstName = firstName ?: "",
+        lastName = lastName ?: "",
+        birthday = birthday ?: "",
+        avatarUrl = avatarUrl ?: ""
     ).apply {
         specialtyDBList = specialtyList as ArrayList<SpecialtyDB>
     }
 }
 
 fun Speciality.toDBModel(): SpecialtyDB {
-    Timber.e("ID " + this.specialityID)
     return SpecialtyDB(
         id = 0,
-        specialityID = this.specialityID ?: 0,
-        specialityName = this.specialityName
+        specialityID = this.specialityID ?: -1,
+        specialityName = this.specialityName ?: ""
     )
 }
 

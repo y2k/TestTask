@@ -11,16 +11,16 @@ data class EmployeeDB(
     var id: Int = 0,
 
     @ColumnInfo(name = "f_name")
-    var firstName: String?,
+    var firstName: String,
 
     @ColumnInfo(name = "l_name")
-    var lastName: String?,
+    var lastName: String,
 
     @ColumnInfo(name = "birthday")
-    var birthday: String?,
+    var birthday: String,
 
     @ColumnInfo(name = "avatr_url")
-    var avatarUrl: String?
+    var avatarUrl: String
 ) {
     @Ignore
     var specialtyDBList: ArrayList<SpecialtyDB> = ArrayList()

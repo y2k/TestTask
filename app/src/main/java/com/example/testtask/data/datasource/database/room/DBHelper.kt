@@ -5,7 +5,7 @@ import com.example.testtask.data.datasource.database.room.dao.RelationDao
 import com.example.testtask.data.datasource.database.room.dao.SpecialityDao
 import com.example.testtask.data.datasource.database.room.model.EmployeeDB
 import com.example.testtask.data.datasource.database.room.model.SpecialtyDB
-import timber.log.Timber
+import com.example.testtask.data.getRelationList
 import javax.inject.Inject
 
 class DBHelper @Inject constructor(
@@ -13,8 +13,15 @@ class DBHelper @Inject constructor(
     private val specialityDao: SpecialityDao,
     private val relationDao: RelationDao) {
 
+    private val CODE_SELECT_IGNORE: Long = -1
+
     fun writeEmployeesToDB(employeeList: ArrayList<EmployeeDB>) {
-        employeeDao.insertEmployeeListWithSpecialities(employeeList)
+        for(employee in employeeList){
+            val resultCode = employeeDao.insertEmployee(employee)
+            if (resultCode != CODE_SELECT_IGNORE) {
+                relationDao.insertSpecialityRelationList(employee.getRelationList())
+            }
+        }
     }
 
     fun writeSpecialitiesToDB(specialityList: ArrayList<SpecialtyDB>) {
