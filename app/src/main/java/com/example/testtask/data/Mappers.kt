@@ -10,14 +10,14 @@ import com.example.testtask.domain.model.Speciality
 
 fun Employee.toDBModel(id: Int): EmployeeDB {
 
-    val convertedSpecialtyList = specialtyList?.map { speciality -> speciality.toDBModel() }?.toList() ?: ArrayList()
+    val convertedSpecialtyList = specialtyList.map { speciality -> speciality.toDBModel() }.toList()
 
     return EmployeeDB(
         id = id,
-        firstName = firstName ?: "",
-        lastName = lastName ?: "",
-        birthday = birthday ?: "",
-        avatarUrl = avatarUrl ?: ""
+        firstName = firstName,
+        lastName = lastName,
+        birthday = birthday,
+        avatarUrl = avatarUrl
     ).apply {
         specialtyDBList = convertedSpecialtyList
     }
@@ -26,27 +26,26 @@ fun Employee.toDBModel(id: Int): EmployeeDB {
 fun Speciality.toDBModel(): SpecialtyDB {
     return SpecialtyDB(
         id = 0,
-        specialityID = this.specialityID ?: -1,
-        specialityName = this.specialityName ?: ""
-    )
-}
-
-
-fun SpecialtyNetwork.toDomian(): Speciality {
-    return Speciality(
         specialityID = this.specialityID,
         specialityName = this.specialityName
     )
 }
 
-fun EmployeeNetwork.toDomian(): Employee {
-    val specialtyList = this.specialtyNetworkList?.map { it.toDomian() }
+fun SpecialtyNetwork.toDomain(): Speciality {
+    return Speciality(
+        specialityID = this.specialityID ?: -1,
+        specialityName = this.specialityName ?: ""
+    )
+}
+
+fun EmployeeNetwork.toDomain(): Employee {
+    val specialtyList = this.specialtyNetworkList?.map { it.toDomain() }
     return Employee(
-        firstName = this.firstName,
-        lastName = this.lastName,
-        birthday = this.birthday,
-        avatarUrl = this.avatarUrl,
-        specialtyList = specialtyList as ArrayList<Speciality>?
+        firstName = this.firstName?:"",
+        lastName = this.lastName?:"",
+        birthday = this.birthday?:"",
+        avatarUrl = this.avatarUrl?:"",
+        specialtyList = specialtyList as ArrayList<Speciality>
     )
 }
 

@@ -13,15 +13,15 @@ import com.example.sdk.other.FailureType
 
 import com.example.testtask.R
 import com.example.testtask.view.activity.MainActivity
-import kotlinx.android.synthetic.main.dialog_error_connection.*
+import kotlinx.android.synthetic.main.dialog_error.*
 
-class ErrorConnectionDialog : DialogFragment() {
+class ErrorDialog : DialogFragment() {
 
     companion object {
         private const val ARG_FAILURE_TYPE = "failure_type"
         private const val ARG_FAILURE_MESSAGE = "failure_message"
 
-        fun getInstance(failure: Failure) = ErrorConnectionDialog().apply {
+        fun getInstance(failure: Failure) = ErrorDialog().apply {
             arguments = Bundle(2).apply {
                 putSerializable(ARG_FAILURE_TYPE, failure.failureType)
                 putString(ARG_FAILURE_MESSAGE, failure.failureMessage)
@@ -35,7 +35,7 @@ class ErrorConnectionDialog : DialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.dialog_error_connection, container, false)
+        return inflater.inflate(R.layout.dialog_error, container, false)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

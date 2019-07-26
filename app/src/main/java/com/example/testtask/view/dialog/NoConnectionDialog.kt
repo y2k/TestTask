@@ -12,7 +12,9 @@ import androidx.fragment.app.DialogFragment
 import com.example.testtask.R
 import kotlinx.android.synthetic.main.dialog_no_connection.*
 
-class NoConnectionDialog(private val callBack: (id: Int) -> Unit) : DialogFragment() {
+class NoConnectionDialog : DialogFragment() {
+
+    lateinit var callBack: (id: Int) -> Unit
 
     companion object {
         const val NO_CONNECTION_EXIT: Int = 1
@@ -32,6 +34,7 @@ class NoConnectionDialog(private val callBack: (id: Int) -> Unit) : DialogFragme
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = Dialog(activity, R.style.Dialog_DialogFragment)
         dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
         return dialog
     }
 

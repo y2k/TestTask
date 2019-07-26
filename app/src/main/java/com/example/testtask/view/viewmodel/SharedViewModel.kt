@@ -5,23 +5,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sdk.other.Either
 import com.example.sdk.other.Failure
-import com.example.sdk.other.FailureType
-import com.example.testtask.domain.interactor.EmployeeInteractorImpl
-import com.example.testtask.domain.interactor.SpecialityInteractorImpl
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.model.Speciality
 import com.example.testtask.view.EmployeeInteractor
 import com.example.testtask.view.SpecialityInteractor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SharedViewModel @Inject constructor(
     private var employeeInteractor: EmployeeInteractor,
-    private var specialityInteractor: SpecialityInteractor
-) : ViewModel() {
+    private var specialityInteractor: SpecialityInteractor) : ViewModel() {
 
+    var isInitiated: Boolean = false
     var isOfflineMode: Boolean = false
 
     val employeeListLiveData = MutableLiveData<ArrayList<Employee>>()
@@ -32,26 +29,32 @@ class SharedViewModel @Inject constructor(
     val errorLiveData = MutableLiveData<Failure>()
 
     fun init(isOfflineMode: Boolean) {
+        isInitiated = true
         this.isOfflineMode = isOfflineMode
+
         progressBarLiveData.value = true
 
         viewModelScope.launch(Dispatchers.Main) {
             employeeInteractor.setOfflineMode(isOfflineMode)
 
-            val employeesListResult = employeeInteractor.getEmployees()
-            progressBarLiveData.value = false
-            when (employeesListResult) {
-                is Either.Data -> {
-                    onDataReady(employeesListResult.data)
-                }
-                is Either.Error -> {
-                    errorLiveData.value = employeesListResult.error
+            withContext(Dispatchers.IO) {
+                val employeesListResult = employeeInteractor.getEmployees()
+                withContext(Dispatchers.Main) {
+                    progressBarLiveData.value = false
+                    when (employeesListResult) {
+                        is Either.Data -> {
+                            onDataReady(employeesListResult.data)
+                        }
+                        is Either.Error -> {
+                            errorLiveData.value = employeesListResult.error
+                        }
+                    }
                 }
             }
         }
     }
 
-    private fun onDataReady(employeeList: List<Employee>) {
+    private fun onDataReady(employeeList: List<Employee>?) {
         employeeListLiveData.value = employeeList as ArrayList<Employee>
         specialtyListLiveData.value = specialityInteractor.getSpecialities()
         selectedEmployeeLiveData.value = employeeInteractor.getSelectedEmployee()

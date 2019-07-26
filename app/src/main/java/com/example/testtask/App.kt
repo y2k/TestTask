@@ -20,7 +20,6 @@ class App : Application() {
 
         injector = DaggerApplicationComponent
             .builder()
-            .applicationModule(ApplicationModule(this))
             .roomModule(RoomModule(this))
             .build()
 

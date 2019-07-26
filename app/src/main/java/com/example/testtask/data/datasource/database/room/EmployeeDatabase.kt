@@ -2,7 +2,6 @@ package com.example.testtask.data.datasource.database.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
 import com.example.testtask.data.datasource.database.room.dao.EmployeeDao
 import com.example.testtask.data.datasource.database.room.dao.RelationDao
 import com.example.testtask.data.datasource.database.room.dao.SpecialityDao

@@ -48,9 +48,9 @@ class EmployeesAdapter(private val callback: (employee: Employee) -> Unit) :
             name.text = employee.firstName
             lastName.text = employee.lastName
 
-            if (employee.birthday.isNullOrEmpty()) {
+            if (employee.birthday.isEmpty()) {
                 age.text = itemView.context.getString(R.string.employee_age_empty)
-            } else age.text = employee.birthday?.fromStringToDate()?.getAge().toString()
+            } else age.text = employee.birthday.fromStringToDate().getAge().toString()
 
             root.setOnClickListener {
                 callback.invoke(employeeList[adapterPosition])

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.example.sdk.extensions.inflate
 import com.example.sdk.utils.verticalManager
 import com.example.testtask.App
 import com.example.testtask.Constants.Companion.KEY_SPECIALITY_ID
@@ -18,7 +19,6 @@ import com.example.testtask.view.decorators.MarginItemDecoration
 import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.view.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_speciality_list.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class SpecialityListFragment : Fragment() {
@@ -35,7 +35,7 @@ class SpecialityListFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_speciality_list, container, false)
+        return container?.inflate(R.layout.fragment_speciality_list)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,9 +57,6 @@ class SpecialityListFragment : Fragment() {
         }
 
         sharedViewModel.specialtyListLiveData.observe(this, Observer { list ->
-            list.forEach {
-                Timber.e(it.specialityName)
-            }
             adapter.setSpecialities(list)
         })
     }

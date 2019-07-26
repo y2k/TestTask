@@ -18,7 +18,6 @@ class RoomModule(mApplication: Application) {
                     EmployeeDatabase::class.java,
                     EmployeeDatabase.DATABASE_NAME.plus(".db"))
             .fallbackToDestructiveMigration()
-            .allowMainThreadQueries()
             .build()
 
     private val employeeDao = db.employeeDaoAccess()

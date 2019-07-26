@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.example.sdk.extensions.inflate
 import com.example.sdk.utils.verticalManager
 import com.example.testtask.App
 import com.example.testtask.Constants.Companion.KEY_SPECIALITY_ID
@@ -38,7 +39,7 @@ class EmployeeListFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_employee_list, container, false)
+        return container?.inflate(R.layout.fragment_employee_list)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -6,13 +6,11 @@ import com.example.testtask.domain.EmployeeRepository
 import com.example.testtask.domain.SpecialityRepository
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.view.EmployeeInteractor
-import timber.log.Timber
 import javax.inject.Inject
 
 class EmployeeInteractorImpl @Inject constructor(
     private val employeeRepository: EmployeeRepository,
-    private val specialityRepository: SpecialityRepository
-) : EmployeeInteractor {
+    private val specialityRepository: SpecialityRepository) : EmployeeInteractor {
 
     private var isOfflineMode: Boolean = false
 

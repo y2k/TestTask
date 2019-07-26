@@ -20,8 +20,8 @@ data class EmployeeDB(
     var birthday: String,
 
     @ColumnInfo(name = "avatr_url")
-    var avatarUrl: String
-) {
+    var avatarUrl: String)
+{
     @Ignore
-    lateinit var specialtyDBList: List<SpecialtyDB>
+    var specialtyDBList: List<SpecialtyDB> = ArrayList()
 }

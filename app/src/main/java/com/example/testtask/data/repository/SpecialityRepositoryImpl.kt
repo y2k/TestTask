@@ -9,18 +9,16 @@ import com.example.testtask.domain.SpecialityRepository
 
 import javax.inject.Inject
 
-class SpecialityRepositoryImpl @Inject constructor(private val dbHelper: DBHelper) :
-    SpecialityRepository {
+class SpecialityRepositoryImpl @Inject constructor(private val dbHelper: DBHelper) : SpecialityRepository {
     private var cachedSpecialities = arrayListOf<Speciality>()
 
     override fun setSpecialities(specialties: ArrayList<Speciality>) {
         cacheSpecialities(specialties)
     }
 
-    //TODO:Проверка на emptyList
     override fun setSpecialitiesFromEmployeeList(employees: List<Employee>) {
         val specialties = employees
-            .flatMap { it.specialtyList.orEmpty() }
+            .flatMap { it.specialtyList }
             .distinct() as ArrayList<Speciality>
 
         cacheSpecialities(specialties)

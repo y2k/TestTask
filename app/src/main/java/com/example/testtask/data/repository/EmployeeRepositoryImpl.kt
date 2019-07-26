@@ -1,9 +1,9 @@
 package com.example.testtask.data.repository
 
-import com.example.testtask.data.datasource.database.room.DBHelper
-import com.example.testtask.data.datasource.database.room.model.EmployeeDB
 import com.example.sdk.extensions.fixBirthday
 import com.example.sdk.extensions.fixName
+import com.example.testtask.data.datasource.database.room.DBHelper
+import com.example.testtask.data.datasource.database.room.model.EmployeeDB
 import com.example.sdk.other.Either
 import com.example.sdk.other.Failure
 import com.example.sdk.other.FailureType
@@ -12,7 +12,6 @@ import com.example.testtask.data.datasource.network.ApiService
 import com.example.testtask.data.toDomain
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.EmployeeRepository
-import com.example.testtask.data.toDomian
 import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
@@ -73,10 +72,10 @@ class EmployeeRepositoryImpl @Inject constructor(
         try {
             val employeeList = apiService.loadData().await()
             val resultList = employeeList.items.map {
-                it.toDomian().apply {
-                    firstName = this.firstName?.fixName()
-                    lastName = this.lastName?.fixName()
-                    birthday = this.birthday?.fixBirthday()
+                it.toDomain().apply {
+                    firstName = this.firstName.fixName()
+                    lastName = this.lastName.fixName()
+                    birthday = this.birthday.fixBirthday()
                 }
             }
             return Either.Data(resultList)

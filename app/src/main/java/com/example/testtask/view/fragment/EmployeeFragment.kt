@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.sdk.extensions.fromDateToFormattedString
 import com.example.sdk.extensions.fromStringToDate
 import com.example.sdk.extensions.getAge
+import com.example.sdk.extensions.inflate
 import com.example.testtask.App
 
 import com.example.testtask.R
@@ -35,7 +36,7 @@ class EmployeeFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_employee, container, false)
+        return container?.inflate(R.layout.fragment_employee)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,12 +46,12 @@ class EmployeeFragment : Fragment() {
             text_employee_detail_name.text = employee.firstName
             text_employee_detail_last_name.text = employee.lastName
 
-            if ((employee.birthday.isNullOrEmpty())) {
+            if ((employee.birthday.isEmpty())) {
                 text_employee_detail_birthday.text = getString(R.string.employee_age_empty)
                 text_employee_detail_age.text = getString(R.string.employee_age_empty)
             } else {
-                text_employee_detail_birthday.text = employee.birthday?.fromStringToDate()?.fromDateToFormattedString()
-                text_employee_detail_age.text = employee.birthday?.fromStringToDate()?.getAge().toString()
+                text_employee_detail_birthday.text = employee.birthday.fromStringToDate().fromDateToFormattedString()
+                text_employee_detail_age.text = employee.birthday.fromStringToDate().getAge().toString()
             }
 
             Glide.with(this).load(employee.avatarUrl)
