@@ -30,16 +30,16 @@ class DBHelper @Inject constructor(
 
     fun readEmployeesFromDB(): List<EmployeeDB> {
         val resultEmployeeList = ArrayList<EmployeeDB>()
-
         val employeesFromBD = employeeDao.getAllEmployees()
+
         employeesFromBD.forEach { employee ->
-            employee.specialtyDBList = ArrayList()
             val employeeRelations = relationDao.selectAllRelationsForEmployeeByEmployeeId(employee.id)
             employeeRelations.forEach {
-                employee.specialtyDBList.add(specialityDao.getSpecialityById(it.specialityID))
+                (employee.specialtyDBList as ArrayList<SpecialtyDB>).add(specialityDao.getSpecialityById(it.specialityID))
             }
             resultEmployeeList.add(employee)
         }
+
         return resultEmployeeList
     }
 }

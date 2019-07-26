@@ -23,5 +23,5 @@ data class EmployeeDB(
     var avatarUrl: String
 ) {
     @Ignore
-    var specialtyDBList: ArrayList<SpecialtyDB> = ArrayList()
+    lateinit var specialtyDBList: List<SpecialtyDB>
 }

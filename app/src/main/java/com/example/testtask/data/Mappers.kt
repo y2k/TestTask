@@ -7,15 +7,10 @@ import com.example.testtask.data.model.EmployeeNetwork
 import com.example.testtask.data.model.SpecialtyNetwork
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.model.Speciality
-import timber.log.Timber
 
 fun Employee.toDBModel(id: Int): EmployeeDB {
 
-    val specialtyList = this.specialtyList.let {
-        if (it.isNullOrEmpty()) {
-            emptyList()
-        } else it.map { speciality -> speciality.toDBModel() }
-    }
+    val convertedSpecialtyList = specialtyList?.map { speciality -> speciality.toDBModel() }?.toList() ?: ArrayList()
 
     return EmployeeDB(
         id = id,
@@ -24,7 +19,7 @@ fun Employee.toDBModel(id: Int): EmployeeDB {
         birthday = birthday ?: "",
         avatarUrl = avatarUrl ?: ""
     ).apply {
-        specialtyDBList = specialtyList as ArrayList<SpecialtyDB>
+        specialtyDBList = convertedSpecialtyList
     }
 }
 
