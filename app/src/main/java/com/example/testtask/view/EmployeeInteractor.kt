@@ -6,8 +6,6 @@ import com.example.testtask.domain.model.Employee
 
 interface EmployeeInteractor {
 
-    fun setOfflineMode(isOfflineMode:Boolean)
-
     suspend fun getEmployees(): Either<Failure,List<Employee>>
 
     fun getSelectedEmployee(): Employee?

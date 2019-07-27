@@ -3,8 +3,10 @@ package com.example.testtask.view.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.sdk.core.network.NetworkHelper
 import com.example.sdk.other.Either
 import com.example.sdk.other.Failure
+import com.example.sdk.other.SingleLiveEvent
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.model.Speciality
 import com.example.testtask.view.EmployeeInteractor
@@ -15,11 +17,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SharedViewModel @Inject constructor(
+    private var networkChecker: NetworkHelper,
     private var employeeInteractor: EmployeeInteractor,
     private var specialityInteractor: SpecialityInteractor) : ViewModel() {
-
-    var isInitiated: Boolean = false
-    var isOfflineMode: Boolean = false
 
     val employeeListLiveData = MutableLiveData<ArrayList<Employee>>()
     val specialtyListLiveData = MutableLiveData<ArrayList<Speciality>>()
@@ -28,15 +28,16 @@ class SharedViewModel @Inject constructor(
     val progressBarLiveData = MutableLiveData<Boolean>()
     val errorLiveData = MutableLiveData<Failure>()
 
-    fun init(isOfflineMode: Boolean) {
-        isInitiated = true
-        this.isOfflineMode = isOfflineMode
+    val networkStatusLiveData = SingleLiveEvent<Boolean>()
 
+    init {
+        networkStatusLiveData.value = networkChecker.isConnectedToNetwork()
+    }
+
+    fun setData() {
         progressBarLiveData.value = true
 
         viewModelScope.launch(Dispatchers.Main) {
-            employeeInteractor.setOfflineMode(isOfflineMode)
-
             withContext(Dispatchers.IO) {
                 val employeesListResult = employeeInteractor.getEmployees()
                 withContext(Dispatchers.Main) {

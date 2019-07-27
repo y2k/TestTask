@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.sdk.utils.isInternetAvailable
+import com.example.sdk.core.network.NetworkHelper
 import com.example.testtask.App
 import com.example.testtask.R
 import com.example.testtask.di.ViewModelFactory
@@ -23,14 +23,38 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
     private val TAG_FRAGMENT_NO_CONNECTION: String = "NoConnectionTag"
 
+    private lateinit var noInternetConnectionDialog: NoConnectionDialog
+    private val noConnectionDialogCallback = { select: Int ->
+        when (select) {
+            NoConnectionDialog.NO_CONNECTION_EXIT -> closeApp()
+
+            NoConnectionDialog.NO_CONNECTION_OFFLINE -> {
+                noInternetConnectionDialog.dismiss()
+                networkChecker.isOfflineModeEnabled = true
+                onAppWorkingModeSelected()
+            }
+
+            NoConnectionDialog.NO_CONNECTION_RETRY -> {
+                if (!networkChecker.isConnectedToNetwork()) {
+                    showMessage(R.string.base_error_no_connection)
+                } else {
+                    noInternetConnectionDialog.dismiss()
+                    networkChecker.isOfflineModeEnabled = false
+                    onAppWorkingModeSelected()
+                }
+            }
+        }
+    }
+
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + SupervisorJob()
 
     @Inject
     lateinit var factory: ViewModelFactory
+    @Inject
+    lateinit var networkChecker:NetworkHelper
 
     private lateinit var sharedViewModel: SharedViewModel
-    private lateinit var noInternetConnectionDialog: NoConnectionDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,48 +62,29 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
         App.get().injector?.inject(this)
 
+        //Check if NoConnectionDialog showing, and restore callback to it
+        restoreNoConnectionDialog()
+
         sharedViewModel = ViewModelProviders.of(this, factory)[SharedViewModel::class.java]
 
-        if (sharedViewModel.isInitiated) {
-            onInternetChecked(sharedViewModel.isOfflineMode)
-        } else {
-            checkInternetConnection()
-        }
+        sharedViewModel.networkStatusLiveData.observe(this, Observer { isInternetAvailable ->
+            if (isInternetAvailable) {
+                networkChecker.isOfflineModeEnabled = false
+                onAppWorkingModeSelected()
+            } else {
+                showNoConnectionDialog()
+            }
+        })
     }
 
-    private fun checkInternetConnection() {
-        if (isInternetAvailable(this)) {
-            closeNoInternetConnectionDialog()
-            onInternetChecked(false)
-            return
-        }
-
+    private fun showNoConnectionDialog() {
         noInternetConnectionDialog = NoConnectionDialog()
-        noInternetConnectionDialog.callBack = {
-            when (it) {
-                NoConnectionDialog.NO_CONNECTION_EXIT -> closeApp()
-
-                NoConnectionDialog.NO_CONNECTION_OFFLINE -> {
-                    noInternetConnectionDialog.dismiss()
-                    onInternetChecked(true)
-                }
-
-                NoConnectionDialog.NO_CONNECTION_RETRY -> {
-                    if (!isInternetAvailable(this@MainActivity)) {
-                        showMessage(R.string.base_error_no_connection)
-                    } else {
-                        noInternetConnectionDialog.dismiss()
-                        onInternetChecked(false)
-                    }
-                }
-            }
-        }
-
+        noInternetConnectionDialog.callBack = noConnectionDialogCallback
         noInternetConnectionDialog.show(supportFragmentManager, TAG_FRAGMENT_NO_CONNECTION)
     }
 
-    private fun onInternetChecked(isOfflineMode: Boolean) {
-        sharedViewModel.init(isOfflineMode)
+    private fun onAppWorkingModeSelected() {
+        sharedViewModel.setData()
 
         sharedViewModel.progressBarLiveData.observe(this,
             Observer<Boolean> { state -> setLoading(state) })
@@ -106,15 +111,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
-    private fun closeNoInternetConnectionDialog() {
-        if (::noInternetConnectionDialog.isInitialized) {
-            noInternetConnectionDialog.dismiss()
+    private fun restoreNoConnectionDialog(){
+        if (supportFragmentManager.findFragmentByTag(TAG_FRAGMENT_NO_CONNECTION) != null) {
+            noInternetConnectionDialog = (supportFragmentManager.findFragmentByTag(TAG_FRAGMENT_NO_CONNECTION) as NoConnectionDialog)
+            noInternetConnectionDialog.callBack = noConnectionDialogCallback
         }
-    }
-
-    override fun onPause() {
-        closeNoInternetConnectionDialog()
-        super.onPause()
     }
 
     override fun onDestroy() {

@@ -1,8 +1,8 @@
 package com.example.testtask.data.repository
 
+import com.example.sdk.core.network.NetworkHelper
 import com.example.sdk.extensions.fixBirthday
 import com.example.sdk.extensions.fixName
-import com.example.testtask.data.datasource.database.room.DBHelper
 import com.example.testtask.data.datasource.database.room.model.EmployeeDB
 import com.example.sdk.other.Either
 import com.example.sdk.other.Failure
@@ -10,6 +10,7 @@ import com.example.sdk.other.FailureType
 import com.example.testtask.data.toDBModel
 import com.example.testtask.data.datasource.network.ApiService
 import com.example.testtask.data.toDomain
+import com.example.testtask.data.datasource.database.room.DBHelper
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.EmployeeRepository
 import retrofit2.HttpException
@@ -18,17 +19,11 @@ import javax.inject.Inject
 
 class EmployeeRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
-    private val dbHelper: DBHelper
-) : EmployeeRepository {
+    private val dbHelper: DBHelper,
+    private var networkHelper: NetworkHelper) : EmployeeRepository {
 
     private var selectedEmployee: Employee? = null
     private var cachedEmployees = listOf<Employee>()
-
-    private var isOfflineMode: Boolean = false
-
-    override fun setOfflineMode(isOfflineMode: Boolean) {
-        this.isOfflineMode = isOfflineMode
-    }
 
     //If there is no employees into cache, we load data from server and cache it/save to DB
     override suspend fun getEmployees(): Either<Failure, List<Employee>> {
@@ -36,7 +31,7 @@ class EmployeeRepositoryImpl @Inject constructor(
             return Either.Data(cachedEmployees)
         }
 
-        if (isOfflineMode) {
+        if (networkHelper.isOfflineModeEnabled) {
             val employees = getEmployeesFromDB()
 
             return when {
@@ -92,7 +87,7 @@ class EmployeeRepositoryImpl @Inject constructor(
     //We can't use map here because we need "i" (broken API)
     private fun saveEmployeesToDB(employees: List<Employee>) {
         val convertedEmployees = ArrayList<EmployeeDB>()
-        for (i in 0 until employees.size) {
+        for (i in employees.indices) {
             convertedEmployees.add(employees[i].toDBModel(i))
         }
         dbHelper.writeEmployeesToDB(convertedEmployees)

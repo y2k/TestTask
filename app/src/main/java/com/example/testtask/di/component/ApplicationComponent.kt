@@ -11,7 +11,8 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules =
-    [   RoomModule::class,
+    [   ContextModule::class,
+        RoomModule::class,
         NetworkModule::class,
         RepositoryModule::class,
         ViewModelModule::class,
