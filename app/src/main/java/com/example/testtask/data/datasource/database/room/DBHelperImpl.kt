@@ -15,7 +15,8 @@ import javax.inject.Inject
 class DBHelperImpl @Inject constructor(
     private val employeeDao: EmployeeDao,
     private val specialityDao: SpecialityDao,
-    private val relationDao: RelationDao) : DBHelper {
+    private val relationDao: RelationDao
+) : DBHelper {
 
     private val CODE_SELECT_IGNORE: Long = -1
 
@@ -42,10 +43,10 @@ class DBHelperImpl @Inject constructor(
         val employeesFromBDList = employeeDao.getAllEmployees()
 
         return employeesFromBDList.map { employeeDB ->
-            val currentEmployeeRelations = relationDao.selectAllRelationsForEmployeeByEmployeeId(employeeDB.id)
-            currentEmployeeRelations.forEach {
-                (employeeDB.specialtyDBList as ArrayList<SpecialtyDB>).add(specialityDao.getSpecialityById(it.specialityID))
-            }
+            relationDao.selectAllRelationsForEmployeeByEmployeeId(employeeDB.id)
+                .forEach {
+                    (employeeDB.specialtyDBList as ArrayList<SpecialtyDB>).add(specialityDao.getSpecialityById(it.specialityID))
+                }
             employeeDB.toDomain()
         }
     }
