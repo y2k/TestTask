@@ -32,8 +32,7 @@ class DBHelperImpl @Inject constructor(
     }
 
     override fun writeSpecialitiesToDB(specialityList: List<Speciality>) {
-        val convertedSpecialities = specialityList.map { it.toDBModel() }
-        specialityDao.insertSpecialityList(convertedSpecialities)
+        specialityDao.insertSpecialityList(specialityList.map { it.toDBModel() })
     }
 
     //We filling every Employee with SpecialityList before return it.
