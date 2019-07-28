@@ -15,15 +15,15 @@ import javax.inject.Inject
 class DBHelperImpl @Inject constructor(
     private val employeeDao: EmployeeDao,
     private val specialityDao: SpecialityDao,
-    private val relationDao: RelationDao
-) : DBHelper {
+    private val relationDao: RelationDao) : DBHelper {
 
     private val CODE_SELECT_IGNORE: Long = -1
 
     override fun writeEmployeesToDB(employeeList: List<Employee>) {
-        //We can't use map here because we need index (broken API, employee without ID)
-        for (i in employeeList.indices) {
-            val convertedEmployee = employeeList[i].toDBModel(i)
+        //We need index here (broken API, employee without ID)
+
+        employeeList.forEachIndexed { i, employee ->
+            val convertedEmployee = employee.toDBModel(i)
             val resultCode = employeeDao.insertEmployee(convertedEmployee)
             if (resultCode != CODE_SELECT_IGNORE) {
                 relationDao.insertSpecialityRelationList(convertedEmployee.getRelationList())
@@ -36,9 +36,8 @@ class DBHelperImpl @Inject constructor(
         specialityDao.insertSpecialityList(convertedSpecialities)
     }
 
-    //We filling every Employee with Speciality List before return it.
-    //We get Speciality List of Employee using relationDao, which response for relation
-    //"Employee" -> "It's speciality"
+    //We filling every Employee with SpecialityList before return it.
+    //We get SpecialityList of Employee using relationDao
     override fun readEmployeesFromDB(): List<Employee> {
         val employeesFromBDList = employeeDao.getAllEmployees()
 
