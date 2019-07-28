@@ -35,18 +35,18 @@ class DBHelperImpl @Inject constructor(
         specialityDao.insertSpecialityList(convertedSpecialities)
     }
 
+    //We filling every Employee with Speciality List before return it.
+    //We get Speciality List of Employee using relationDao, which response for relation
+    //"Employee" -> "It's speciality"
     override fun readEmployeesFromDB(): List<Employee> {
-        val resultEmployeeList = ArrayList<Employee>()
-        val employeesFromBD = employeeDao.getAllEmployees()
+        val employeesFromBDList = employeeDao.getAllEmployees()
 
-        employeesFromBD.forEach { employee ->
-            val employeeRelations = relationDao.selectAllRelationsForEmployeeByEmployeeId(employee.id)
-            employeeRelations.forEach {
-                (employee.specialtyDBList as ArrayList<SpecialtyDB>).add(specialityDao.getSpecialityById(it.specialityID))
+        return employeesFromBDList.map { employeeDB ->
+            val currentEmployeeRelations = relationDao.selectAllRelationsForEmployeeByEmployeeId(employeeDB.id)
+            currentEmployeeRelations.forEach {
+                (employeeDB.specialtyDBList as ArrayList<SpecialtyDB>).add(specialityDao.getSpecialityById(it.specialityID))
             }
-            resultEmployeeList.add(employee.toDomain())
+            employeeDB.toDomain()
         }
-
-        return resultEmployeeList
     }
 }
