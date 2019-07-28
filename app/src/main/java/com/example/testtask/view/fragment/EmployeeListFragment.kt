@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.example.sdk.extensions.inflate
 import com.example.sdk.utils.verticalManager
 import com.example.testtask.App
 import com.example.testtask.Constants.Companion.KEY_SPECIALITY_ID
@@ -17,8 +18,8 @@ import com.example.testtask.view.adapters.EmployeesAdapter
 import com.example.testtask.view.decorators.MarginItemDecoration
 import com.example.testtask.di.ViewModelFactory
 import com.example.testtask.domain.model.Employee
-import com.example.testtask.domain.model.Specialty
-import com.example.testtask.view.viewmodel.transport.SharedViewModel
+import com.example.testtask.domain.model.Speciality
+import com.example.testtask.view.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_employee_list.*
 import javax.inject.Inject
 
@@ -29,7 +30,7 @@ class EmployeeListFragment : Fragment() {
 
     private lateinit var sharedViewModel: SharedViewModel
 
-    private lateinit var specialty: Specialty
+    private lateinit var speciality: Speciality
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,14 +39,12 @@ class EmployeeListFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_employee_list, container, false)
+        return container?.inflate(R.layout.fragment_employee_list)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val adapter = EmployeesAdapter {
-            navigateToEmployeeDetailInfo(it)
-        }
+        val adapter = EmployeesAdapter { navigateToEmployeeDetailInfo(it) }
 
         with(rv_employees) {
             layoutManager = verticalManager(context)
@@ -61,14 +60,14 @@ class EmployeeListFragment : Fragment() {
 
         val specialtyID = arguments?.getInt(KEY_SPECIALITY_ID) ?: 0
 
-        sharedViewModel.specialtyList.observe(this, Observer { list ->
-            specialty = list[specialtyID]
-            title_employees_speciality.text = specialty.specialityName
+        sharedViewModel.specialtyListLiveData.observe(this, Observer { list ->
+            speciality = list[specialtyID]
+            title_employees_speciality.text = speciality.specialityName
         })
 
-        sharedViewModel.employeeList.observe(this, Observer { employeeList ->
+        sharedViewModel.employeeListLiveData.observe(this, Observer { employeeList ->
             val employees = employeeList?.filter { employee ->
-                employee.specialtyList?.contains(specialty) ?: true
+                employee.specialtyList?.contains(speciality) ?: true
             }
             adapter.setEmployees(employees)
         }

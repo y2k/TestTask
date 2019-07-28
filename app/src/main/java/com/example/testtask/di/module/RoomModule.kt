@@ -4,24 +4,27 @@ import dagger.Provides
 import javax.inject.Singleton
 import android.app.Application
 import androidx.room.Room
-import com.example.room.EmployeeDatabase
-import com.example.room.dao.EmployeeDao
-import com.example.room.dao.SpecialityDao
+import com.example.testtask.data.datasource.database.room.DBHelperImpl
+import com.example.testtask.data.datasource.database.room.EmployeeDatabase
+import com.example.testtask.data.datasource.database.room.dao.EmployeeDao
+import com.example.testtask.data.datasource.database.room.dao.RelationDao
+import com.example.testtask.data.datasource.database.room.dao.SpecialityDao
+import com.example.testtask.data.datasource.database.DBHelper
 import dagger.Module
 
 @Module
-class RoomModule(mApplication: Application) {
+class RoomModule(context: Application) {
 
     private var db: EmployeeDatabase = Room
-            .databaseBuilder(mApplication,
+            .databaseBuilder(context,
                     EmployeeDatabase::class.java,
                     EmployeeDatabase.DATABASE_NAME.plus(".db"))
             .fallbackToDestructiveMigration()
-            .allowMainThreadQueries()
             .build()
 
     private val employeeDao = db.employeeDaoAccess()
     private val specialityDao = db.specialityDaoAccess()
+    private val relationDao = db.relationDaoAccess()
 
     @Singleton
     @Provides
@@ -32,4 +35,10 @@ class RoomModule(mApplication: Application) {
 
     @Provides
     fun provideSpecialityDao(): SpecialityDao = specialityDao
+
+    @Provides
+    fun provideRelationDao(): RelationDao = relationDao
+
+    @Provides
+    fun provideDBHelper(): DBHelper = DBHelperImpl(employeeDao,specialityDao,relationDao)
 }

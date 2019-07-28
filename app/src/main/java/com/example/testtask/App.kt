@@ -4,7 +4,6 @@ import android.app.Application
 import com.example.testtask.di.component.ApplicationComponent
 import com.example.testtask.di.component.DaggerApplicationComponent
 import com.example.testtask.di.module.*
-import net.danlew.android.joda.BuildConfig
 import net.danlew.android.joda.JodaTimeAndroid
 import timber.log.Timber
 
@@ -21,7 +20,7 @@ class App : Application() {
 
         injector = DaggerApplicationComponent
             .builder()
-            .applicationModule(ApplicationModule(this))
+            .contextModule(ContextModule(this))
             .roomModule(RoomModule(this))
             .build()
 

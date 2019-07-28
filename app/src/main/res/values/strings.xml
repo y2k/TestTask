@@ -16,7 +16,7 @@
     <string name="employee_age">Возраст</string>
     <string name="employee_age_empty">«\u00AD«</string>
 
-    <!-- Employee detail Fragment -->
+    <!-- EmployeeNetwork detail Fragment -->
     <string name="employee_detail_title">Детальная информация о сотруднике</string>
 
     <string name="employee_detail_name">Имя</string>
@@ -24,8 +24,21 @@
     <string name="employee_detail_birthday">День рождения</string>
     <string name="employee_detail_age">Возраст</string>
 
-    <!-- No connection Fragment -->
+    <!-- No connection Dialog -->
     <string name="connection_title">Отсутствует соединение с интернетом!</string>
     <string name="connection_retry">Попробовать ещё раз</string>
+    <string name="connection_offline">Продолжить работу оффлайн</string>
     <string name="connection_exit">Выйти</string>
+
+    <!-- Error Dialog -->
+    <string name="error_dialog_exit">Завершить работу приложения</string>
+
+    <!-- Error -->
+    <string name="error_network_connect">Произошла ошибка при попытке соединиться с сервером.
+        Причина:\n\n%s\n\n
+        Попробуйте воспользоваться приложением позднее.</string>
+    <string name="error_database_select">Произошла ошибка во время извлечения данных из БД.
+        Причина:\n\n%s\n\n
+        Попробуйте воспользоваться приложением позднее.</string>
+
 </resources>
