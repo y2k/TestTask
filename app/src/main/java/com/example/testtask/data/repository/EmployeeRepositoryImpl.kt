@@ -3,14 +3,12 @@ package com.example.testtask.data.repository
 import com.example.sdk.core.network.NetworkHelper
 import com.example.sdk.extensions.fixBirthday
 import com.example.sdk.extensions.fixName
-import com.example.testtask.data.datasource.database.room.model.EmployeeDB
 import com.example.sdk.other.Either
 import com.example.sdk.other.Failure
 import com.example.sdk.other.FailureType
-import com.example.testtask.data.toDBModel
 import com.example.testtask.data.datasource.network.ApiService
 import com.example.testtask.data.toDomain
-import com.example.testtask.data.datasource.database.room.DBHelper
+import com.example.testtask.data.datasource.database.DBHelper
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.EmployeeRepository
 import retrofit2.HttpException
@@ -84,16 +82,11 @@ class EmployeeRepositoryImpl @Inject constructor(
         this.cachedEmployees = employees
     }
 
-    //We can't use map here because we need "i" (broken API)
     private fun saveEmployeesToDB(employees: List<Employee>) {
-        val convertedEmployees = ArrayList<EmployeeDB>()
-        for (i in employees.indices) {
-            convertedEmployees.add(employees[i].toDBModel(i))
-        }
-        dbHelper.writeEmployeesToDB(convertedEmployees)
+        dbHelper.writeEmployeesToDB(employees)
     }
 
     private fun getEmployeesFromDB(): List<Employee> {
-        return dbHelper.readEmployeesFromDB().map { it.toDomain() }
+        return dbHelper.readEmployeesFromDB()
     }
 }

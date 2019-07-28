@@ -4,6 +4,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import javax.inject.Inject
 
+/**
+Helper, containing application work mode(offline/online) and allow you to check network connection status
+ */
+
 interface NetworkHelper {
     var isOfflineModeEnabled: Boolean
     fun isConnectedToNetwork(setAsOfflineMode: Boolean = false): Boolean

@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SharedViewModel @Inject constructor(
-    private var networkChecker: NetworkHelper,
+    private var networkHelper: NetworkHelper,
     private var employeeInteractor: EmployeeInteractor,
     private var specialityInteractor: SpecialityInteractor) : ViewModel() {
 
@@ -31,7 +31,7 @@ class SharedViewModel @Inject constructor(
     val networkStatusLiveData = SingleLiveEvent<Boolean>()
 
     init {
-        networkStatusLiveData.value = networkChecker.isConnectedToNetwork()
+        networkStatusLiveData.value = networkHelper.isConnectedToNetwork()
     }
 
     fun setData() {
@@ -57,7 +57,7 @@ class SharedViewModel @Inject constructor(
 
     private fun onDataReady(employeeList: List<Employee>?) {
         employeeListLiveData.value = employeeList as ArrayList<Employee>
-        specialtyListLiveData.value = specialityInteractor.getSpecialities()
+        specialtyListLiveData.value = specialityInteractor.getSpecialities() as ArrayList<Speciality>
         selectedEmployeeLiveData.value = employeeInteractor.getSelectedEmployee()
     }
 

@@ -9,7 +9,7 @@ import com.example.testtask.data.datasource.database.room.EmployeeDatabase
 import com.example.testtask.data.datasource.database.room.dao.EmployeeDao
 import com.example.testtask.data.datasource.database.room.dao.RelationDao
 import com.example.testtask.data.datasource.database.room.dao.SpecialityDao
-import com.example.testtask.data.datasource.database.room.DBHelper
+import com.example.testtask.data.datasource.database.DBHelper
 import dagger.Module
 
 @Module
