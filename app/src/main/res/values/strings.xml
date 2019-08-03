@@ -33,12 +33,17 @@
     <!-- Error Dialog -->
     <string name="error_dialog_exit">Завершить работу приложения</string>
 
-    <!-- Error -->
-    <string name="error_network_connect">Произошла ошибка при попытке соединиться с сервером.
+    <!-- Failure -->
+    <string name="failure_network">Произошла ошибка при попытке соединиться с сервером.
         Причина:\n\n%s\n\n
         Попробуйте воспользоваться приложением позднее.</string>
-    <string name="error_database_select">Произошла ошибка во время извлечения данных из БД.
+    <string name="failure_database">Произошла ошибка во время извлечения данных из БД.
         Причина:\n\n%s\n\n
         Попробуйте воспользоваться приложением позднее.</string>
+
+    <string name="failure_network_connection">Отсутствует соединение с интернетом!</string>
+    <string name="failure_network_server_error">Сервер недоступен!</string>
+
+    <string name="failure_database_empty">База данных пуста!</string>
 
 </resources>

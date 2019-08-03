@@ -1,11 +1,11 @@
 package com.example.testtask.domain.interactor
 
 import com.example.sdk.other.Either
-import com.example.sdk.other.Failure
-import com.example.testtask.domain.EmployeeRepository
-import com.example.testtask.domain.SpecialityRepository
+import com.example.testtask.domain.interfaces.EmployeeRepository
+import com.example.testtask.domain.interfaces.SpecialityRepository
 import com.example.testtask.domain.model.Employee
-import com.example.testtask.view.EmployeeInteractor
+import com.example.testtask.domain.interfaces.EmployeeInteractor
+import com.example.testtask.failure.Failure
 import javax.inject.Inject
 
 class EmployeeInteractorImpl @Inject constructor(

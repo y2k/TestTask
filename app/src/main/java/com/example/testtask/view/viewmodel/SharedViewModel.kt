@@ -5,12 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sdk.core.network.NetworkHelper
 import com.example.sdk.other.Either
-import com.example.sdk.other.Failure
 import com.example.sdk.other.SingleLiveEvent
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.model.Speciality
-import com.example.testtask.view.EmployeeInteractor
-import com.example.testtask.view.SpecialityInteractor
+import com.example.testtask.domain.interfaces.EmployeeInteractor
+import com.example.testtask.domain.interfaces.SpecialityInteractor
+import com.example.testtask.failure.Failure
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,7 +19,8 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(
     private var networkHelper: NetworkHelper,
     private var employeeInteractor: EmployeeInteractor,
-    private var specialityInteractor: SpecialityInteractor) : ViewModel() {
+    private var specialityInteractor: SpecialityInteractor
+) : ViewModel() {
 
     val employeeListLiveData = MutableLiveData<ArrayList<Employee>>()
     val specialtyListLiveData = MutableLiveData<ArrayList<Speciality>>()

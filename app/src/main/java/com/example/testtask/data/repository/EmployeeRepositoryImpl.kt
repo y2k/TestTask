@@ -1,16 +1,14 @@
 package com.example.testtask.data.repository
 
 import com.example.sdk.core.network.NetworkHelper
-import com.example.sdk.extensions.fixBirthday
-import com.example.sdk.extensions.fixName
 import com.example.sdk.other.Either
-import com.example.sdk.other.Failure
-import com.example.sdk.other.FailureType
 import com.example.testtask.data.datasource.network.ApiService
 import com.example.testtask.data.toDomain
 import com.example.testtask.data.datasource.database.DBHelper
 import com.example.testtask.domain.model.Employee
-import com.example.testtask.domain.EmployeeRepository
+import com.example.testtask.domain.interfaces.EmployeeRepository
+import com.example.testtask.failure.*
+import com.example.testtask.failure.DatabaseFailure
 import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
@@ -37,7 +35,8 @@ class EmployeeRepositoryImpl @Inject constructor(
                     cacheEmployees(employees)
                     Either.Data(getEmployeesFromDB())
                 }
-                else -> Either.Error(Failure(FailureType.DATABASE, "В базе данных нет записей"))
+                else -> Either.Error(DatabaseFailure.EmptyDatabase())
+//                else -> Either.Error(Failure(FailureType.DATABASE, "В базе данных нет записей"))
             }
         }
 
@@ -68,7 +67,7 @@ class EmployeeRepositoryImpl @Inject constructor(
             return Either.Data(resultList)
         } catch (e: HttpException) {
             Timber.e("HttpException cathed: ${e.code()}")
-            return Either.Error(Failure(FailureType.NETWORK, "Http Error: ${e.code()} code"))
+            return Either.Error(NetworkFailure.NetworkHostNotAviable())
         }
     }
 

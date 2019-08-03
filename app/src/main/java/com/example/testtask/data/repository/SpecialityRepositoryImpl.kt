@@ -3,11 +3,12 @@ package com.example.testtask.data.repository
 import com.example.testtask.data.datasource.database.DBHelper
 import com.example.testtask.domain.model.Employee
 import com.example.testtask.domain.model.Speciality
-import com.example.testtask.domain.SpecialityRepository
+import com.example.testtask.domain.interfaces.SpecialityRepository
 
 import javax.inject.Inject
 
-class SpecialityRepositoryImpl @Inject constructor(private val dbHelper: DBHelper) : SpecialityRepository {
+class SpecialityRepositoryImpl @Inject constructor(private val dbHelper: DBHelper) :
+    SpecialityRepository {
     private var cachedSpecialities:List<Speciality> = emptyList()
 
     override fun setSpecialities(specialties: List<Speciality>) {

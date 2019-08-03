@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.sdk.extensions.inflate
-import com.example.sdk.utils.verticalManager
+import com.example.sdk.extensions.verticalManager
 import com.example.testtask.App
 import com.example.testtask.Constants.Companion.KEY_SPECIALITY_ID
 
@@ -67,7 +67,7 @@ class EmployeeListFragment : Fragment() {
 
         sharedViewModel.employeeListLiveData.observe(this, Observer { employeeList ->
             val employees = employeeList?.filter { employee ->
-                employee.specialtyList?.contains(speciality) ?: true
+                employee.specialtyList.contains(speciality)
             }
             adapter.setEmployees(employees)
         }

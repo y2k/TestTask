@@ -2,9 +2,9 @@ package com.example.testtask.di.module
 
 import com.example.sdk.core.network.NetworkHelper
 import com.example.testtask.data.datasource.network.ApiService
-import com.example.testtask.domain.EmployeeRepository
+import com.example.testtask.domain.interfaces.EmployeeRepository
 import com.example.testtask.data.repository.EmployeeRepositoryImpl
-import com.example.testtask.domain.SpecialityRepository
+import com.example.testtask.domain.interfaces.SpecialityRepository
 import com.example.testtask.data.repository.SpecialityRepositoryImpl
 import com.example.testtask.data.datasource.database.DBHelper
 import dagger.Module
