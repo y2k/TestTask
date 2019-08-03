@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface ApiService {
 
-    @GET("65gb/static/raw/maste3r/testTask.json")
+    @GET("65gb/static/raw/master/testTask.json")
     fun loadData(): Deferred<ResponseResult>
 }

@@ -18,26 +18,16 @@ import com.example.testtask.view.dialog.ErrorDialog
 import com.example.testtask.view.dialog.NoConnectionDialog
 import com.example.testtask.view.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.*
-import timber.log.Timber
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
-class MainActivity : AppCompatActivity(), CoroutineScope, NoConnectionDialog.OnNoNetworkConnection {
+class MainActivity : AppCompatActivity(), NoConnectionDialog.OnNoNetworkConnection {
 
     private val TAG_FRAGMENT_NO_CONNECTION: String = "NoConnectionTag"
 
+    @Inject lateinit var factory: ViewModelFactory
+    @Inject lateinit var networkChecker: NetworkHelper
+
     private lateinit var noInternetConnectionDialog: NoConnectionDialog
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + SupervisorJob()
-
-    @Inject
-    lateinit var factory: ViewModelFactory
-
-    @Inject
-    lateinit var networkChecker: NetworkHelper
-
     private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -130,10 +120,5 @@ class MainActivity : AppCompatActivity(), CoroutineScope, NoConnectionDialog.OnN
 
     override fun onExitClick() {
         closeApp()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        coroutineContext.cancelChildren()
     }
 }

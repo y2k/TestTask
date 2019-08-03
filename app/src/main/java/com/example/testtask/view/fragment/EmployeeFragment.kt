@@ -24,8 +24,7 @@ import javax.inject.Inject
 
 class EmployeeFragment : Fragment() {
 
-    @Inject
-    lateinit var factory: ViewModelFactory
+    @Inject lateinit var factory: ViewModelFactory
 
     private lateinit var sharedViewModel: SharedViewModel
 

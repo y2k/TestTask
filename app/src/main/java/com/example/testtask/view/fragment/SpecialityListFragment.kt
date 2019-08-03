@@ -23,8 +23,7 @@ import javax.inject.Inject
 
 class SpecialityListFragment : Fragment() {
 
-    @Inject
-    lateinit var factory: ViewModelFactory
+    @Inject lateinit var factory: ViewModelFactory
 
     private lateinit var sharedViewModel: SharedViewModel
 

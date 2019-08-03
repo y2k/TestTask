@@ -25,11 +25,9 @@ import javax.inject.Inject
 
 class EmployeeListFragment : Fragment() {
 
-    @Inject
-    lateinit var factory: ViewModelFactory
+    @Inject lateinit var factory: ViewModelFactory
 
     private lateinit var sharedViewModel: SharedViewModel
-
     private lateinit var speciality: Speciality
 
     override fun onCreate(savedInstanceState: Bundle?) {

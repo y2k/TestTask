@@ -14,14 +14,6 @@ import kotlinx.android.synthetic.main.dialog_no_connection.*
 
 class NoConnectionDialog : DialogFragment() {
 
-    lateinit var callBack: (id: Int) -> Unit
-
-    companion object {
-        const val NO_CONNECTION_EXIT: Int = 1
-        const val NO_CONNECTION_RETRY: Int = 2
-        const val NO_CONNECTION_OFFLINE: Int = 3
-    }
-
     interface OnNoNetworkConnection {
         fun onRetryConnectionClick()
         fun onOfflineModeClick()
@@ -49,17 +41,14 @@ class NoConnectionDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         btn_retry.setOnClickListener {
-//            callBack.invoke(NO_CONNECTION_RETRY)
             onNoNetworkConnectionImpl.onRetryConnectionClick()
         }
 
         btn_exit.setOnClickListener {
-//            callBack.invoke(NO_CONNECTION_EXIT)
             onNoNetworkConnectionImpl.onExitClick()
         }
 
         btn_offline.setOnClickListener {
-//            callBack.invoke(NO_CONNECTION_OFFLINE)
             onNoNetworkConnectionImpl.onOfflineModeClick()
         }
     }
