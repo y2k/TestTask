@@ -1,6 +1,7 @@
 package com.example.testtask.view.dialog
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -22,8 +23,12 @@ class NoConnectionDialog : DialogFragment() {
 
     private lateinit var onNoNetworkConnectionImpl:OnNoNetworkConnection
 
-    override fun onStart() {
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         onNoNetworkConnectionImpl = activity as OnNoNetworkConnection
+    }
+
+    override fun onStart() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         super.onStart()
     }
@@ -33,7 +38,7 @@ class NoConnectionDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = Dialog(activity, R.style.Dialog_DialogFragment)
+        val dialog = Dialog(requireActivity(), R.style.Dialog_DialogFragment)
         dialog.setCanceledOnTouchOutside(false)
         dialog.setCancelable(false)
         return dialog

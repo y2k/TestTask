@@ -33,7 +33,7 @@ class EmployeeListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.get().injector?.inject(this)
-        sharedViewModel = ViewModelProviders.of(activity!!, factory).get(SharedViewModel::class.java)
+        sharedViewModel = ViewModelProviders.of(requireActivity(), factory).get(SharedViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -74,6 +74,6 @@ class EmployeeListFragment : Fragment() {
 
     private fun navigateToEmployeeDetailInfo(employee: Employee) {
         sharedViewModel.setSelectedEmployee(employee)
-        Navigation.findNavController(activity!!, R.id.host).navigate(R.id.fromEmployeesListToEmployee)
+        Navigation.findNavController(requireActivity(), R.id.host).navigate(R.id.fromEmployeesListToEmployee)
     }
 }

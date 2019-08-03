@@ -4,11 +4,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.example.testtask"
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -22,6 +22,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
     }
 }
 
@@ -63,8 +66,8 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:2.1.0-alpha04"
 
     //DI
-    implementation 'com.google.dagger:dagger:2.23.2'
-    kapt 'com.google.dagger:dagger-compiler:2.23.2'
+    implementation 'com.google.dagger:dagger:2.24'
+    kapt 'com.google.dagger:dagger-compiler:2.24'
 
     //Logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
@@ -75,4 +78,6 @@ dependencies {
     //Tests
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:3.0.0'
+    testImplementation 'org.mockito:mockito-inline:2.8.47'
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
 }

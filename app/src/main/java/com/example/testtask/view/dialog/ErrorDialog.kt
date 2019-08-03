@@ -34,7 +34,7 @@ class ErrorDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = Dialog(activity, R.style.Dialog_DialogFragment)
+        val dialog = Dialog(requireActivity(), R.style.Dialog_DialogFragment)
         dialog.setCanceledOnTouchOutside(false)
         return dialog
     }
