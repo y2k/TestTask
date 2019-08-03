@@ -64,13 +64,7 @@ class EmployeeRepositoryImpl @Inject constructor(
     private suspend fun loadEmployees(): Either<Failure, List<Employee>> {
         try {
             val employeeList = apiService.loadData().await()
-            val resultList = employeeList.items.map {
-                it.toDomain().apply {
-                    firstName = this.firstName.fixName()
-                    lastName = this.lastName.fixName()
-                    birthday = this.birthday.fixBirthday()
-                }
-            }
+            val resultList = employeeList.items.map { it.toDomain() }
             return Either.Data(resultList)
         } catch (e: HttpException) {
             Timber.e("HttpException cathed: ${e.code()}")
