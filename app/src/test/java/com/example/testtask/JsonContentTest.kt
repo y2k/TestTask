@@ -9,7 +9,7 @@ import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class IsJsonEmptyTest {
+class JsonContentTest {
 
     @Test
     fun isJsonCorrect() = runBlocking {
@@ -21,12 +21,12 @@ class IsJsonEmptyTest {
             .build()
 
         val api = client.create(ApiService::class.java)
+        val responseResult = api?.loadData()
+        val data = responseResult?.await()?.items
+
         Assert.assertNotNull("API", api)
-
-        val responseResult = api.loadData()
         Assert.assertNotNull("Response", responseResult)
-
-        val data = responseResult.await().items
+        Assert.assertNotNull("ResponseData", data)
         Assert.assertNotNull("ResponseData", data)
     }
 }

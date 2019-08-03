@@ -46,8 +46,7 @@ class EmployeeListFragment : Fragment() {
 
         with(rv_employees) {
             layoutManager = verticalManager(context)
-            addItemDecoration(
-                MarginItemDecoration(
+            addItemDecoration(MarginItemDecoration(
                     spaceTop = resources.getDimension(R.dimen.margin_8).toInt(),
                     spaceSide = resources.getDimension(R.dimen.margin_8).toInt(),
                     spaceBottom = resources.getDimension(R.dimen.margin_8).toInt()

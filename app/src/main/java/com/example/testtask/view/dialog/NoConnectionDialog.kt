@@ -21,7 +21,7 @@ class NoConnectionDialog : DialogFragment() {
         fun onExitClick()
     }
 
-    private lateinit var onNoNetworkConnectionImpl:OnNoNetworkConnection
+    private lateinit var onNoNetworkConnectionImpl: OnNoNetworkConnection
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,13 +38,10 @@ class NoConnectionDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        activity?.let {
-            val dialog = Dialog(it, R.style.Dialog_DialogFragment)
-            dialog.setCanceledOnTouchOutside(false)
-            dialog.setCancelable(false)
-            return dialog
-        }
-        return super.onCreateDialog(savedInstanceState)
+        val dialog = Dialog(requireActivity(), R.style.Dialog_DialogFragment)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+        return dialog
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
