@@ -19,41 +19,22 @@ import com.example.testtask.view.dialog.NoConnectionDialog
 import com.example.testtask.view.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class MainActivity : AppCompatActivity(), CoroutineScope {
+class MainActivity : AppCompatActivity(), CoroutineScope, NoConnectionDialog.OnNoNetworkConnection {
 
     private val TAG_FRAGMENT_NO_CONNECTION: String = "NoConnectionTag"
 
     private lateinit var noInternetConnectionDialog: NoConnectionDialog
-    private val noConnectionDialogCallback = { select: Int ->
-        when (select) {
-            NoConnectionDialog.NO_CONNECTION_EXIT -> closeApp()
-
-            NoConnectionDialog.NO_CONNECTION_OFFLINE -> {
-                noInternetConnectionDialog.dismiss()
-                networkChecker.isOfflineModeEnabled = true
-                onAppWorkingModeSelected()
-            }
-
-            NoConnectionDialog.NO_CONNECTION_RETRY -> {
-                if (!networkChecker.isConnectedToNetwork()) {
-                    showMessage(R.string.base_error_no_connection)
-                } else {
-                    noInternetConnectionDialog.dismiss()
-                    networkChecker.isOfflineModeEnabled = false
-                    onAppWorkingModeSelected()
-                }
-            }
-        }
-    }
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + SupervisorJob()
 
     @Inject
     lateinit var factory: ViewModelFactory
+
     @Inject
     lateinit var networkChecker: NetworkHelper
 
@@ -64,9 +45,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         setContentView(R.layout.activity_main)
 
         App.get().injector?.inject(this)
-
-        //Check if NoConnectionDialog showing, and restore callback to it
-        restoreNoConnectionDialog()
 
         sharedViewModel = ViewModelProviders.of(this, factory)[SharedViewModel::class.java]
 
@@ -80,9 +58,14 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        //If NoConnectionDialog showing, restore it to prevent NPE
+        restoreNoConnectionDialog()
+    }
+
     private fun showNoConnectionDialog() {
         noInternetConnectionDialog = NoConnectionDialog()
-        noInternetConnectionDialog.callBack = noConnectionDialogCallback
         noInternetConnectionDialog.show(supportFragmentManager, TAG_FRAGMENT_NO_CONNECTION)
     }
 
@@ -124,10 +107,29 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
     private fun restoreNoConnectionDialog() {
         if (supportFragmentManager.findFragmentByTag(TAG_FRAGMENT_NO_CONNECTION) != null) {
-            noInternetConnectionDialog =
-                (supportFragmentManager.findFragmentByTag(TAG_FRAGMENT_NO_CONNECTION) as NoConnectionDialog)
-            noInternetConnectionDialog.callBack = noConnectionDialogCallback
+            noInternetConnectionDialog = (supportFragmentManager.findFragmentByTag(TAG_FRAGMENT_NO_CONNECTION) as NoConnectionDialog)
         }
+    }
+
+    //NoInternetFragment methods
+    override fun onRetryConnectionClick() {
+        if (!networkChecker.isConnectedToNetwork()) {
+            showMessage(R.string.base_error_no_connection)
+        } else {
+            noInternetConnectionDialog.dismiss()
+            networkChecker.isOfflineModeEnabled = false
+            onAppWorkingModeSelected()
+        }
+    }
+
+    override fun onOfflineModeClick() {
+        noInternetConnectionDialog.dismiss()
+        networkChecker.isOfflineModeEnabled = true
+        onAppWorkingModeSelected()
+    }
+
+    override fun onExitClick() {
+        closeApp()
     }
 
     override fun onDestroy() {

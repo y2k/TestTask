@@ -67,7 +67,7 @@ class EmployeeRepositoryImpl @Inject constructor(
             return Either.Data(resultList)
         } catch (e: HttpException) {
             Timber.e("HttpException cathed: ${e.code()}")
-            return Either.Error(NetworkFailure.NetworkHostNotAviable())
+            return Either.Error(Failure.ServerError)
         }
     }
 

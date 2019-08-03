@@ -25,7 +25,7 @@
     <string name="employee_detail_age">Возраст</string>
 
     <!-- No connection Dialog -->
-    <string name="connection_title">Отсутствует соединение с интернетом!</string>
+    <string name="connection_title">Отсутствует соединение с интернетом</string>
     <string name="connection_retry">Попробовать ещё раз</string>
     <string name="connection_offline">Продолжить работу оффлайн</string>
     <string name="connection_exit">Выйти</string>

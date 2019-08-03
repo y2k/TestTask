@@ -22,7 +22,16 @@ class NoConnectionDialog : DialogFragment() {
         const val NO_CONNECTION_OFFLINE: Int = 3
     }
 
+    interface OnNoNetworkConnection {
+        fun onRetryConnectionClick()
+        fun onOfflineModeClick()
+        fun onExitClick()
+    }
+
+    private lateinit var onNoNetworkConnectionImpl:OnNoNetworkConnection
+
     override fun onStart() {
+        onNoNetworkConnectionImpl = activity as OnNoNetworkConnection
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         super.onStart()
     }
@@ -39,16 +48,19 @@ class NoConnectionDialog : DialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        btn_exit.setOnClickListener {
-            callBack.invoke(NO_CONNECTION_EXIT)
+        btn_retry.setOnClickListener {
+//            callBack.invoke(NO_CONNECTION_RETRY)
+            onNoNetworkConnectionImpl.onRetryConnectionClick()
         }
 
-        btn_retry.setOnClickListener {
-            callBack.invoke(NO_CONNECTION_RETRY)
+        btn_exit.setOnClickListener {
+//            callBack.invoke(NO_CONNECTION_EXIT)
+            onNoNetworkConnectionImpl.onExitClick()
         }
 
         btn_offline.setOnClickListener {
-            callBack.invoke(NO_CONNECTION_OFFLINE)
+//            callBack.invoke(NO_CONNECTION_OFFLINE)
+            onNoNetworkConnectionImpl.onOfflineModeClick()
         }
     }
 }
