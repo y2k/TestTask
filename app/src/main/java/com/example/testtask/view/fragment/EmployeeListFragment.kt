@@ -74,6 +74,8 @@ class EmployeeListFragment : Fragment() {
 
     private fun navigateToEmployeeDetailInfo(employee: Employee) {
         sharedViewModel.setSelectedEmployee(employee)
-        Navigation.findNavController(requireActivity(), R.id.host).navigate(R.id.fromEmployeesListToEmployee)
+        activity?.let {
+            Navigation.findNavController(it, R.id.host).navigate(R.id.fromEmployeesListToEmployee)
+        }
     }
 }

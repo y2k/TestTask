@@ -23,7 +23,8 @@ import javax.inject.Inject
 
 class SpecialityListFragment : Fragment() {
 
-    @Inject lateinit var factory: ViewModelFactory
+    @Inject
+    lateinit var factory: ViewModelFactory
 
     private lateinit var sharedViewModel: SharedViewModel
 
@@ -63,6 +64,8 @@ class SpecialityListFragment : Fragment() {
     private fun navigateToEmployeeFragment(specialtyID: Int) {
         val bundle = Bundle()
         bundle.putInt(KEY_SPECIALITY_ID, specialtyID)
-        Navigation.findNavController(requireActivity(), R.id.host).navigate(R.id.fromSpecialityListToEmployeeList, bundle)
+        activity?.let {
+            Navigation.findNavController(it, R.id.host).navigate(R.id.fromSpecialityListToEmployeeList, bundle)
+        }
     }
 }
