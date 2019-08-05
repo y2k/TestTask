@@ -22,5 +22,5 @@ data class EmployeeNetwork(
 
     @SerializedName("specialty")
     @Expose
-    val specialtyNetworkList: ArrayList<SpecialtyNetwork>?
+    val specialtyNetworkList: List<SpecialtyNetwork>?
 )

@@ -1,7 +1,7 @@
 package com.example.sdk.core.network
 
 import android.content.Context
-import android.net.ConnectivityManager
+import com.example.sdk.extensions.networkInfo
 import javax.inject.Inject
 
 /**
@@ -21,9 +21,7 @@ class NetworkHelperImpl @Inject constructor(private val context: Context) : Netw
 
     //As Default we just check is internet available. With `setAsOnlineMode` we save result as App working mode
     private fun isInternetAvailable(context: Context, setAsOfflineMode: Boolean = false): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork = connectivityManager.activeNetworkInfo
-        val state = activeNetwork != null && activeNetwork.isConnected
+        val state = context.networkInfo?.isConnectedOrConnecting ?: false
         if (setAsOfflineMode) {
             isOfflineModeEnabled = !state
         }

@@ -7,8 +7,7 @@ import com.example.testtask.domain.interfaces.SpecialityRepository
 
 import javax.inject.Inject
 
-class SpecialityRepositoryImpl @Inject constructor(private val dbHelper: DBHelper) :
-    SpecialityRepository {
+class SpecialityRepositoryImpl @Inject constructor(private val dbHelper: DBHelper) : SpecialityRepository {
     private var cachedSpecialities:List<Speciality> = emptyList()
 
     override fun setSpecialities(specialties: List<Speciality>) {

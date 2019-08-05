@@ -5,6 +5,7 @@ import com.example.testtask.view.activity.MainActivity
 import com.example.testtask.view.fragment.EmployeeFragment
 import com.example.testtask.view.fragment.EmployeeListFragment
 import com.example.testtask.view.fragment.SpecialityListFragment
+import com.example.testtask.view.viewmodel.SharedViewModel
 import dagger.Component
 import javax.inject.Singleton
 

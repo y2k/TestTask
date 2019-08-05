@@ -26,17 +26,6 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
-    sourceSets {
-        test.java.srcDirs += 'src/test/kotlin'
-        androidTest.java.srcDirs += 'src/androidTest/kotlin'
-    }
-    afterEvaluate {
-        android.sourceSets.all { sourceSet ->
-            if (!sourceSet.name.startsWith('test') || !sourceSet.name.startsWith('androidTest')) {
-                sourceSet.kotlin.setSrcDirs([])
-            }
-        }
-    }
 }
 
 dependencies {
@@ -46,11 +35,11 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0-beta01'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.core:core-ktx:1.2.0-alpha02'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
@@ -79,6 +68,7 @@ dependencies {
     //DI
     implementation 'com.google.dagger:dagger:2.24'
     kapt 'com.google.dagger:dagger-compiler:2.24'
+    kaptAndroidTest 'com.google.dagger:dagger-compiler:2.24'
 
     //Logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
@@ -87,16 +77,12 @@ dependencies {
     implementation 'net.danlew:android.joda:2.10.2'
 
     //Tests
-    testCompile 'junit:junit:4.12'
-    testCompile "org.robolectric:robolectric:3.8"
-    testCompile 'org.jetbrains.kotlin:kotlin-stdlib:1.3.41'
-    testCompile 'org.jetbrains.kotlin:kotlin-test-junit:1.2.51'
-    testCompile "com.nhaarman:mockito-kotlin:1.4.0"
-    testCompile 'org.amshove.kluent:kluent:1.14'
-
-    androidTestCompile 'com.android.support.test:runner:1.0.2'
-    androidTestCompile 'com.android.support.test:rules:1.0.2'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.2'
-    androidTestCompile 'com.android.support.test.espresso:espresso-intents:3.0.2'
-    androidTestCompile 'com.android.support:support-annotations:28.0.0'
+    testImplementation 'junit:junit:4.13-beta-3'
+    testImplementation "org.mockito:mockito-inline:2.8.47"
+    testImplementation 'org.robolectric:robolectric:4.3'
+    testImplementation 'org.jetbrains.kotlin:kotlin-stdlib:1.3.41'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.3.41'
+    testImplementation "com.nhaarman:mockito-kotlin:1.4.0"
+    testImplementation 'org.amshove.kluent:kluent:1.14'
+    testImplementation 'android.arch.core:core-testing:1.1.1'
 }

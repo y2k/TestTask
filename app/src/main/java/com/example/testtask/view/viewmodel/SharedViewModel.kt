@@ -19,8 +19,7 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(
     private var networkHelper: NetworkHelper,
     private var employeeInteractor: EmployeeInteractor,
-    private var specialityInteractor: SpecialityInteractor
-) : ViewModel() {
+    private var specialityInteractor: SpecialityInteractor) : ViewModel() {
 
     val employeeListLiveData = MutableLiveData<ArrayList<Employee>>()
     val specialtyListLiveData = MutableLiveData<ArrayList<Speciality>>()
