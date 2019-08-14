@@ -1,8 +1,8 @@
-package com.example.testtask.domain.interfaces
+package com.example.testtask.view
 
 import com.example.sdk.other.Either
+import com.example.sdk.other.Failure
 import com.example.testtask.domain.model.Employee
-import com.example.testtask.failure.Failure
 
 interface EmployeeInteractor {
 

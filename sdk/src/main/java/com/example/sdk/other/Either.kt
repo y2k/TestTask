@@ -7,7 +7,4 @@ sealed class Either<out L, out R> {
 
     fun <L> error(a: L) = Error(a)
     fun <R> data(b: R) = Data(b)
-
-    val isRight get() = this is Error<L>
-    val isLeft get() = this is Data<R>
 }

@@ -1,9 +1,9 @@
 package com.example.testtask.domain.model
 
 data class Employee(
-    val firstName: String,
-    val lastName: String,
-    val birthday: String,
-    val avatarUrl: String,
-    val specialtyList: List<Speciality>
+    var firstName: String,
+    var lastName: String,
+    var birthday: String,
+    var avatarUrl: String,
+    var specialtyList: List<Speciality>
 )

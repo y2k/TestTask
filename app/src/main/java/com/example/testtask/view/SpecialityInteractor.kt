@@ -1,4 +1,4 @@
-package com.example.testtask.domain.interfaces
+package com.example.testtask.view
 
 import com.example.testtask.domain.model.Speciality
 

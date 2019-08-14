@@ -15,7 +15,8 @@ import javax.inject.Inject
 class DBHelperImpl @Inject constructor(
     private val employeeDao: EmployeeDao,
     private val specialityDao: SpecialityDao,
-    private val relationDao: RelationDao) : DBHelper {
+    private val relationDao: RelationDao
+) : DBHelper {
 
     private val CODE_SELECT_IGNORE: Long = -1
 

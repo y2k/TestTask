@@ -10,9 +10,9 @@ import kotlinx.android.synthetic.main.cell_specialities.view.*
 
 class SpecialitiesAdapter(private val callback: (id: Int) -> Unit) : RecyclerView.Adapter<SpecialitiesAdapter.SpecialtyHolder>() {
 
-    private var specialtyList = ArrayList<Speciality>()
+    private var specialtyList = emptyList<Speciality>()
 
-    fun setSpecialities(specialities: ArrayList<Speciality>) {
+    fun setSpecialities(specialities: List<Speciality>) {
         specialtyList = specialities
         notifyDataSetChanged()
     }

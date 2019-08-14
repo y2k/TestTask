@@ -1,7 +1,5 @@
 package com.example.testtask.data
 
-import com.example.sdk.extensions.fixBirthday
-import com.example.sdk.extensions.fixName
 import com.example.testtask.data.datasource.database.room.model.EmployeeDB
 import com.example.testtask.data.datasource.database.room.model.SpecialtyDB
 import com.example.testtask.data.datasource.database.room.model.SpecialtyRelationDB
@@ -43,9 +41,9 @@ fun SpecialtyNetwork.toDomain(): Speciality {
 fun EmployeeNetwork.toDomain(): Employee {
     val specialtyList = this.specialtyNetworkList?.map { it.toDomain() }
     return Employee(
-        firstName = this.firstName?.fixName()?:"",
-        lastName = this.lastName?.fixName()?:"",
-        birthday = this.birthday?.fixBirthday()?:"",
+        firstName = this.firstName?:"",
+        lastName = this.lastName?:"",
+        birthday = this.birthday?:"",
         avatarUrl = this.avatarUrl?:"",
         specialtyList = specialtyList as ArrayList<Speciality>
     )

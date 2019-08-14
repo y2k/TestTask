@@ -1,7 +1,6 @@
 package com.example.testtask.view.dialog
 
 import android.app.Dialog
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -15,17 +14,12 @@ import kotlinx.android.synthetic.main.dialog_no_connection.*
 
 class NoConnectionDialog : DialogFragment() {
 
-    interface OnNoNetworkConnection {
-        fun onRetryConnectionClick()
-        fun onOfflineModeClick()
-        fun onExitClick()
-    }
+    lateinit var callBack: (id: Int) -> Unit
 
-    private lateinit var onNoNetworkConnectionImpl: OnNoNetworkConnection
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        onNoNetworkConnectionImpl = activity as OnNoNetworkConnection
+    companion object {
+        const val NO_CONNECTION_EXIT: Int = 1
+        const val NO_CONNECTION_RETRY: Int = 2
+        const val NO_CONNECTION_OFFLINE: Int = 3
     }
 
     override fun onStart() {
@@ -38,23 +32,23 @@ class NoConnectionDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = Dialog(requireActivity(), R.style.Dialog_DialogFragment)
+        val dialog = Dialog(activity, R.style.Dialog_DialogFragment)
         dialog.setCanceledOnTouchOutside(false)
         dialog.setCancelable(false)
         return dialog
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        btn_retry.setOnClickListener {
-            onNoNetworkConnectionImpl.onRetryConnectionClick()
+        btn_exit.setOnClickListener {
+            callBack.invoke(NO_CONNECTION_EXIT)
         }
 
-        btn_exit.setOnClickListener {
-            onNoNetworkConnectionImpl.onExitClick()
+        btn_retry.setOnClickListener {
+            callBack.invoke(NO_CONNECTION_RETRY)
         }
 
         btn_offline.setOnClickListener {
-            onNoNetworkConnectionImpl.onOfflineModeClick()
+            callBack.invoke(NO_CONNECTION_OFFLINE)
         }
     }
 }
